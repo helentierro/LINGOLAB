@@ -1,0 +1,302 @@
+{
+ "A1": [
+  [
+   "Good morning! How are you?",
+   "¡Buenos días! ¿Cómo estás?"
+  ],
+  [
+   "My name is Ana, nice to meet you.",
+   "Me llamo Ana, un gusto conocerte."
+  ],
+  [
+   "I have two brothers and one sister.",
+   "Tengo dos hermanos y una hermana."
+  ],
+  [
+   "She drinks water every morning.",
+   "Ella bebe agua cada mañana."
+  ],
+  [
+   "The book is on the table.",
+   "El libro está sobre la mesa."
+  ],
+  [
+   "I like music and chocolate ice cream.",
+   "Me gusta la música y el helado de chocolate."
+  ],
+  [
+   "Where is the bathroom, please?",
+   "¿Dónde está el baño, por favor?"
+  ],
+  [
+   "He goes to school by bus.",
+   "Él va a la escuela en autobús."
+  ],
+  [
+   "Today is a very happy day.",
+   "Hoy es un día muy feliz."
+  ],
+  [
+   "Can you help me, please?",
+   "¿Puedes ayudarme, por favor?"
+  ],
+  [
+   "I want to learn English.",
+   "Quiero aprender inglés."
+  ],
+  [
+   "See you tomorrow, my friend.",
+   "Hasta mañana, amigo mío."
+  ]
+ ],
+ "A2": [
+  [
+   "I usually wake up at seven o'clock.",
+   "Normalmente me despierto a las siete."
+  ],
+  [
+   "Last summer we traveled to the beach.",
+   "El verano pasado viajamos a la playa."
+  ],
+  [
+   "Could you speak a little slower?",
+   "¿Podrías hablar un poco más despacio?"
+  ],
+  [
+   "I'm looking for a gift for my mother.",
+   "Estoy buscando un regalo para mi madre."
+  ],
+  [
+   "There isn't any milk left in the fridge.",
+   "No queda nada de leche en el refrigerador."
+  ],
+  [
+   "You should wear a coat, it's cold outside.",
+   "Deberías usar abrigo, hace frío afuera."
+  ],
+  [
+   "How long does the movie last?",
+   "¿Cuánto dura la película?"
+  ],
+  [
+   "I have never seen such a beautiful sunset.",
+   "Nunca he visto un atardecer tan hermoso."
+  ],
+  [
+   "Please turn off the lights before leaving.",
+   "Por favor apaga las luces antes de salir."
+  ],
+  [
+   "My sister is taller than me.",
+   "Mi hermana es más alta que yo."
+  ],
+  [
+   "We are going to visit our grandparents on Sunday.",
+   "Vamos a visitar a mis abuelos el domingo."
+  ],
+  [
+   "I forgot my keys at home again.",
+   "Olvidé mis llaves en casa otra vez."
+  ]
+ ],
+ "B1": [
+  [
+   "If it rains tomorrow, we will cancel the picnic.",
+   "Si llueve mañana, cancelaremos el picnic."
+  ],
+  [
+   "I've been studying English for three years.",
+   "He estado estudiando inglés durante tres años."
+  ],
+  [
+   "The meeting was postponed until next week.",
+   "La reunión fue pospuesta hasta la próxima semana."
+  ],
+  [
+   "You'd better leave early to avoid the traffic.",
+   "Más te vale salir temprano para evitar el tráfico."
+  ],
+  [
+   "I'm not used to drinking coffee at night.",
+   "No estoy acostumbrado a tomar café de noche."
+  ],
+  [
+   "She asked me whether I had finished the report.",
+   "Ella me preguntó si había terminado el informe."
+  ],
+  [
+   "The more you practice, the faster you improve.",
+   "Cuanto más practicas, más rápido mejoras."
+  ],
+  [
+   "He managed to fix the car by himself.",
+   "Él logró arreglar el coche él solo."
+  ],
+  [
+   "I'd rather stay home than go to that party.",
+   "Preferiría quedarme en casa que ir a esa fiesta."
+  ],
+  [
+   "Despite the storm, the flight arrived on time.",
+   "A pesar de la tormenta, el vuelo llegó a tiempo."
+  ],
+  [
+   "You should take advantage of every opportunity.",
+   "Deberías aprovechar cada oportunidad."
+  ],
+  [
+   "The neighborhood has changed a lot recently.",
+   "El vecindario ha cambiado mucho últimamente."
+  ]
+ ],
+ "B2": [
+  [
+   "Had I known about the delay, I would have left earlier.",
+   "De haber sabido del retraso, habría salido antes."
+  ],
+  [
+   "The proposal was turned down by the committee.",
+   "La propuesta fue rechazada por el comité."
+  ],
+  [
+   "I can't put up with this noise any longer.",
+   "No puedo soportar este ruido por más tiempo."
+  ],
+  [
+   "Should you need further information, contact us.",
+   "Si necesita más información, contáctenos."
+  ],
+  [
+   "It's high time we made a decision about this.",
+   "Ya es hora de que tomemos una decisión sobre esto."
+  ],
+  [
+   "He spoke as though he had witnessed the accident.",
+   "Habló como si hubiera presenciado el accidente."
+  ],
+  [
+   "The results fell short of everyone's expectations.",
+   "Los resultados quedaron por debajo de las expectativas."
+  ],
+  [
+   "I wish I hadn't said that during the meeting.",
+   "Ojalá no hubiera dicho eso durante la reunión."
+  ],
+  [
+   "Not only did she win, she also broke the record.",
+   "No solo ganó, sino que también rompió el récord."
+  ],
+  [
+   "We need to come up with a better strategy.",
+   "Necesitamos idear una mejor estrategia."
+  ],
+  [
+   "Little did he know what was about to happen.",
+   "Poco sabía él lo que estaba a punto de pasar."
+  ],
+  [
+   "The issue was dealt with promptly by the team.",
+   "El problema fue resuelto con prontitud por el equipo."
+  ]
+ ],
+ "C1": [
+  [
+   "Under no circumstances should you sign that contract.",
+   "Bajo ninguna circunstancia deberías firmar ese contrato."
+  ],
+  [
+   "The theory was met with widespread skepticism.",
+   "La teoría fue recibida con escepticismo generalizado."
+  ],
+  [
+   "Seldom have I encountered such dedication.",
+   "Rara vez me he encontrado con tanta dedicación."
+  ],
+  [
+   "The outcome hinges on a handful of key variables.",
+   "El resultado depende de un puñado de variables clave."
+  ],
+  [
+   "Her argument, however compelling, lacks solid evidence.",
+   "Su argumento, por convincente que sea, carece de evidencia sólida."
+  ],
+  [
+   "We took it for granted that the deal was closed.",
+   "Dábamos por hecho que el trato estaba cerrado."
+  ],
+  [
+   "The report sheds light on previously hidden flaws.",
+   "El informe arroja luz sobre fallos antes ocultos."
+  ],
+  [
+   "He resigned rather than compromise his principles.",
+   "Renunció antes que comprometer sus principios."
+  ],
+  [
+   "In retrospect, the warning signs were obvious.",
+   "En retrospectiva, las señales de advertencia eran obvias."
+  ],
+  [
+   "The policy gave rise to considerable controversy.",
+   "La política dio lugar a una controversia considerable."
+  ],
+  [
+   "Scarcely had we arrived when the alarm went off.",
+   "Apenas habíamos llegado cuando sonó la alarma."
+  ],
+  [
+   "The witness account was nothing short of remarkable.",
+   "El relato del testigo fue sencillamente extraordinario."
+  ]
+ ],
+ "Conversación": [
+  [
+   "Long time no see! How have you been?",
+   "¡Cuánto sin verte! ¿Cómo has estado?"
+  ],
+  [
+   "What do you do for a living?",
+   "¿A qué te dedicas?"
+  ],
+  [
+   "I couldn't agree more with you.",
+   "Estoy totalmente de acuerdo contigo."
+  ],
+  [
+   "It's on the tip of my tongue.",
+   "Lo tengo en la punta de la lengua."
+  ],
+  [
+   "Let's grab a coffee and catch up.",
+   "Tomemos un café y pongámonos al día."
+  ],
+  [
+   "No worries, it happens to everyone.",
+   "No te preocupes, le pasa a todos."
+  ],
+  [
+   "I'm really into learning new languages.",
+   "Me encanta aprender idiomas nuevos."
+  ],
+  [
+   "Could you say that one more time?",
+   "¿Podrías decir eso una vez más?"
+  ],
+  [
+   "By the way, did you watch the game?",
+   "Por cierto, ¿viste el partido?"
+  ],
+  [
+   "I'll figure it out, one way or another.",
+   "Lo resolveré, de una forma u otra."
+  ],
+  [
+   "Sounds like a plan, count me in!",
+   "¡Suena bien, cuenta conmigo!"
+  ],
+  [
+   "Break a leg on your presentation!",
+   "¡Mucho éxito en tu presentación!"
+  ]
+ ]
+}

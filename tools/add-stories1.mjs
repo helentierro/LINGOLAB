@@ -1,0 +1,66 @@
+import fs from "node:fs";
+const arr = JSON.parse(fs.readFileSync("data/stories.json", "utf8"));
+arr.push(
+{id:"sleepy-hollow",title:"The Headless Rider",orig:"W. Irving · Sleepy Hollow",level:"A2",icon:"🎃",desc:"Un maestro miedoso cruza el puente viejo… algo lo sigue sin cabeza.",
+pages:[
+{en:["Ichabod is a thin school teacher.","He loves food, songs, and ghost stories."],es:["Ichabod es un maestro delgado.","Ama la comida, las canciones y los cuentos de fantasmas."],vocab:{thin:"delgado",teacher:"maestro",loves:"ama",songs:"canciones",ghost:"fantasma"}},
+{en:["He lives in the quiet town of Sleepy Hollow.","Everyone there believes in spirits."],es:["Vive en el tranquilo pueblo de Sleepy Hollow.","Todos allí creen en espíritus."],vocab:{quiet:"tranquilo",town:"pueblo",believes:"creen",spirits:"espíritus"}},
+{en:["Ichabod loves the beautiful Katrina.","But Brom, a strong boy, loves her too."],es:["Ichabod ama a la hermosa Katrina.","Pero Brom, un muchacho fuerte, también la ama."],vocab:{beautiful:"hermosa",strong:"fuerte",loves:"ama"}},
+{en:["One night there is a big party.","Ichabod eats cake and dances badly."],es:["Una noche hay una gran fiesta.","Ichabod come pastel y baila mal."],vocab:{party:"fiesta",eats:"come",cake:"pastel",dances:"baila",badly:"mal"}},
+{en:["Old men tell scary stories by the fire.","A headless rider hunts at night, they say."],es:["Los ancianos cuentan historias de miedo junto al fuego.","Un jinete sin cabeza caza de noche, dicen."],vocab:{scary:"de miedo",fire:"fuego",headless:"sin cabeza",rider:"jinete",hunts:"caza"}},
+{en:["Ichabod rides home on his old horse.","The road is dark and silent."],es:["Ichabod cabalga a casa en su viejo caballo.","El camino está oscuro y silencioso."],vocab:{rides:"cabalga",horse:"caballo",road:"camino",silent:"silencioso"}},
+{en:["Behind him, hooves sound fast.","A black rider follows without a head!"],es:["Tras él, cascos suenan rápido.","¡Un jinete negro lo sigue sin cabeza!"],vocab:{behind:"tras",hooves:"cascos",fast:"rápido",follows:"sigue",without:"sin"}},
+{en:["Ichabod screams and hits the horse.","Run, Gunpowder, run for your life!"],es:["Ichabod grita y golpea al caballo.","¡Corre, Pólvora, corre por tu vida!"],vocab:{screams:"grita",hits:"golpea",run:"corre",life:"vida"}},
+{en:["The old bridge is near now.","Spirits cannot cross running water."],es:["El puente viejo está cerca ahora.","Los espíritus no pueden cruzar agua corriente."],vocab:{bridge:"puente",spirits:"espíritus",cross:"cruzar",water:"agua"}},
+{en:["In the morning, only a hat remains.","And Brom smiles with Katrina forever."],es:["Por la mañana, solo queda un sombrero.","Y Brom sonríe con Katrina por siempre."],vocab:{morning:"mañana",hat:"sombrero",remains:"queda",smiles:"sonríe",forever:"por siempre"}}]},
+{id:"oz-road",title:"The Yellow Road",orig:"L. F. Baum · Oz",level:"A1",icon:"🌈",desc:"Dorothy y su perro siguen el camino amarillo al mago.",
+pages:[
+{en:["Dorothy lives in a gray house.","Her little dog is Toto."],es:["Dorothy vive en una casa gris.","Su perrito es Toto."],vocab:{lives:"vive",gray:"gris",house:"casa",little:"pequeño",dog:"perro"}},
+{en:["A big wind takes the house away.","The house flies through the sky."],es:["Un gran viento se lleva la casa.","La casa vuela por el cielo."],vocab:{wind:"viento",takes:"lleva",away:"lejos",flies:"vuela",sky:"cielo"}},
+{en:["The house lands in a magic land.","Flowers sing and colors shine."],es:["La casa aterriza en una tierra mágica.","Las flores cantan y los colores brillan."],vocab:{lands:"aterriza",magic:"mágica",land:"tierra",flowers:"flores",shine:"brillan"}},
+{en:["A good witch gives a kiss.","It will protect you, she says."],es:["Una bruja buena le da un beso.","Te protegerá, dice ella."],vocab:{witch:"bruja",gives:"da",kiss:"beso",protect:"protegerá",says:"dice"}},
+{en:["Follow the yellow road, she says.","The Wizard lives in the green city."],es:["Sigue el camino amarillo, dice.","El Mago vive en la ciudad verde."],vocab:{follow:"sigue",road:"camino",wizard:"mago",green:"verde",city:"ciudad"}},
+{en:["Dorothy meets a man of straw.","He wants a brain to think."],es:["Dorothy conoce a un hombre de paja.","Él quiere un cerebro para pensar."],vocab:{meets:"conoce",straw:"paja",wants:"quiere",brain:"cerebro",think:"pensar"}},
+{en:["They meet a man of metal.","He wants a warm heart."],es:["Conocen a un hombre de metal.","Él quiere un corazón cálido."],vocab:{metal:"metal",warm:"cálido",heart:"corazón"}},
+{en:["A big lion joins the friends.","He is afraid, but he is kind."],es:["Un gran león se une a los amigos.","Tiene miedo, pero es amable."],vocab:{lion:"león",joins:"se une",friends:"amigos",afraid:"miedo",kind:"amable"}},
+{en:["The friends walk and sing together.","No slave walks this road alone."],es:["Los amigos caminan y cantan juntos.","Ningún esclavo camina solo este camino."],vocab:{walk:"caminan",sing:"cantan",together:"juntos",alone:"solo"}},
+{en:["The green city shines far away.","Home is where the heart smiles."],es:["La ciudad verde brilla a lo lejos.","El hogar es donde el corazón sonríe."],vocab:{shines:"brilla",far:"lejos",home:"hogar",smiles:"sonríe"}}]},
+{id:"wonderland-rabbit",title:"Down the Rabbit Hole",orig:"L. Carroll · Alice",level:"A2",icon:"🐇",desc:"Alicia sigue un conejo con reloj y cae a un mundo loco.",
+pages:[
+{en:["Alice sits bored by the river.","A white rabbit runs past her."],es:["Alicia se sienta aburrida junto al río.","Un conejo blanco pasa corriendo."],vocab:{bored:"aburrida",river:"río",rabbit:"conejo",runs:"corre"}},
+{en:["The rabbit looks at his watch.","I am late, I am late! he cries."],es:["El conejo mira su reloj.","¡Llego tarde, llego tarde! llora."],vocab:{watch:"reloj",late:"tarde",cries:"llora"}},
+{en:["Alice follows him to a hole.","She falls down, down, down."],es:["Alicia lo sigue a un agujero.","Ella cae abajo, abajo, abajo."],vocab:{follows:"sigue",hole:"agujero",falls:"cae",down:"abajo"}},
+{en:["She lands in a strange hall.","Many little doors lock every wall."],es:["Aterriza en un salón extraño.","Muchas puertitas cierran cada pared."],vocab:{lands:"aterriza",strange:"extraño",hall:"salón",doors:"puertas",lock:"cierran",wall:"pared"}},
+{en:["A small bottle says DRINK ME.","Alice drinks and shrinks fast."],es:["Una botellita dice BÉBEME.","Alicia bebe y se encoge rápido."],vocab:{bottle:"botella",drinks:"bebe",shrinks:"se encoge"}},
+{en:["A small cake says EAT ME.","She grows tall like a tree."],es:["Un pastelito dice CÓMEME.","Ella crece alta como un árbol."],vocab:{cake:"pastel",grows:"crece",tall:"alta",tree:"árbol"}},
+{en:["A blue caterpillar smokes slowly.","Who are YOU? he asks."],es:["Una oruga azul fuma despacio.","¿Quién eres TÚ? pregunta."],vocab:{caterpillar:"oruga",smokes:"fuma",slowly:"despacio",asks:"pregunta"}},
+{en:["Alice drinks tea with a mad hare.","The clock always says tea time."],es:["Alicia toma té con una liebre loca.","El reloj siempre dice hora del té."],vocab:{tea:"té",mad:"loca",hare:"liebre",clock:"reloj",always:"siempre"}},
+{en:["The Queen screams for heads.","Alice is not afraid anymore."],es:["La Reina grita por cabezas.","Alicia ya no tiene miedo."],vocab:{queen:"reina",screams:"grita",heads:"cabezas",afraid:"miedo",anymore:"ya"}},
+{en:["Alice wakes by the river.","It was all a bright dream."],es:["Alicia despierta junto al río.","Todo fue un sueño brillante."],vocab:{wakes:"despierta",dream:"sueño",bright:"brillante"}}]},
+{id:"samurai-honor",title:"The Last Cherry Blossom",orig:"Tale of old Japan",level:"B1",icon:"⚔️",desc:"Un joven samurái debe elegir entre obedecer y proteger su aldea.",
+pages:[
+{en:["Kenji trains with his wooden sword at dawn.","Cherry petals fall like pink snow."],es:["Kenji entrena con su espada de madera al amanecer.","Pétalos de cerezo caen como nieve rosa."],vocab:{trains:"entrena",wooden:"de madera",sword:"espada",petals:"pétalos",snow:"nieve"}},
+{en:["The old master watches in silence.","Your arm is fast, but your heart is faster, he says."],es:["El viejo maestro mira en silencio.","Tu brazo es rápido, pero tu corazón es más rápido, dice."],vocab:{master:"maestro",silence:"silencio",fast:"rápido",heart:"corazón"}},
+{en:["A cruel lord demands rice from the village.","Winter is coming and the barns are empty."],es:["Un señor cruel exige arroz de la aldea.","El invierno viene y los graneros están vacíos."],vocab:{cruel:"cruel",lord:"señor",demands:"exige",rice:"arroz",village:"aldea",empty:"vacíos"}},
+{en:["Kenji must obey his lord by law.","But his mother was born in that village."],es:["Kenji debe obedecer a su señor por ley.","Pero su madre nació en esa aldea."],vocab:{obey:"obedecer",law:"ley",born:"nació"}},
+{en:["At night he visits the old temple.","The monk serves bitter tea and wisdom."],es:["De noche visita el templo viejo.","El monje sirve té amargo y sabiduría."],vocab:{temple:"templo",monk:"monje",bitter:"amargo",wisdom:"sabiduría"}},
+{en:["A sword without justice is a chain, the monk whispers.","Kenji bows and understands."],es:["Una espada sin justicia es una cadena, susurra el monje.","Kenji se inclina y comprende."],vocab:{justice:"justicia",chain:"cadena",whispers:"susurra",understands:"comprende"}},
+{en:["Kenji returns the rice at midnight.","He leaves his sword as payment."],es:["Kenji devuelve el arroz a medianoche.","Deja su espada como pago."],vocab:{returns:"devuelve",midnight:"medianoche",payment:"pago"}},
+{en:["The lord's guards arrest him at dawn.","Kenji does not raise his hands."],es:["Los guardias del señor lo arrestan al amanecer.","Kenji no levanta sus manos."],vocab:{guards:"guardias",arrest:"arrestan",raise:"levanta"}},
+{en:["The villagers march to the castle together.","Free him, they sing without fear."],es:["Los aldeanos marchan juntos al castillo.","Libérenlo, cantan sin miedo."],vocab:{march:"marchan",castle:"castillo",free:"liberen",fear:"miedo"}},
+{en:["The lord frees Kenji in shame.","Honor blooms longer than cherry trees."],es:["El señor libera a Kenji avergonzado.","El honor florece más que los cerezos."],vocab:{frees:"libera",shame:"vergüenza",honor:"honor",blooms:"florece"}}]},
+{id:"condor-andes",title:"The Condor's Gift",orig:"Andean legend",level:"A1",icon:"🦅",desc:"Una niña sube la montaña y el gran cóndor le da un regalo.",
+pages:[
+{en:["Lucia lives under the big mountains.","She loves birds and songs."],es:["Lucía vive bajo las grandes montañas.","Ama los pájaros y las canciones."],vocab:{lives:"vive",mountains:"montañas",loves:"ama",birds:"pájaros",songs:"canciones"}},
+{en:["Her grandmother is sick in bed.","Lucia wants a magic flower."],es:["Su abuela está enferma en cama.","Lucía quiere una flor mágica."],vocab:{sick:"enferma",bed:"cama",wants:"quiere",flower:"flor"}},
+{en:["The flower grows on the high peak.","Only the condor knows the road."],es:["La flor crece en el pico alto.","Solo el cóndor conoce el camino."],vocab:{grows:"crece",high:"alto",peak:"pico",knows:"conoce",road:"camino"}},
+{en:["Lucia climbs up in the morning.","The air is cold and thin."],es:["Lucía sube por la mañana.","El aire es frío y delgado."],vocab:{climbs:"sube",morning:"mañana",air:"aire",cold:"frío",thin:"delgado"}},
+{en:["A big shadow covers the sun.","The great condor lands near her."],es:["Una gran sombra cubre el sol.","El gran cóndor aterriza cerca de ella."],vocab:{shadow:"sombra",covers:"cubre",sun:"sol",lands:"aterriza",near:"cerca"}},
+{en:["Little girl, why do you climb? he asks.","For my grandmother, she answers."],es:["Niñita, ¿por qué subes? pregunta.","Por mi abuela, responde ella."],vocab:{little:"pequeña",climb:"subes",answers:"responde"}},
+{en:["The condor opens his huge wings.","Climb on, brave heart, he says."],es:["El cóndor abre sus enormes alas.","Sube, corazón valiente, dice."],vocab:{wings:"alas",brave:"valiente",heart:"corazón",says:"dice"}},
+{en:["They fly over clouds and snow.","Lucia laughs with happy tears."],es:["Vuelan sobre nubes y nieve.","Lucía ríe con lágrimas felices."],vocab:{fly:"vuelan",clouds:"nubes",snow:"nieve",laughs:"ríe",tears:"lágrimas"}},
+{en:["The flower shines on the peak.","Lucia takes it with soft hands."],es:["La flor brilla en el pico.","Lucía la toma con manos suaves."],vocab:{shines:"brilla",takes:"toma",soft:"suaves",hands:"manos"}},
+{en:["Grandmother smiles and is well.","Love flies higher than condors."],es:["La abuela sonríe y está bien.","El amor vuela más alto que los cóndores."],vocab:{smiles:"sonríe",love:"amor",higher:"más alto"}}]}
+);
+fs.writeFileSync("data/stories.json", JSON.stringify(arr, null, 1));
+console.log("stories:", arr.length);

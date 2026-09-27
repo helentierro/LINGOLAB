@@ -1,0 +1,66 @@
+import fs from "node:fs";
+const arr = JSON.parse(fs.readFileSync("data/stories.json", "utf8"));
+arr.push(
+{id:"dragon-library",title:"The Last Dragon Librarian",orig:"A fireproof tale",level:"B1",icon:"🐉",desc:"Bajo la ciudad, un dragón guarda libros que nadie lee… hasta hoy.",
+pages:[
+{en:["Tom finds a bronze door at midnight.","It breathes warm air like soup."],es:["Tom halla una puerta de bronce a medianoche.","Respira aire tibio como sopa."],vocab:{finds:"halla",door:"puerta",breathes:"respira",warm:"tibio",air:"aire"}},
+{en:["Stairs spiral into golden dark.","A dragon snores among shelves."],es:["Escalones bajan al dorado oscuro.","Un dragón ronca entre estantes."],vocab:{stairs:"escalones",snores:"ronca",shelves:"estantes"}},
+{en:["Who dares? rumbles the beast.","One eye opens like a lamp."],es:["¿Quién se atreve? retumba la bestia.","Un ojo se abre como lámpara."],vocab:{beast:"bestia",eye:"ojo",lamp:"lámpara"}},
+{en:["I love books, Tom whispers.","The dragon laughs smoke rings."],es:["Amo los libros, susurra Tom.","El dragón ríe anillos de humo."],vocab:{books:"libros",laughs:"ríe",smoke:"humo",rings:"anillos"}},
+{en:["Then you are hired, boy.","Dust them with your dreams, he orders."],es:["Quedas contratado, niño.","Empólvalos con tus sueños, ordena."],vocab:{hired:"contratado",dreams:"sueños",orders:"ordena"}},
+{en:["Tom reads aloud every evening.","Dragons cry at sad endings."],es:["Tom lee en voz alta cada noche.","Los dragones lloran con finales tristes."],vocab:{reads:"lee",evening:"noche",cry:"lloran",endings:"finales"}},
+{en:["One book is chained and cold.","Never open the gray one, warns the dragon."],es:["Un libro está encadenado y frío.","Nunca abras el gris, advierte el dragón."],vocab:{chained:"encadenado",cold:"frío",warns:"advierte"}},
+{en:["Curiosity burns Tom's fingers.","He opens one forbidden page."],es:["La curiosidad quema sus dedos.","Abre una página prohibida."],vocab:{burns:"quema",forbidden:"prohibida",page:"página"}},
+{en:["The page eats the library's light.","Sorry! Tom shouts to the dark."],es:["La página devora la luz.","¡Perdón! grita Tom a la oscuridad."],vocab:{eats:"devora",light:"luz",dark:"oscuridad"}},
+{en:["The dragon breathes story-fire.","Light returns; Tom becomes the librarian."],es:["El dragón sopla fuego de cuentos.","La luz vuelve; Tom se vuelve bibliotecario."],vocab:{returns:"vuelve",librarian:"bibliotecario"}}]},
+{id:"firebird-feather",title:"The Firebird's Feather",orig:"A slavic tale",level:"B1",icon:"🔥",desc:"Iván roba una pluma ardiente y el bosque entero despierta.",
+pages:[
+{en:["Ivan guards wheat at night.","A light brighter than dawn appears."],es:["Iván cuida trigo de noche.","Una luz más brillante que el alba aparece."],vocab:{guards:"cuida",wheat:"trigo",light:"luz",dawn:"alba"}},
+{en:["A firebird lands on the fence.","Her feathers sing like bells."],es:["Un pájaro de fuego baja a la cerca.","Sus plumas cantan como campanas."],vocab:{lands:"baja",fence:"cerca",feathers:"plumas",bells:"campanas"}},
+{en:["Ivan catches one fallen feather.","It burns cold in his hand."],es:["Iván atrapa una pluma caída.","Quema fría en su mano."],vocab:{catches:"atrapa",fallen:"caída",burns:"quema",hand:"mano"}},
+{en:["The forest wakes around him.","Wolves bow, owls salute."],es:["El bosque despierta en torno.","Lobos se inclinan, búhos saludan."],vocab:{forest:"bosque",wolves:"lobos",owls:"búhos"}},
+{en:["A gray wolf speaks slowly.","Thief of light, ride my back."],es:["Un lobo gris habla despacio.","Ladrón de luz, monta mi lomo."],vocab:{speaks:"habla",thief:"ladrón",ride:"monta"}},
+{en:["They fly over sleeping rivers.","The feather guides like a star."],es:["Vuelan sobre ríos dormidos.","La pluma guía como estrella."],vocab:{rivers:"ríos",guides:"guía",star:"estrella"}},
+{en:["The tsar demands the whole bird.","Bring it, or lose your head!"],es:["El zar exige el ave entera.","¡Tráela o pierde tu cabeza!"],vocab:{demands:"exige",lose:"pierde",head:"cabeza"}},
+{en:["Ivan frees the firebird instead.","Fly, sister of dawn, he cries."],es:["Iván libera al ave en cambio.","Vuela, hermana del alba, llora."],vocab:{frees:"libera",instead:"en cambio",cries:"llora"}},
+{en:["She gifts him dawn in a jar.","The tsar's gold turns to leaves."],es:["Ella le regala alba en un frasco.","El oro del zar se vuelve hojas."],vocab:{gifts:"regala",gold:"oro",leaves:"hojas"}},
+{en:["Ivan returns to his wheat.","Kindness outshines every feather."],es:["Iván vuelve a su trigo.","La bondad brilla más que plumas."],vocab:{returns:"vuelve",kindness:"bondad"}}]},
+{id:"goblin-market",title:"The Goblin Market",orig:"A cunning tale",level:"B2",icon:"👺",desc:"En el mercado goblin se paga con recuerdos: Lisa vende uno caro.",
+pages:[
+{en:["Behind the laundry door, bells ring.","The goblin market opens at dusk."],es:["Tras la puerta del lavadero, suenan campanas.","El mercado goblin abre al atardecer."],vocab:{behind:"tras",bells:"campanas",market:"mercado",dusk:"atardecer"}},
+{en:["Stalls sell bottled thunder.","Second-hand shadows, half price."],es:["Puestos venden trueno embotellado.","Sombras de segunda, mitad de precio."],vocab:{sell:"venden",shadows:"sombras",price:"precio"}},
+{en:["No coins here, snarls a merchant.","We trade in memories, sweet ones cost more."],es:["Aquí no hay monedas, gruñe un mercader.","Comerciamos recuerdos; los dulces cuestan más."],vocab:{trade:"comerciamos",memories:"recuerdos",sweet:"dulces",cost:"cuestan"}},
+{en:["Lisa wants medicine for her brother.","Her purse holds three bright summers."],es:["Lisa quiere medicina para su hermano.","Su bolsa guarda tres veranos brillantes."],vocab:{medicine:"medicina",brother:"hermano",summers:"veranos"}},
+{en:["A goblin sniffs her happiest day.","Birthday cake, your grandmother singing. Sold?"],es:["Un goblin huele su día más feliz.","Pastel, tu abuela cantando. ¿Vendido?"],vocab:{birthday:"cumpleaños",cake:"pastel",singing:"cantando"}},
+{en:["Lisa hugs the memory tight.","This one is not for sale, she says."],es:["Lisa abraza el recuerdo fuerte.","Este no está en venta, dice."],vocab:{hugs:"abraza",tight:"fuerte",sale:"venta",says:"dice"}},
+{en:["Then she offers a rainy Monday.","Nobody wants gray hours, they laugh."],es:["Ofrece un lunes lluvioso.","Nadie quiere horas grises, ríen."],vocab:{offers:"ofrece",rainy:"lluvioso",laugh:"ríen"}},
+{en:["The smallest goblin weeps softly.","I collect sad days to feel less alone."],es:["El goblin menor llora suave.","Colecciono días tristes para sentirme menos solo."],vocab:{collect:"colecciono",alone:"solo"}},
+{en:["Lisa trades Monday for medicine.","Both smile; the bells approve."],es:["Lisa cambia el lunes por medicina.","Ambos sonríen; las campanas aprueban."],vocab:{trades:"cambia",smile:"sonríen",approve:"aprueban"}},
+{en:["She keeps her summers burning.","The richest purse holds no coins."],es:["Guarda sus veranos ardiendo.","La bolsa más rica no lleva monedas."],vocab:{keeps:"guarda",richest:"más rica",coins:"monedas"}}]},
+{id:"mirror-twins",title:"The Mirror Twins",orig:"A reflecting tale",level:"B2",icon:"🪞",desc:"Nia halla su gemela al otro lado del espejo… y sus mundos se mezclan.",
+pages:[
+{en:["Nia brushes her hair at seven.","The mirror brushes back, late by one second."],es:["Nia cepilla su pelo a las siete.","El espejo cepilla tarde, un segundo después."],vocab:{brushes:"cepilla",hair:"pelo",mirror:"espejo",second:"segundo"}},
+{en:["Her reflection winks first.","I am Aina, she mouths silently."],es:["Su reflejo guiña primero.","Soy Aina, articula en silencio."],vocab:{winks:"guiña",silently:"en silencio"}},
+{en:["They trade names through glass.","Cold fingers meet warm ones."],es:["Cambian nombres por el vidrio.","Dedos fríos tocan tibios."],vocab:{trade:"cambian",names:"nombres",glass:"vidrio",warm:"tibios"}},
+{en:["Aina's world rains upward.","Umbrellas open toward the ground."],es:["En el mundo de Aina llueve hacia arriba.","Paraguas se abren al suelo."],vocab:{rains:"llueve",upward:"hacia arriba",ground:"suelo"}},
+{en:["Nia passes a paper boat.","It sails the mirror river slowly."],es:["Nia pasa un barquito.","Navega lento el río espejo."],vocab:{boat:"barquito",sails:"navega",river:"río",slowly:"lento"}},
+{en:["Aina returns a starfold letter.","Read it only at midnight, she warns."],es:["Aina devuelve carta plegada estrella.","Léela solo a medianoche, advierte."],vocab:{letter:"carta",midnight:"medianoche",warns:"advierte"}},
+{en:["The letter says: we are one.","Halves of a dropped moon, it explains."],es:["La carta dice: somos una.","Mitades de luna caída, explica."],vocab:{halves:"mitades",moon:"luna",explains:"explica"}},
+{en:["Both mirrors crack at dawn.","Which side is real? Neither knows."],es:["Ambos espejos se agrietan al alba.","¿Qué lado es real? Ninguna sabe."],vocab:{crack:"se agrietan",dawn:"alba",real:"real"}},
+{en:["They step through together.","Two girls, one shared shadow."],es:["Cruzan juntas.","Dos niñas, una sombra compartida."],vocab:{together:"juntas",shared:"compartida",shadow:"sombra"}},
+{en:["Now each mirrors the other.","Sisters across every glass."],es:["Ahora cada una refleja a la otra.","Hermanas en cada vidrio."],vocab:{sisters:"hermanas",glass:"vidrio"}}]},
+{id:"dream-weaver",title:"The Dreamweaver's Snapped Thread",orig:"A midnight tale",level:"C1",icon:"🌌",desc:"Cuando el hilo de los sueños se rompe, una tejedora debe hilar con recuerdos.",
+pages:[
+{en:["Above the sleeping town, looms hum.","The weaver threads stars into children's sleep."],es:["Sobre el pueblo dormido, zumban telares.","La tejedora hila estrellas en el sueño infantil."],vocab:{looms:"telares",threads:"hila",stars:"estrellas",sleep:"sueño"}},
+{en:["Her silver thread snaps at three.","A thousand dreams unravel at once."],es:["Su hilo de plata se rompe a las tres.","Mil sueños se deshilachan a la vez."],vocab:{snaps:"se rompe",unravel:"se deshilachan",once:"a la vez"}},
+{en:["Nightmares leak through the cracks.","The town tosses in tangled sheets."],es:["Pesadillas se filtran por grietas.","El pueblo se revuelve en sábanas enredadas."],vocab:{leak:"se filtran",cracks:"grietas",sheets:"sábanas"}},
+{en:["The weaver descends, barefoot and furious.","Lend me your kindest memory, she begs each door."],es:["La tejedora baja, descalza y furiosa.","Préstame tu recuerdo más amable, ruega puerta a puerta."],vocab:{barefoot:"descalza",furious:"furiosa",begs:"ruega"}},
+{en:["A baker lends first-day snow.","A widow lends her wedding dance."],es:["Un panadero presta la primera nieve.","Una viuda presta su baile de bodas."],vocab:{lends:"presta",snow:"nieve",wedding:"bodas",dance:"baile"}},
+{en:["She spins them on a moonlit wheel.","Grief and gold twist into dawn-colored yarn."],es:["Los hila en rueca de luna.","Pena y oro se tuercen en hilo color alba."],vocab:{spins:"hila",grief:"pena",gold:"oro",yarn:"hilo"}},
+{en:["She reweaves the torn sky.","Each patch glows with borrowed joy."],es:["Reteje el cielo rasgado.","Cada parche brilla con alegría prestada."],vocab:{sky:"cielo",glows:"brilla",joy:"alegría"}},
+{en:["The town dreams in chorus.","A thousand borrowed mornings bloom."],es:["El pueblo sueña en coro.","Mil mañanas prestadas florecen."],vocab:{dreams:"sueña",chorus:"coro",bloom:"florecen"}},
+{en:["At dawn she returns every memory.","With interest: one nightmare, mended."],es:["Al alba devuelve cada recuerdo.","Con interés: una pesadilla, remendada."],vocab:{returns:"devuelve",interest:"interés",mended:"remendada"}},
+{en:["Her loom now weaves itself.","Kindness, she learns, needs no hands."],es:["Su telar ahora teje solo.","La bondad, aprende, no necesita manos."],vocab:{loom:"telar",kindness:"bondad",hands:"manos"}}]}
+);
+fs.writeFileSync("data/stories.json", JSON.stringify(arr, null, 1));
+console.log("stories:", arr.length);

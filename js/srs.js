@@ -1,0 +1,57 @@
+/* LingoLab 2.0 — Repaso espaciado (Leitner simplificado). 100% local. */
+(function () {
+  "use strict";
+  const DAY = 86400000;
+  function today() { return new Date().toISOString().slice(0, 10); }
+  function getState() { try { return JSON.parse(localStorage.getItem("lingolab_v1") || "{}"); } catch (e) { return {}; } }
+  // box: 0=nueva, 1..5; interval por caja en días
+  const INTERVALS = [0, 1, 2, 4, 7, 14];
+  function dueList(limit) {
+    const st = getState(), words = st.words || {}, now = Date.now();
+    const out = [];
+    for (const [en, rec] of Object.entries(words)) {
+      if (rec.st === "known" && (rec.box || 0) >= 5) continue; // dominada sólida
+      const next = rec.next || 0;
+      if (!next || next <= now + DAY) out.push({ en, box: rec.box || 0, next });
+    }
+    out.sort((a, b) => (a.next || 0) - (b.next || 0));
+    return out.slice(0, limit || 12);
+  }
+  // Llamado desde enhance.js cuando el usuario marca resultado en flashcards
+  function record(en, quality) {
+    // quality: 0=otra vez, 1=casi, 2=la sé
+    try {
+      const raw = localStorage.getItem("lingolab_v1");
+      if (!raw) return;
+      const st = JSON.parse(raw);
+      st.words = st.words || {};
+      const rec = st.words[en] || {};
+      let box = rec.box || 0;
+      if (quality === 0) box = 0;
+      else if (quality === 1) box = Math.max(0, box);
+      else box = Math.min(5, box + 1);
+      const next = Date.now() + INTERVALS[box] * DAY;
+      st.words[en] = Object.assign({}, rec, { box, next, last: today() });
+      localStorage.setItem("lingolab_v1", JSON.stringify(st));
+    } catch (e) {}
+  }
+  function paint() {
+    const line = document.getElementById("srsLine"), chips = document.getElementById("srsChips");
+    if (!line) return;
+    const due = dueList(12);
+    if (!due.length) {
+      line.textContent = "Sin pendientes. ¡Todo al día! 🎉";
+      if (chips) chips.innerHTML = "";
+      return;
+    }
+    line.textContent = due.length + " palabra(s) para repasar hoy · caja 0 = nueva, caja 5 = dominada";
+    if (chips) chips.innerHTML = due.map(d =>
+      '<span class="chip">📝 ' + String(d.en).replace(/&/g, "&amp;").replace(/</g, "&lt;") + " · c" + d.box + "</span>"
+    ).join("");
+  }
+  window.LingoSRS = { dueList, record, paint };
+  document.addEventListener("DOMContentLoaded", () => {
+    paint();
+    setInterval(paint, 10000);
+  });
+})();

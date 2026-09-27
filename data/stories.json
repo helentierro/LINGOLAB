@@ -1,0 +1,5023 @@
+[
+ {
+  "id": "dracula-shadow",
+  "title": "The Shadow of the Castle",
+  "orig": "Bram Stoker · Dracula",
+  "level": "A1",
+  "icon": "🧛",
+  "desc": "Un joven visita un castillo oscuro y descubre el secreto del conde.",
+  "pages": [
+   {
+    "en": [
+     "The night is dark and cold.",
+     "A young man walks to the old castle."
+    ],
+    "es": [
+     "La noche es oscura y fría.",
+     "Un joven camina al castillo viejo."
+    ],
+    "vocab": {
+     "night": "noche",
+     "dark": "oscuro/a",
+     "cold": "frío/a",
+     "young": "joven",
+     "walks": "camina",
+     "castle": "castillo",
+     "old": "viejo/a"
+    }
+   },
+   {
+    "en": [
+     "Wolves cry far in the forest.",
+     "The man is afraid, but he continues."
+    ],
+    "es": [
+     "Los lobos aúllan lejos en el bosque.",
+     "El hombre tiene miedo, pero continúa."
+    ],
+    "vocab": {
+     "wolves": "lobos",
+     "cry": "aúllan / lloran",
+     "far": "lejos",
+     "forest": "bosque",
+     "afraid": "asustado (tener miedo)",
+     "continues": "continúa"
+    }
+   },
+   {
+    "en": [
+     "A tall count opens the black door.",
+     "Welcome to my house, he says."
+    ],
+    "es": [
+     "Un conde alto abre la puerta negra.",
+     "Bienvenido a mi casa, dice él."
+    ],
+    "vocab": {
+     "tall": "alto",
+     "count": "conde",
+     "opens": "abre",
+     "door": "puerta",
+     "welcome": "bienvenido",
+     "house": "casa",
+     "says": "dice"
+    }
+   },
+   {
+    "en": [
+     "The castle is big and silent.",
+     "Shadows move on the old walls."
+    ],
+    "es": [
+     "El castillo es grande y silencioso.",
+     "Las sombras se mueven en las paredes viejas."
+    ],
+    "vocab": {
+     "big": "grande",
+     "silent": "silencioso",
+     "shadows": "sombras",
+     "move": "se mueven",
+     "walls": "paredes"
+    }
+   },
+   {
+    "en": [
+     "The count is pale and strange.",
+     "He never eats and never sleeps."
+    ],
+    "es": [
+     "El conde está pálido y es extraño.",
+     "Él nunca come y nunca duerme."
+    ],
+    "vocab": {
+     "pale": "pálido",
+     "strange": "extraño",
+     "never": "nunca",
+     "eats": "come",
+     "sleeps": "duerme"
+    }
+   },
+   {
+    "en": [
+     "The young man sees no mirror.",
+     "The count has no reflection."
+    ],
+    "es": [
+     "El joven no ve ningún espejo.",
+     "El conde no tiene reflejo."
+    ],
+    "vocab": {
+     "sees": "ve",
+     "mirror": "espejo",
+     "reflection": "reflejo"
+    }
+   },
+   {
+    "en": [
+     "At night the count drinks red wine.",
+     "But it is not wine, it is blood."
+    ],
+    "es": [
+     "De noche el conde bebe vino rojo.",
+     "Pero no es vino, es sangre."
+    ],
+    "vocab": {
+     "drinks": "bebe",
+     "red": "rojo",
+     "wine": "vino",
+     "blood": "sangre"
+    }
+   },
+   {
+    "en": [
+     "The young man wants to escape.",
+     "The door is closed with big chains."
+    ],
+    "es": [
+     "El joven quiere escapar.",
+     "La puerta está cerrada con grandes cadenas."
+    ],
+    "vocab": {
+     "wants": "quiere",
+     "escape": "escapar",
+     "closed": "cerrada",
+     "chains": "cadenas"
+    }
+   },
+   {
+    "en": [
+     "The sun rises over the mountains.",
+     "The shadows run away from the light."
+    ],
+    "es": [
+     "El sol sale sobre las montañas.",
+     "Las sombras huyen de la luz."
+    ],
+    "vocab": {
+     "sun": "sol",
+     "rises": "sale (amanecer)",
+     "mountains": "montañas",
+     "run": "huyen / corren",
+     "away": "lejos / fuera",
+     "light": "luz"
+    }
+   },
+   {
+    "en": [
+     "The man runs to his village.",
+     "He is free, and the shadow is gone."
+    ],
+    "es": [
+     "El hombre corre a su aldea.",
+     "Está libre, y la sombra se ha ido."
+    ],
+    "vocab": {
+     "runs": "corre",
+     "village": "aldea",
+     "free": "libre",
+     "gone": "se ha ido / desaparecido"
+    }
+   }
+  ]
+ },
+ {
+  "id": "frankenstein-slave",
+  "title": "The Slave of the Creator",
+  "orig": "Mary Shelley · Frankenstein",
+  "level": "A1",
+  "icon": "⚡",
+  "desc": "Un científico crea vida, pero su criatura solo quiere un amigo.",
+  "pages": [
+   {
+    "en": [
+     "Victor is a young scientist.",
+     "He works day and night in his room."
+    ],
+    "es": [
+     "Víctor es un joven científico.",
+     "Trabaja día y noche en su cuarto."
+    ],
+    "vocab": {
+     "scientist": "científico",
+     "works": "trabaja",
+     "room": "cuarto / habitación"
+    }
+   },
+   {
+    "en": [
+     "He wants to create a new man.",
+     "He uses old parts from graves."
+    ],
+    "es": [
+     "Quiere crear un hombre nuevo.",
+     "Usa partes viejas de tumbas."
+    ],
+    "vocab": {
+     "create": "crear",
+     "new": "nuevo",
+     "uses": "usa",
+     "parts": "partes",
+     "graves": "tumbas"
+    }
+   },
+   {
+    "en": [
+     "One stormy night, there is light.",
+     "The creature opens its yellow eyes."
+    ],
+    "es": [
+     "Una noche de tormenta, hay luz.",
+     "La criatura abre sus ojos amarillos."
+    ],
+    "vocab": {
+     "stormy": "de tormenta",
+     "light": "luz",
+     "creature": "criatura",
+     "opens": "abre",
+     "eyes": "ojos",
+     "yellow": "amarillo"
+    }
+   },
+   {
+    "en": [
+     "The creature is big and strong.",
+     "But its heart is sad and alone."
+    ],
+    "es": [
+     "La criatura es grande y fuerte.",
+     "Pero su corazón está triste y solo."
+    ],
+    "vocab": {
+     "strong": "fuerte",
+     "heart": "corazón",
+     "sad": "triste",
+     "alone": "solo"
+    }
+   },
+   {
+    "en": [
+     "Victor is afraid and runs away.",
+     "The creature cries in the dark."
+    ],
+    "es": [
+     "Víctor tiene miedo y huye.",
+     "La criatura llora en la oscuridad."
+    ],
+    "vocab": {
+     "afraid": "asustado",
+     "runs": "huye / corre",
+     "away": "lejos",
+     "cries": "llora",
+     "dark": "oscuridad"
+    }
+   },
+   {
+    "en": [
+     "The creature learns to speak.",
+     "It reads books by the fire."
+    ],
+    "es": [
+     "La criatura aprende a hablar.",
+     "Lee libros junto al fuego."
+    ],
+    "vocab": {
+     "learns": "aprende",
+     "speak": "hablar",
+     "reads": "lee",
+     "books": "libros",
+     "fire": "fuego"
+    }
+   },
+   {
+    "en": [
+     "Please, make me a friend, it says.",
+     "I do not want to be alone."
+    ],
+    "es": [
+     "Por favor, créame un amigo, dice.",
+     "No quiero estar solo."
+    ],
+    "vocab": {
+     "make": "crea / haz",
+     "friend": "amigo",
+     "says": "dice"
+    }
+   },
+   {
+    "en": [
+     "Victor says no and destroys his work.",
+     "The creature is angry and cold."
+    ],
+    "es": [
+     "Víctor dice no y destruye su trabajo.",
+     "La criatura está enojada y fría."
+    ],
+    "vocab": {
+     "destroys": "destruye",
+     "work": "trabajo",
+     "angry": "enojado",
+     "cold": "frío"
+    }
+   },
+   {
+    "en": [
+     "They fight in the snow and ice.",
+     "Two slaves of hate and pain."
+    ],
+    "es": [
+     "Pelean en la nieve y el hielo.",
+     "Dos esclavos del odio y el dolor."
+    ],
+    "vocab": {
+     "fight": "pelean",
+     "snow": "nieve",
+     "ice": "hielo",
+     "hate": "odio",
+     "pain": "dolor"
+    }
+   },
+   {
+    "en": [
+     "In the end, only silence remains.",
+     "The shadow of man must rest."
+    ],
+    "es": [
+     "Al final, solo queda el silencio.",
+     "La sombra del hombre debe descansar."
+    ],
+    "vocab": {
+     "end": "final",
+     "silence": "silencio",
+     "remains": "queda / permanece",
+     "rest": "descansar"
+    }
+   }
+  ]
+ },
+ {
+  "id": "jekyll-night",
+  "title": "The Slave of the Night",
+  "orig": "R. L. Stevenson · Dr Jekyll & Mr Hyde",
+  "level": "A2",
+  "icon": "🌙",
+  "desc": "Un doctor bueno esconde un monstruo que sale de noche.",
+  "pages": [
+   {
+    "en": [
+     "Dr Jekyll is a good and quiet man.",
+     "Everyone in London respects him."
+    ],
+    "es": [
+     "El Dr. Jekyll es un hombre bueno y tranquilo.",
+     "Todos en Londres lo respetan."
+    ],
+    "vocab": {
+     "quiet": "tranquilo",
+     "everyone": "todos",
+     "respects": "respeta"
+    }
+   },
+   {
+    "en": [
+     "But he has a dark secret.",
+     "He makes a strange drink in his lab."
+    ],
+    "es": [
+     "Pero tiene un secreto oscuro.",
+     "Prepara una bebida extraña en su laboratorio."
+    ],
+    "vocab": {
+     "secret": "secreto",
+     "makes": "prepara / hace",
+     "drink": "bebida",
+     "lab": "laboratorio"
+    }
+   },
+   {
+    "en": [
+     "One night he drinks the potion.",
+     "Pain runs through his body."
+    ],
+    "es": [
+     "Una noche bebe la poción.",
+     "El dolor recorre su cuerpo."
+    ],
+    "vocab": {
+     "potion": "poción",
+     "pain": "dolor",
+     "runs": "recorre / corre",
+     "body": "cuerpo"
+    }
+   },
+   {
+    "en": [
+     "He changes into a cruel man.",
+     "His new name is Mr Hyde."
+    ],
+    "es": [
+     "Se transforma en un hombre cruel.",
+     "Su nuevo nombre es Sr. Hyde."
+    ],
+    "vocab": {
+     "changes": "se transforma / cambia",
+     "cruel": "cruel",
+     "name": "nombre"
+    }
+   },
+   {
+    "en": [
+     "Hyde walks in the dark streets.",
+     "He pushes people and laughs."
+    ],
+    "es": [
+     "Hyde camina por las calles oscuras.",
+     "Empuja a la gente y se ríe."
+    ],
+    "vocab": {
+     "streets": "calles",
+     "pushes": "empuja",
+     "people": "gente",
+     "laughs": "se ríe"
+    }
+   },
+   {
+    "en": [
+     "In the morning, Jekyll returns.",
+     "He cries and feels great shame."
+    ],
+    "es": [
+     "Por la mañana, Jekyll regresa.",
+     "Llora y siente gran vergüenza."
+    ],
+    "vocab": {
+     "morning": "mañana",
+     "returns": "regresa",
+     "cries": "llora",
+     "shame": "vergüenza"
+    }
+   },
+   {
+    "en": [
+     "His friend Utterson is worried.",
+     "Who is this evil Hyde, he asks."
+    ],
+    "es": [
+     "Su amigo Utterson está preocupado.",
+     "Quién es este Hyde malvado, pregunta."
+    ],
+    "vocab": {
+     "friend": "amigo",
+     "worried": "preocupado",
+     "evil": "malvado",
+     "asks": "pregunta"
+    }
+   },
+   {
+    "en": [
+     "Hyde becomes stronger every night.",
+     "Jekyll becomes a slave of Hyde."
+    ],
+    "es": [
+     "Hyde se vuelve más fuerte cada noche.",
+     "Jekyll se vuelve esclavo de Hyde."
+    ],
+    "vocab": {
+     "stronger": "más fuerte",
+     "every": "cada",
+     "slave": "esclavo"
+    }
+   },
+   {
+    "en": [
+     "Jekyll locks the laboratory door.",
+     "He writes his sad confession."
+    ],
+    "es": [
+     "Jekyll cierra con llave la puerta del laboratorio.",
+     "Escribe su triste confesión."
+    ],
+    "vocab": {
+     "locks": "cierra con llave",
+     "writes": "escribe",
+     "confession": "confesión"
+    }
+   },
+   {
+    "en": [
+     "When the light comes, Hyde is gone.",
+     "Only the good doctor remains."
+    ],
+    "es": [
+     "Cuando llega la luz, Hyde se ha ido.",
+     "Solo queda el buen doctor."
+    ],
+    "vocab": {
+     "light": "luz",
+     "gone": "se ha ido",
+     "only": "solo",
+     "remains": "queda"
+    }
+   }
+  ]
+ },
+ {
+  "id": "dorian-mirror",
+  "title": "The Cursed Portrait",
+  "orig": "Oscar Wilde · Dorian Gray",
+  "level": "A2",
+  "icon": "🪞",
+  "desc": "Un joven hermoso vende su alma; su retrato envejece por él.",
+  "pages": [
+   {
+    "en": [
+     "Dorian is young and very handsome.",
+     "His friend paints his portrait."
+    ],
+    "es": [
+     "Dorian es joven y muy apuesto.",
+     "Su amigo pinta su retrato."
+    ],
+    "vocab": {
+     "handsome": "apuesto",
+     "paints": "pinta",
+     "portrait": "retrato"
+    }
+   },
+   {
+    "en": [
+     "The portrait is beautiful and perfect.",
+     "Dorian makes a dark wish."
+    ],
+    "es": [
+     "El retrato es hermoso y perfecto.",
+     "Dorian pide un deseo oscuro."
+    ],
+    "vocab": {
+     "beautiful": "hermoso",
+     "perfect": "perfecto",
+     "wish": "deseo"
+    }
+   },
+   {
+    "en": [
+     "Let the portrait grow old, he says.",
+     "Let me stay young forever."
+    ],
+    "es": [
+     "Deja que el retrato envejezca, dice.",
+     "Déjame seguir joven por siempre."
+    ],
+    "vocab": {
+     "grow": "crecer / volverse",
+     "old": "viejo",
+     "stay": "seguir / quedarse",
+     "forever": "por siempre"
+    }
+   },
+   {
+    "en": [
+     "Dorian lives a selfish life.",
+     "He hurts friends and feels nothing."
+    ],
+    "es": [
+     "Dorian vive una vida egoísta.",
+     "Lastima a amigos y no siente nada."
+    ],
+    "vocab": {
+     "selfish": "egoísta",
+     "hurts": "lastima",
+     "feels": "siente",
+     "nothing": "nada"
+    }
+   },
+   {
+    "en": [
+     "But his face never changes.",
+     "The portrait hides his dark soul."
+    ],
+    "es": [
+     "Pero su cara nunca cambia.",
+     "El retrato esconde su alma oscura."
+    ],
+    "vocab": {
+     "face": "cara",
+     "changes": "cambia",
+     "hides": "esconde",
+     "soul": "alma"
+    }
+   },
+   {
+    "en": [
+     "One night he looks at the portrait.",
+     "It is old, cruel and ugly."
+    ],
+    "es": [
+     "Una noche mira el retrato.",
+     "Está viejo, cruel y feo."
+    ],
+    "vocab": {
+     "looks": "mira",
+     "ugly": "feo"
+    }
+   },
+   {
+    "en": [
+     "This monster is me, he cries.",
+     "I am a slave of my beauty."
+    ],
+    "es": [
+     "Este monstruo soy yo, llora.",
+     "Soy un esclavo de mi belleza."
+    ],
+    "vocab": {
+     "monster": "monstruo",
+     "beauty": "belleza"
+    }
+   },
+   {
+    "en": [
+     "He takes a knife in anger.",
+     "He attacks the cursed portrait."
+    ],
+    "es": [
+     "Toma un cuchillo con ira.",
+     "Ataca el retrato maldito."
+    ],
+    "vocab": {
+     "knife": "cuchillo",
+     "anger": "ira",
+     "attacks": "ataca",
+     "cursed": "maldito"
+    }
+   },
+   {
+    "en": [
+     "The servants hear a terrible scream.",
+     "They run up the stairs."
+    ],
+    "es": [
+     "Los sirvientes oyen un grito terrible.",
+     "Suben corriendo las escaleras."
+    ],
+    "vocab": {
+     "servants": "sirvientes",
+     "scream": "grito",
+     "stairs": "escaleras"
+    }
+   },
+   {
+    "en": [
+     "On the floor lies an old man.",
+     "On the wall, a young Dorian smiles."
+    ],
+    "es": [
+     "En el suelo yace un anciano.",
+     "En la pared, un Dorian joven sonríe."
+    ],
+    "vocab": {
+     "floor": "suelo",
+     "lies": "yace",
+     "smiles": "sonríe",
+     "wall": "pared"
+    }
+   }
+  ]
+ },
+ {
+  "id": "sherlock-mist",
+  "title": "The Hound in the Mist",
+  "orig": "A. Conan Doyle · Sherlock Holmes",
+  "level": "B1",
+  "icon": "🔍",
+  "desc": "Holmes y Watson cazan un sabueso fantasma en la niebla.",
+  "pages": [
+   {
+    "en": [
+     "A nervous visitor arrives at Baker Street.",
+     "He speaks of a curse on the moor."
+    ],
+    "es": [
+     "Un visitante nervioso llega a Baker Street.",
+     "Habla de una maldición en el páramo."
+    ],
+    "vocab": {
+     "nervous": "nervioso",
+     "visitor": "visitante",
+     "arrives": "llega",
+     "curse": "maldición",
+     "moor": "páramo"
+    }
+   },
+   {
+    "en": [
+     "A giant hound hunts the Baskerville family.",
+     "Its eyes burn like fire in the mist."
+    ],
+    "es": [
+     "Un sabueso gigante caza a la familia Baskerville.",
+     "Sus ojos arden como fuego en la niebla."
+    ],
+    "vocab": {
+     "giant": "gigante",
+     "hound": "sabueso",
+     "hunts": "caza",
+     "burn": "arden",
+     "mist": "niebla"
+    }
+   },
+   {
+    "en": [
+     "Holmes listens in silence and smiles.",
+     "There are no ghosts, only men, he says."
+    ],
+    "es": [
+     "Holmes escucha en silencio y sonríe.",
+     "No hay fantasmas, solo hombres, dice."
+    ],
+    "vocab": {
+     "listens": "escucha",
+     "ghosts": "fantasmas",
+     "only": "solo"
+    }
+   },
+   {
+    "en": [
+     "Watson travels to the dark moor.",
+     "The wind cries over the black stones."
+    ],
+    "es": [
+     "Watson viaja al páramo oscuro.",
+     "El viento llora sobre las piedras negras."
+    ],
+    "vocab": {
+     "travels": "viaja",
+     "wind": "viento",
+     "stones": "piedras"
+    }
+   },
+   {
+    "en": [
+     "Every night he hears terrible steps.",
+     "A shadow moves between the rocks."
+    ],
+    "es": [
+     "Cada noche oye pasos terribles.",
+     "Una sombra se mueve entre las rocas."
+    ],
+    "vocab": {
+     "steps": "pasos",
+     "rocks": "rocas"
+    }
+   },
+   {
+    "en": [
+     "The neighbor keeps a hungry beast.",
+     "He starves it to make it cruel."
+    ],
+    "es": [
+     "El vecino esconde una bestia hambrienta.",
+     "La mata de hambre para volverla cruel."
+    ],
+    "vocab": {
+     "neighbor": "vecino",
+     "beast": "bestia",
+     "hungry": "hambrienta",
+     "starves": "mata de hambre"
+    }
+   },
+   {
+    "en": [
+     "Holmes returns in secret at dawn.",
+     "Tonight we catch the slave of fear, he whispers."
+    ],
+    "es": [
+     "Holmes regresa en secreto al amanecer.",
+     "Esta noche atrapamos al esclavo del miedo, susurra."
+    ],
+    "vocab": {
+     "secret": "secreto",
+     "dawn": "amanecer",
+     "catch": "atrapamos",
+     "whispers": "susurra",
+     "fear": "miedo"
+    }
+   },
+   {
+    "en": [
+     "The mist opens and the hound jumps.",
+     "Watson fires his gun without shaking."
+    ],
+    "es": [
+     "La niebla se abre y el sabueso salta.",
+     "Watson dispara su arma sin temblar."
+    ],
+    "vocab": {
+     "jumps": "salta",
+     "fires": "dispara",
+     "gun": "arma",
+     "shaking": "temblar"
+    }
+   },
+   {
+    "en": [
+     "The monster falls on the wet ground.",
+     "Its mouth shines with false fire."
+    ],
+    "es": [
+     "El monstruo cae al suelo mojado.",
+     "Su boca brilla con fuego falso."
+    ],
+    "vocab": {
+     "falls": "cae",
+     "wet": "mojado",
+     "mouth": "boca",
+     "shines": "brilla",
+     "false": "falso"
+    }
+   },
+   {
+    "en": [
+     "The curse was only paint and hunger.",
+     "Reason breaks the chains of shadow."
+    ],
+    "es": [
+     "La maldición era solo pintura y hambre.",
+     "La razón rompe las cadenas de la sombra."
+    ],
+    "vocab": {
+     "paint": "pintura",
+     "hunger": "hambre",
+     "reason": "razón",
+     "breaks": "rompe",
+     "chains": "cadenas"
+    }
+   }
+  ]
+ },
+ {
+  "id": "moby-abyss",
+  "title": "The White Shadow of the Sea",
+  "orig": "H. Melville · Moby Dick",
+  "level": "B1",
+  "icon": "🐋",
+  "desc": "El capitán Ahab, esclavo de su odio, caza a la ballena blanca.",
+  "pages": [
+   {
+    "en": [
+     "Ishmael joins a whaling ship in winter.",
+     "He wants to see the world and forget his sadness."
+    ],
+    "es": [
+     "Ismael se une a un ballenero en invierno.",
+     "Quiere ver el mundo y olvidar su tristeza."
+    ],
+    "vocab": {
+     "joins": "se une",
+     "ship": "barco",
+     "winter": "invierno",
+     "forget": "olvidar",
+     "sadness": "tristeza"
+    }
+   },
+   {
+    "en": [
+     "Captain Ahab has one wooden leg.",
+     "A white whale took the other one."
+    ],
+    "es": [
+     "El capitán Ahab tiene una pierna de madera.",
+     "Una ballena blanca le quitó la otra."
+    ],
+    "vocab": {
+     "wooden": "de madera",
+     "leg": "pierna",
+     "whale": "ballena",
+     "took": "quitó / tomó"
+    }
+   },
+   {
+    "en": [
+     "Find Moby Dick, Ahab shouts.",
+     "I will chase that shadow to hell."
+    ],
+    "es": [
+     "Encuentren a Moby Dick, grita Ahab.",
+     "Perseguiré esa sombra hasta el infierno."
+    ],
+    "vocab": {
+     "shouts": "grita",
+     "chase": "perseguir",
+     "hell": "infierno"
+    }
+   },
+   {
+    "en": [
+     "The crew becomes a slave of his anger.",
+     "Even the kind Starbuck cannot stop him."
+    ],
+    "es": [
+     "La tripulación se vuelve esclava de su ira.",
+     "Ni el amable Starbuck puede detenerlo."
+    ],
+    "vocab": {
+     "crew": "tripulación",
+     "anger": "ira",
+     "kind": "amable",
+     "stop": "detener"
+    }
+   },
+   {
+    "en": [
+     "Storms hit the ship for weeks.",
+     "Still Ahab looks at the black sea."
+    ],
+    "es": [
+     "Las tormentas golpean el barco por semanas.",
+     "Aun así Ahab mira el mar negro."
+    ],
+    "vocab": {
+     "storms": "tormentas",
+     "hit": "golpean",
+     "weeks": "semanas",
+     "still": "aun así",
+     "sea": "mar"
+    }
+   },
+   {
+    "en": [
+     "One clear morning, a sailor screams.",
+     "There she blows, white like death."
+    ],
+    "es": [
+     "Una mañana clara, un marinero grita.",
+     "Ahí sopla, blanca como la muerte."
+    ],
+    "vocab": {
+     "clear": "despejada",
+     "sailor": "marinero",
+     "blows": "sopla",
+     "death": "muerte"
+    }
+   },
+   {
+    "en": [
+     "The white shadow rises from the abyss.",
+     "Water and terror cover the boats."
+    ],
+    "es": [
+     "La sombra blanca surge del abismo.",
+     "Agua y terror cubren los botes."
+    ],
+    "vocab": {
+     "rises": "surge / se eleva",
+     "abyss": "abismo",
+     "terror": "terror",
+     "cover": "cubren",
+     "boats": "botes"
+    }
+   },
+   {
+    "en": [
+     "Ahab throws his harpoon with hate.",
+     "The line pulls him into the deep."
+    ],
+    "es": [
+     "Ahab lanza su arpón con odio.",
+     "La cuerda lo arrastra a lo profundo."
+    ],
+    "vocab": {
+     "throws": "lanza",
+     "harpoon": "arpón",
+     "hate": "odio",
+     "pulls": "arrastra",
+     "deep": "lo profundo"
+    }
+   },
+   {
+    "en": [
+     "The great whale breaks the ship.",
+     "Wood and men sink into silence."
+    ],
+    "es": [
+     "La gran ballena rompe el barco.",
+     "Madera y hombres se hunden en el silencio."
+    ],
+    "vocab": {
+     "breaks": "rompe",
+     "sink": "se hunden",
+     "silence": "silencio"
+    }
+   },
+   {
+    "en": [
+     "Only Ishmael floats on a coffin.",
+     "The sea keeps slaves and masters alike."
+    ],
+    "es": [
+     "Solo Ismael flota sobre un ataúd.",
+     "El mar guarda esclavos y amos por igual."
+    ],
+    "vocab": {
+     "floats": "flota",
+     "coffin": "ataúd",
+     "keeps": "guarda",
+     "masters": "amos",
+     "alike": "por igual"
+    }
+   }
+  ]
+ },
+ {
+  "id": "jane-ash",
+  "title": "The House of Whispers",
+  "orig": "C. Brontë · Jane Eyre",
+  "level": "B2",
+  "icon": "🕯️",
+  "desc": "Jane, huérfana y pobre, halla amor y un secreto en Thornfield.",
+  "pages": [
+   {
+    "en": [
+     "Jane, poor and orphaned, becomes a governess.",
+     "She travels to the gloomy Thornfield Hall."
+    ],
+    "es": [
+     "Jane, pobre y huérfana, se hace institutriz.",
+     "Viaja al sombrío Thornfield Hall."
+    ],
+    "vocab": {
+     "poor": "pobre",
+     "orphaned": "huérfana",
+     "governess": "institutriz",
+     "gloomy": "sombrío",
+     "hall": "mansión"
+    }
+   },
+   {
+    "en": [
+     "Her pupil Adele laughs through the corridors.",
+     "Yet a strange laugh answers from above."
+    ],
+    "es": [
+     "Su alumna Adele ríe por los pasillos.",
+     "Pero una risa extraña responde desde arriba."
+    ],
+    "vocab": {
+     "pupil": "alumna",
+     "corridors": "pasillos",
+     "yet": "pero / sin embargo",
+     "answers": "responde",
+     "above": "arriba"
+    }
+   },
+   {
+    "en": [
+     "Mr Rochester, dark and proud, questions her.",
+     "You are no slave to fear, he admits."
+    ],
+    "es": [
+     "El Sr. Rochester, oscuro y orgulloso, la interroga.",
+     "No eres esclava del miedo, admite."
+    ],
+    "vocab": {
+     "proud": "orgulloso",
+     "questions": "interroga",
+     "admits": "admite"
+    }
+   },
+   {
+    "en": [
+     "At night, whispers crawl behind the walls.",
+     "Someone tries to burn the master in his bed."
+    ],
+    "es": [
+     "De noche, susurros se arrastran tras las paredes.",
+     "Alguien intenta quemar al amo en su cama."
+    ],
+    "vocab": {
+     "whispers": "susurros",
+     "crawl": "se arrastran",
+     "behind": "tras",
+     "burn": "quemar",
+     "master": "amo"
+    }
+   },
+   {
+    "en": [
+     "Jane saves him from smoke and fire.",
+     "Gratitude slowly turns into forbidden love."
+    ],
+    "es": [
+     "Jane lo salva del humo y el fuego.",
+     "La gratitud se vuelve lentamente amor prohibido."
+    ],
+    "vocab": {
+     "saves": "salva",
+     "smoke": "humo",
+     "gratitude": "gratitud",
+     "forbidden": "prohibido"
+    }
+   },
+   {
+    "en": [
+     "He proposes beneath the old chestnut tree.",
+     "Her heart, so long chained, trembles."
+    ],
+    "es": [
+     "Él propone matrimonio bajo el viejo castaño.",
+     "Su corazón, tanto tiempo encadenado, tiembla."
+    ],
+    "vocab": {
+     "proposes": "propone matrimonio",
+     "beneath": "bajo",
+     "trembles": "tiembla",
+     "chained": "encadenado"
+    }
+   },
+   {
+    "en": [
+     "On the wedding day, a stranger shouts the truth.",
+     "Rochester hides a wife, mad and enslaved by illness."
+    ],
+    "es": [
+     "El día de la boda, un extraño grita la verdad.",
+     "Rochester esconde una esposa, loca y esclava de la enfermedad."
+    ],
+    "vocab": {
+     "wedding": "boda",
+     "stranger": "extraño",
+     "truth": "verdad",
+     "mad": "loca",
+     "illness": "enfermedad"
+    }
+   },
+   {
+    "en": [
+     "Jane flees into the cold moor night.",
+     "She would rather starve than live as a shadow."
+    ],
+    "es": [
+     "Jane huye a la fría noche del páramo.",
+     "Prefiere morir de hambre que vivir como sombra."
+    ],
+    "vocab": {
+     "flees": "huye",
+     "rather": "preferiría",
+     "starve": "morir de hambre"
+    }
+   },
+   {
+    "en": [
+     "Thornfield burns; the secret dies in flames.",
+     "Rochester, blinded, wanders among ashes."
+    ],
+    "es": [
+     "Thornfield arde; el secreto muere en llamas.",
+     "Rochester, ciego, vaga entre cenizas."
+    ],
+    "vocab": {
+     "burns": "arde",
+     "flames": "llamas",
+     "blinded": "ciego",
+     "wanders": "vaga",
+     "ashes": "cenizas"
+    }
+   },
+   {
+    "en": [
+     "Jane returns, free and strong at last.",
+     "Love, she learns, must never be a chain."
+    ],
+    "es": [
+     "Jane regresa, libre y fuerte al fin.",
+     "El amor, aprende, nunca debe ser cadena."
+    ],
+    "vocab": {
+     "returns": "regresa",
+     "chain": "cadena"
+    }
+   }
+  ]
+ },
+ {
+  "id": "wuthering-echo",
+  "title": "Slaves of the Wind",
+  "orig": "E. Brontë · Wuthering Heights",
+  "level": "B2",
+  "icon": "⛈️",
+  "desc": "Heathcliff y Catherine, esclavos de un amor salvaje en la colina.",
+  "pages": [
+   {
+    "en": [
+     "On the windy heights, an orphan arrives.",
+     "The Earnshaws name him Heathcliff."
+    ],
+    "es": [
+     "En las alturas ventosas, llega un huérfano.",
+     "Los Earnshaw lo llaman Heathcliff."
+    ],
+    "vocab": {
+     "windy": "ventosas",
+     "heights": "alturas",
+     "orphan": "huérfano",
+     "name": "llaman"
+    }
+   },
+   {
+    "en": [
+     "Catherine and he run wild over the moors.",
+     "Two souls chained by the same storm."
+    ],
+    "es": [
+     "Catherine y él corren libres por los páramos.",
+     "Dos almas encadenadas por la misma tormenta."
+    ],
+    "vocab": {
+     "wild": "libres / salvajes",
+     "souls": "almas",
+     "storm": "tormenta"
+    }
+   },
+   {
+    "en": [
+     "Hindley humiliates the dark boy daily.",
+     "Heathcliff silently feeds his hatred."
+    ],
+    "es": [
+     "Hindley humilla al muchacho oscuro a diario.",
+     "Heathcliff alimenta en silencio su odio."
+    ],
+    "vocab": {
+     "humiliates": "humilla",
+     "daily": "a diario",
+     "silently": "en silencio",
+     "hatred": "odio"
+    }
+   },
+   {
+    "en": [
+     "Catherine chooses a rich, gentle husband.",
+     "I am Heathcliff, she cries too late."
+    ],
+    "es": [
+     "Catherine elige un esposo rico y gentil.",
+     "Yo soy Heathcliff, llora demasiado tarde."
+    ],
+    "vocab": {
+     "chooses": "elige",
+     "rich": "rico",
+     "gentle": "gentil",
+     "too": "demasiado",
+     "late": "tarde"
+    }
+   },
+   {
+    "en": [
+     "Betrayed, Heathcliff vanishes into the night.",
+     "He returns years later, rich and cold."
+    ],
+    "es": [
+     "Traicionado, Heathcliff desaparece en la noche.",
+     "Regresa años después, rico y frío."
+    ],
+    "vocab": {
+     "betrayed": "traicionado",
+     "vanishes": "desaparece",
+     "later": "después"
+    }
+   },
+   {
+    "en": [
+     "He buys the Heights and enslaves Hindley.",
+     "Revenge is his only warm blanket."
+    ],
+    "es": [
+     "Compra las Cumbres y esclaviza a Hindley.",
+     "La venganza es su única manta cálida."
+    ],
+    "vocab": {
+     "buys": "compra",
+     "enslaves": "esclaviza",
+     "revenge": "venganza"
+    }
+   },
+   {
+    "en": [
+     "Catherine dies calling his name in fever.",
+     "Her ghost scratches at the frozen window."
+    ],
+    "es": [
+     "Catherine muere llamando su nombre con fiebre.",
+     "Su fantasma araña la ventana helada."
+    ],
+    "vocab": {
+     "dies": "muere",
+     "fever": "fiebre",
+     "ghost": "fantasma",
+     "scratches": "araña",
+     "frozen": "helada"
+    }
+   },
+   {
+    "en": [
+     "Heathcliff digs for her echo in every grave.",
+     "Neither prayer nor wine can free him."
+    ],
+    "es": [
+     "Heathcliff excava buscando su eco en cada tumba.",
+     "Ni la oración ni el vino pueden liberarlo."
+    ],
+    "vocab": {
+     "digs": "excava",
+     "echo": "eco",
+     "grave": "tumba",
+     "prayer": "oración",
+     "free": "liberar"
+    }
+   },
+   {
+    "en": [
+     "Old and hollow, he starves himself for love.",
+     "Let me go to her, he begs the wind."
+    ],
+    "es": [
+     "Viejo y hueco, se deja morir de hambre por amor.",
+     "Déjame ir con ella, ruega al viento."
+    ],
+    "vocab": {
+     "hollow": "hueco",
+     "starves": "se deja morir de hambre",
+     "begs": "ruega"
+    }
+   },
+   {
+    "en": [
+     "Villagers swear two shadows walk the moor.",
+     "At last, no chain can hold them."
+    ],
+    "es": [
+     "Los aldeanos juran que dos sombras caminan el páramo.",
+     "Al fin, ninguna cadena puede retenerlos."
+    ],
+    "vocab": {
+     "villagers": "aldeanos",
+     "swear": "juran",
+     "hold": "retener"
+    }
+   }
+  ]
+ },
+ {
+  "id": "time-dark",
+  "title": "The Slave of Time",
+  "orig": "H. G. Wells · The Time Machine",
+  "level": "C1",
+  "icon": "⏳",
+  "desc": "Un viajero huye al futuro y halla humanidad esclavizada bajo tierra.",
+  "pages": [
+   {
+    "en": [
+     "The inventor unveils a machine of brass and shadow.",
+     "I shall ride the very current of time, he declares."
+    ],
+    "es": [
+     "El inventor revela una máquina de latón y sombra.",
+     "Cabalgaré la corriente misma del tiempo, declara."
+    ],
+    "vocab": {
+     "inventor": "inventor",
+     "unveils": "revela",
+     "brass": "latón",
+     "current": "corriente",
+     "declares": "declara"
+    }
+   },
+   {
+    "en": [
+     "Levers scream; the laboratory dissolves into grey.",
+     "Days flicker past like wounded moths."
+    ],
+    "es": [
+     "Las palancas chirrían; el laboratorio se disuelve en gris.",
+     "Los días parpadean como polillas heridas."
+    ],
+    "vocab": {
+     "levers": "palancas",
+     "dissolves": "se disuelve",
+     "flicker": "parpadean",
+     "wounded": "heridas",
+     "moths": "polillas"
+    }
+   },
+   {
+    "en": [
+     "He lands among the fragile, childlike Eloi.",
+     "They feast, sing, and fear the dark."
+    ],
+    "es": [
+     "Aterriza entre los frágiles e infantiles Eloi.",
+     "Festejan, cantan y temen la oscuridad."
+    ],
+    "vocab": {
+     "lands": "aterriza",
+     "fragile": "frágiles",
+     "feast": "festejan",
+     "fear": "temen"
+    }
+   },
+   {
+    "en": [
+     "By night, ape-like Morlocks rise from the abyss.",
+     "They enslave the Eloi through hunger and dread."
+    ],
+    "es": [
+     "De noche, Morlocks simiescos surgen del abismo.",
+     "Esclavizan a los Eloi con hambre y pavor."
+    ],
+    "vocab": {
+     "dread": "pavor"
+    }
+   },
+   {
+    "en": [
+     "They steal his machine and drag it below.",
+     "Without it, he is a slave of eternity."
+    ],
+    "es": [
+     "Roban su máquina y la arrastran abajo.",
+     "Sin ella, es un esclavo de la eternidad."
+    ],
+    "vocab": {
+     "steal": "roban",
+     "drag": "arrastran",
+     "below": "abajo",
+     "eternity": "eternidad"
+    }
+   },
+   {
+    "en": [
+     "He descends with matches trembling in his fist.",
+     "Eyes gleam; the underground exhales cold."
+    ],
+    "es": [
+     "Desciende con fósforos temblando en su puño.",
+     "Ojos brillan; el subsuelo exhala frío."
+    ],
+    "vocab": {
+     "descends": "desciende",
+     "matches": "fósforos",
+     "fist": "puño",
+     "gleam": "brillan",
+     "underground": "subsuelo",
+     "exhales": "exhala"
+    }
+   },
+   {
+    "en": [
+     "Fire, the ancient master, scatters the horde.",
+     "He reclaims his machine amid smoke and screams."
+    ],
+    "es": [
+     "El fuego, amo ancestral, dispersa la horda.",
+     "Recupera su máquina entre humo y gritos."
+    ],
+    "vocab": {
+     "ancient": "ancestral",
+     "scatters": "dispersa",
+     "horde": "horda",
+     "reclaims": "recupera",
+     "amid": "entre"
+    }
+   },
+   {
+    "en": [
+     "He flees further, to the dying red sun.",
+     "Crabs crawl on a silent, blood-colored beach."
+    ],
+    "es": [
+     "Huye más lejos, hacia el sol rojo moribundo.",
+     "Cangrejos se arrastran en una playa silenciosa color sangre."
+    ],
+    "vocab": {
+     "dying": "moribundo",
+     "crabs": "cangrejos"
+    }
+   },
+   {
+    "en": [
+     "Time, he understands, devours masters and slaves.",
+     "Only kindness might break its jaws."
+    ],
+    "es": [
+     "El tiempo, comprende, devora amos y esclavos.",
+     "Solo la bondad podría romper sus fauces."
+    ],
+    "vocab": {
+     "devours": "devora",
+     "kindness": "bondad",
+     "jaws": "fauces"
+    }
+   },
+   {
+    "en": [
+     "He returns with two strange flowers as proof.",
+     "Yet no one believes the slave who escaped time."
+    ],
+    "es": [
+     "Regresa con dos flores extrañas como prueba.",
+     "Pero nadie cree al esclavo que escapó del tiempo."
+    ],
+    "vocab": {
+     "proof": "prueba",
+     "believes": "cree",
+     "escaped": "escapó"
+    }
+   }
+  ]
+ },
+ {
+  "id": "invisible-chains",
+  "title": "Chains of Shadow",
+  "orig": "H. G. Wells · The Invisible Man",
+  "level": "C1",
+  "icon": "👻",
+  "desc": "Griffin logra la invisibilidad y se vuelve esclavo de su poder.",
+  "pages": [
+   {
+    "en": [
+     "A bandaged stranger rents a room in winter.",
+     "He demands silence, fire, and solitude."
+    ],
+    "es": [
+     "Un extraño vendado alquila un cuarto en invierno.",
+     "Exige silencio, fuego y soledad."
+    ],
+    "vocab": {
+     "bandaged": "vendado",
+     "stranger": "extraño",
+     "rents": "alquila",
+     "demands": "exige",
+     "solitude": "soledad"
+    }
+   },
+   {
+    "en": [
+     "Griffin has erased his own reflection.",
+     "Science has made him a living shadow."
+    ],
+    "es": [
+     "Griffin ha borrado su propio reflejo.",
+     "La ciencia lo ha vuelto sombra viviente."
+    ],
+    "vocab": {
+     "erased": "ha borrado",
+     "reflection": "reflejo",
+     "living": "viviente"
+    }
+   },
+   {
+    "en": [
+     "At first, invisibility tastes like freedom.",
+     "He steals, mocks, and vanishes laughing."
+    ],
+    "es": [
+     "Al principio, la invisibilidad sabe a libertad.",
+     "Roba, se burla y desaparece riendo."
+    ],
+    "vocab": {
+     "tastes": "sabe",
+     "freedom": "libertad",
+     "steals": "roba",
+     "mocks": "se burla",
+     "vanishes": "desaparece"
+    }
+   },
+   {
+    "en": [
+     "But the village hunts what it cannot see.",
+     "Footprints in snow betray the unseen slave."
+    ],
+    "es": [
+     "Pero la aldea caza lo que no puede ver.",
+     "Huellas en la nieve delatan al esclavo invisible."
+    ],
+    "vocab": {
+     "hunts": "caza",
+     "footprints": "huellas",
+     "betray": "delatan",
+     "unseen": "invisible"
+    }
+   },
+   {
+    "en": [
+     "He flees naked through the freezing night.",
+     "Power, he learns, is another chain."
+    ],
+    "es": [
+     "Huye desnudo en la noche helada.",
+     "El poder, aprende, es otra cadena."
+    ],
+    "vocab": {
+     "naked": "desnudo",
+     "freezing": "helada",
+     "power": "poder",
+     "chain": "cadena"
+    }
+   },
+   {
+    "en": [
+     "He seeks Kemp, his old fellow student.",
+     "Help me rule the shadows, he pleads."
+    ],
+    "es": [
+     "Busca a Kemp, su antiguo condiscípulo.",
+     "Ayúdame a gobernar las sombras, suplica."
+    ],
+    "vocab": {
+     "seeks": "busca",
+     "fellow": "condiscípulo",
+     "rule": "gobernar",
+     "pleads": "suplica"
+    }
+   },
+   {
+    "en": [
+     "Kemp, horrified, summons the police instead.",
+     "Reason refuses to kneel before terror."
+    ],
+    "es": [
+     "Kemp, horrorizado, llama a la policía.",
+     "La razón se niega a arrodillarse ante el terror."
+    ],
+    "vocab": {
+     "horrified": "horrorizado",
+     "summons": "llama / convoca",
+     "kneel": "arrodillarse"
+    }
+   },
+   {
+    "en": [
+     "Griffin declares a reign of invisible terror.",
+     "I will strangle the town with unseen hands."
+    ],
+    "es": [
+     "Griffin declara un reinado de terror invisible.",
+     "Estrangularé el pueblo con manos invisibles."
+    ],
+    "vocab": {
+     "reign": "reinado",
+     "strangle": "estrangular"
+    }
+   },
+   {
+    "en": [
+     "The crowd traps him with glass and powder.",
+     "Beaten hands paint his outline in dust."
+    ],
+    "es": [
+     "La multitud lo atrapa con vidrio y polvo.",
+     "Manos golpeadas dibujan su contorno en polvo."
+    ],
+    "vocab": {
+     "crowd": "multitud",
+     "traps": "atrapa",
+     "beaten": "golpeadas",
+     "outline": "contorno",
+     "dust": "polvo"
+    }
+   },
+   {
+    "en": [
+     "Dying, he slowly becomes visible again.",
+     "A bruised man sleeps free of shadows at last."
+    ],
+    "es": [
+     "Al morir, lentamente se vuelve visible otra vez.",
+     "Un hombre magullado duerme al fin libre de sombras."
+    ],
+    "vocab": {
+     "dying": "al morir",
+     "visible": "visible",
+     "bruised": "magullado"
+    }
+   }
+  ]
+ },
+ {
+  "id": "sleepy-hollow",
+  "title": "The Headless Rider",
+  "orig": "W. Irving · Sleepy Hollow",
+  "level": "A2",
+  "icon": "🎃",
+  "desc": "Un maestro miedoso cruza el puente viejo… algo lo sigue sin cabeza.",
+  "pages": [
+   {
+    "en": [
+     "Ichabod is a thin school teacher.",
+     "He loves food, songs, and ghost stories."
+    ],
+    "es": [
+     "Ichabod es un maestro delgado.",
+     "Ama la comida, las canciones y los cuentos de fantasmas."
+    ],
+    "vocab": {
+     "thin": "delgado",
+     "teacher": "maestro",
+     "loves": "ama",
+     "songs": "canciones",
+     "ghost": "fantasma"
+    }
+   },
+   {
+    "en": [
+     "He lives in the quiet town of Sleepy Hollow.",
+     "Everyone there believes in spirits."
+    ],
+    "es": [
+     "Vive en el tranquilo pueblo de Sleepy Hollow.",
+     "Todos allí creen en espíritus."
+    ],
+    "vocab": {
+     "quiet": "tranquilo",
+     "town": "pueblo",
+     "believes": "creen",
+     "spirits": "espíritus"
+    }
+   },
+   {
+    "en": [
+     "Ichabod loves the beautiful Katrina.",
+     "But Brom, a strong boy, loves her too."
+    ],
+    "es": [
+     "Ichabod ama a la hermosa Katrina.",
+     "Pero Brom, un muchacho fuerte, también la ama."
+    ],
+    "vocab": {
+     "beautiful": "hermosa",
+     "strong": "fuerte",
+     "loves": "ama"
+    }
+   },
+   {
+    "en": [
+     "One night there is a big party.",
+     "Ichabod eats cake and dances badly."
+    ],
+    "es": [
+     "Una noche hay una gran fiesta.",
+     "Ichabod come pastel y baila mal."
+    ],
+    "vocab": {
+     "party": "fiesta",
+     "eats": "come",
+     "cake": "pastel",
+     "dances": "baila",
+     "badly": "mal"
+    }
+   },
+   {
+    "en": [
+     "Old men tell scary stories by the fire.",
+     "A headless rider hunts at night, they say."
+    ],
+    "es": [
+     "Los ancianos cuentan historias de miedo junto al fuego.",
+     "Un jinete sin cabeza caza de noche, dicen."
+    ],
+    "vocab": {
+     "scary": "de miedo",
+     "fire": "fuego",
+     "headless": "sin cabeza",
+     "rider": "jinete",
+     "hunts": "caza"
+    }
+   },
+   {
+    "en": [
+     "Ichabod rides home on his old horse.",
+     "The road is dark and silent."
+    ],
+    "es": [
+     "Ichabod cabalga a casa en su viejo caballo.",
+     "El camino está oscuro y silencioso."
+    ],
+    "vocab": {
+     "rides": "cabalga",
+     "horse": "caballo",
+     "road": "camino",
+     "silent": "silencioso"
+    }
+   },
+   {
+    "en": [
+     "Behind him, hooves sound fast.",
+     "A black rider follows without a head!"
+    ],
+    "es": [
+     "Tras él, cascos suenan rápido.",
+     "¡Un jinete negro lo sigue sin cabeza!"
+    ],
+    "vocab": {
+     "behind": "tras",
+     "hooves": "cascos",
+     "fast": "rápido",
+     "follows": "sigue",
+     "without": "sin"
+    }
+   },
+   {
+    "en": [
+     "Ichabod screams and hits the horse.",
+     "Run, Gunpowder, run for your life!"
+    ],
+    "es": [
+     "Ichabod grita y golpea al caballo.",
+     "¡Corre, Pólvora, corre por tu vida!"
+    ],
+    "vocab": {
+     "screams": "grita",
+     "hits": "golpea",
+     "run": "corre",
+     "life": "vida"
+    }
+   },
+   {
+    "en": [
+     "The old bridge is near now.",
+     "Spirits cannot cross running water."
+    ],
+    "es": [
+     "El puente viejo está cerca ahora.",
+     "Los espíritus no pueden cruzar agua corriente."
+    ],
+    "vocab": {
+     "bridge": "puente",
+     "spirits": "espíritus",
+     "cross": "cruzar",
+     "water": "agua"
+    }
+   },
+   {
+    "en": [
+     "In the morning, only a hat remains.",
+     "And Brom smiles with Katrina forever."
+    ],
+    "es": [
+     "Por la mañana, solo queda un sombrero.",
+     "Y Brom sonríe con Katrina por siempre."
+    ],
+    "vocab": {
+     "morning": "mañana",
+     "hat": "sombrero",
+     "remains": "queda",
+     "smiles": "sonríe",
+     "forever": "por siempre"
+    }
+   }
+  ]
+ },
+ {
+  "id": "oz-road",
+  "title": "The Yellow Road",
+  "orig": "L. F. Baum · Oz",
+  "level": "A1",
+  "icon": "🌈",
+  "desc": "Dorothy y su perro siguen el camino amarillo al mago.",
+  "pages": [
+   {
+    "en": [
+     "Dorothy lives in a gray house.",
+     "Her little dog is Toto."
+    ],
+    "es": [
+     "Dorothy vive en una casa gris.",
+     "Su perrito es Toto."
+    ],
+    "vocab": {
+     "lives": "vive",
+     "gray": "gris",
+     "house": "casa",
+     "little": "pequeño",
+     "dog": "perro"
+    }
+   },
+   {
+    "en": [
+     "A big wind takes the house away.",
+     "The house flies through the sky."
+    ],
+    "es": [
+     "Un gran viento se lleva la casa.",
+     "La casa vuela por el cielo."
+    ],
+    "vocab": {
+     "wind": "viento",
+     "takes": "lleva",
+     "away": "lejos",
+     "flies": "vuela",
+     "sky": "cielo"
+    }
+   },
+   {
+    "en": [
+     "The house lands in a magic land.",
+     "Flowers sing and colors shine."
+    ],
+    "es": [
+     "La casa aterriza en una tierra mágica.",
+     "Las flores cantan y los colores brillan."
+    ],
+    "vocab": {
+     "lands": "aterriza",
+     "magic": "mágica",
+     "land": "tierra",
+     "flowers": "flores",
+     "shine": "brillan"
+    }
+   },
+   {
+    "en": [
+     "A good witch gives a kiss.",
+     "It will protect you, she says."
+    ],
+    "es": [
+     "Una bruja buena le da un beso.",
+     "Te protegerá, dice ella."
+    ],
+    "vocab": {
+     "witch": "bruja",
+     "gives": "da",
+     "kiss": "beso",
+     "protect": "protegerá",
+     "says": "dice"
+    }
+   },
+   {
+    "en": [
+     "Follow the yellow road, she says.",
+     "The Wizard lives in the green city."
+    ],
+    "es": [
+     "Sigue el camino amarillo, dice.",
+     "El Mago vive en la ciudad verde."
+    ],
+    "vocab": {
+     "follow": "sigue",
+     "road": "camino",
+     "wizard": "mago",
+     "green": "verde",
+     "city": "ciudad"
+    }
+   },
+   {
+    "en": [
+     "Dorothy meets a man of straw.",
+     "He wants a brain to think."
+    ],
+    "es": [
+     "Dorothy conoce a un hombre de paja.",
+     "Él quiere un cerebro para pensar."
+    ],
+    "vocab": {
+     "meets": "conoce",
+     "straw": "paja",
+     "wants": "quiere",
+     "brain": "cerebro",
+     "think": "pensar"
+    }
+   },
+   {
+    "en": [
+     "They meet a man of metal.",
+     "He wants a warm heart."
+    ],
+    "es": [
+     "Conocen a un hombre de metal.",
+     "Él quiere un corazón cálido."
+    ],
+    "vocab": {
+     "metal": "metal",
+     "warm": "cálido",
+     "heart": "corazón"
+    }
+   },
+   {
+    "en": [
+     "A big lion joins the friends.",
+     "He is afraid, but he is kind."
+    ],
+    "es": [
+     "Un gran león se une a los amigos.",
+     "Tiene miedo, pero es amable."
+    ],
+    "vocab": {
+     "lion": "león",
+     "joins": "se une",
+     "friends": "amigos",
+     "afraid": "miedo",
+     "kind": "amable"
+    }
+   },
+   {
+    "en": [
+     "The friends walk and sing together.",
+     "No slave walks this road alone."
+    ],
+    "es": [
+     "Los amigos caminan y cantan juntos.",
+     "Ningún esclavo camina solo este camino."
+    ],
+    "vocab": {
+     "walk": "caminan",
+     "sing": "cantan",
+     "together": "juntos",
+     "alone": "solo"
+    }
+   },
+   {
+    "en": [
+     "The green city shines far away.",
+     "Home is where the heart smiles."
+    ],
+    "es": [
+     "La ciudad verde brilla a lo lejos.",
+     "El hogar es donde el corazón sonríe."
+    ],
+    "vocab": {
+     "shines": "brilla",
+     "far": "lejos",
+     "home": "hogar",
+     "smiles": "sonríe"
+    }
+   }
+  ]
+ },
+ {
+  "id": "wonderland-rabbit",
+  "title": "Down the Rabbit Hole",
+  "orig": "L. Carroll · Alice",
+  "level": "A2",
+  "icon": "🐇",
+  "desc": "Alicia sigue un conejo con reloj y cae a un mundo loco.",
+  "pages": [
+   {
+    "en": [
+     "Alice sits bored by the river.",
+     "A white rabbit runs past her."
+    ],
+    "es": [
+     "Alicia se sienta aburrida junto al río.",
+     "Un conejo blanco pasa corriendo."
+    ],
+    "vocab": {
+     "bored": "aburrida",
+     "river": "río",
+     "rabbit": "conejo",
+     "runs": "corre"
+    }
+   },
+   {
+    "en": [
+     "The rabbit looks at his watch.",
+     "I am late, I am late! he cries."
+    ],
+    "es": [
+     "El conejo mira su reloj.",
+     "¡Llego tarde, llego tarde! llora."
+    ],
+    "vocab": {
+     "watch": "reloj",
+     "late": "tarde",
+     "cries": "llora"
+    }
+   },
+   {
+    "en": [
+     "Alice follows him to a hole.",
+     "She falls down, down, down."
+    ],
+    "es": [
+     "Alicia lo sigue a un agujero.",
+     "Ella cae abajo, abajo, abajo."
+    ],
+    "vocab": {
+     "follows": "sigue",
+     "hole": "agujero",
+     "falls": "cae",
+     "down": "abajo"
+    }
+   },
+   {
+    "en": [
+     "She lands in a strange hall.",
+     "Many little doors lock every wall."
+    ],
+    "es": [
+     "Aterriza en un salón extraño.",
+     "Muchas puertitas cierran cada pared."
+    ],
+    "vocab": {
+     "lands": "aterriza",
+     "strange": "extraño",
+     "hall": "salón",
+     "doors": "puertas",
+     "lock": "cierran",
+     "wall": "pared"
+    }
+   },
+   {
+    "en": [
+     "A small bottle says DRINK ME.",
+     "Alice drinks and shrinks fast."
+    ],
+    "es": [
+     "Una botellita dice BÉBEME.",
+     "Alicia bebe y se encoge rápido."
+    ],
+    "vocab": {
+     "bottle": "botella",
+     "drinks": "bebe",
+     "shrinks": "se encoge"
+    }
+   },
+   {
+    "en": [
+     "A small cake says EAT ME.",
+     "She grows tall like a tree."
+    ],
+    "es": [
+     "Un pastelito dice CÓMEME.",
+     "Ella crece alta como un árbol."
+    ],
+    "vocab": {
+     "cake": "pastel",
+     "grows": "crece",
+     "tall": "alta",
+     "tree": "árbol"
+    }
+   },
+   {
+    "en": [
+     "A blue caterpillar smokes slowly.",
+     "Who are YOU? he asks."
+    ],
+    "es": [
+     "Una oruga azul fuma despacio.",
+     "¿Quién eres TÚ? pregunta."
+    ],
+    "vocab": {
+     "caterpillar": "oruga",
+     "smokes": "fuma",
+     "slowly": "despacio",
+     "asks": "pregunta"
+    }
+   },
+   {
+    "en": [
+     "Alice drinks tea with a mad hare.",
+     "The clock always says tea time."
+    ],
+    "es": [
+     "Alicia toma té con una liebre loca.",
+     "El reloj siempre dice hora del té."
+    ],
+    "vocab": {
+     "tea": "té",
+     "mad": "loca",
+     "hare": "liebre",
+     "clock": "reloj",
+     "always": "siempre"
+    }
+   },
+   {
+    "en": [
+     "The Queen screams for heads.",
+     "Alice is not afraid anymore."
+    ],
+    "es": [
+     "La Reina grita por cabezas.",
+     "Alicia ya no tiene miedo."
+    ],
+    "vocab": {
+     "queen": "reina",
+     "screams": "grita",
+     "heads": "cabezas",
+     "afraid": "miedo",
+     "anymore": "ya"
+    }
+   },
+   {
+    "en": [
+     "Alice wakes by the river.",
+     "It was all a bright dream."
+    ],
+    "es": [
+     "Alicia despierta junto al río.",
+     "Todo fue un sueño brillante."
+    ],
+    "vocab": {
+     "wakes": "despierta",
+     "dream": "sueño",
+     "bright": "brillante"
+    }
+   }
+  ]
+ },
+ {
+  "id": "samurai-honor",
+  "title": "The Last Cherry Blossom",
+  "orig": "Tale of old Japan",
+  "level": "B1",
+  "icon": "⚔️",
+  "desc": "Un joven samurái debe elegir entre obedecer y proteger su aldea.",
+  "pages": [
+   {
+    "en": [
+     "Kenji trains with his wooden sword at dawn.",
+     "Cherry petals fall like pink snow."
+    ],
+    "es": [
+     "Kenji entrena con su espada de madera al amanecer.",
+     "Pétalos de cerezo caen como nieve rosa."
+    ],
+    "vocab": {
+     "trains": "entrena",
+     "wooden": "de madera",
+     "sword": "espada",
+     "petals": "pétalos",
+     "snow": "nieve"
+    }
+   },
+   {
+    "en": [
+     "The old master watches in silence.",
+     "Your arm is fast, but your heart is faster, he says."
+    ],
+    "es": [
+     "El viejo maestro mira en silencio.",
+     "Tu brazo es rápido, pero tu corazón es más rápido, dice."
+    ],
+    "vocab": {
+     "master": "maestro",
+     "silence": "silencio",
+     "fast": "rápido",
+     "heart": "corazón"
+    }
+   },
+   {
+    "en": [
+     "A cruel lord demands rice from the village.",
+     "Winter is coming and the barns are empty."
+    ],
+    "es": [
+     "Un señor cruel exige arroz de la aldea.",
+     "El invierno viene y los graneros están vacíos."
+    ],
+    "vocab": {
+     "cruel": "cruel",
+     "lord": "señor",
+     "demands": "exige",
+     "rice": "arroz",
+     "village": "aldea",
+     "empty": "vacíos"
+    }
+   },
+   {
+    "en": [
+     "Kenji must obey his lord by law.",
+     "But his mother was born in that village."
+    ],
+    "es": [
+     "Kenji debe obedecer a su señor por ley.",
+     "Pero su madre nació en esa aldea."
+    ],
+    "vocab": {
+     "obey": "obedecer",
+     "law": "ley",
+     "born": "nació"
+    }
+   },
+   {
+    "en": [
+     "At night he visits the old temple.",
+     "The monk serves bitter tea and wisdom."
+    ],
+    "es": [
+     "De noche visita el templo viejo.",
+     "El monje sirve té amargo y sabiduría."
+    ],
+    "vocab": {
+     "temple": "templo",
+     "monk": "monje",
+     "bitter": "amargo",
+     "wisdom": "sabiduría"
+    }
+   },
+   {
+    "en": [
+     "A sword without justice is a chain, the monk whispers.",
+     "Kenji bows and understands."
+    ],
+    "es": [
+     "Una espada sin justicia es una cadena, susurra el monje.",
+     "Kenji se inclina y comprende."
+    ],
+    "vocab": {
+     "justice": "justicia",
+     "chain": "cadena",
+     "whispers": "susurra",
+     "understands": "comprende"
+    }
+   },
+   {
+    "en": [
+     "Kenji returns the rice at midnight.",
+     "He leaves his sword as payment."
+    ],
+    "es": [
+     "Kenji devuelve el arroz a medianoche.",
+     "Deja su espada como pago."
+    ],
+    "vocab": {
+     "returns": "devuelve",
+     "midnight": "medianoche",
+     "payment": "pago"
+    }
+   },
+   {
+    "en": [
+     "The lord's guards arrest him at dawn.",
+     "Kenji does not raise his hands."
+    ],
+    "es": [
+     "Los guardias del señor lo arrestan al amanecer.",
+     "Kenji no levanta sus manos."
+    ],
+    "vocab": {
+     "guards": "guardias",
+     "arrest": "arrestan",
+     "raise": "levanta"
+    }
+   },
+   {
+    "en": [
+     "The villagers march to the castle together.",
+     "Free him, they sing without fear."
+    ],
+    "es": [
+     "Los aldeanos marchan juntos al castillo.",
+     "Libérenlo, cantan sin miedo."
+    ],
+    "vocab": {
+     "march": "marchan",
+     "castle": "castillo",
+     "free": "liberen",
+     "fear": "miedo"
+    }
+   },
+   {
+    "en": [
+     "The lord frees Kenji in shame.",
+     "Honor blooms longer than cherry trees."
+    ],
+    "es": [
+     "El señor libera a Kenji avergonzado.",
+     "El honor florece más que los cerezos."
+    ],
+    "vocab": {
+     "frees": "libera",
+     "shame": "vergüenza",
+     "honor": "honor",
+     "blooms": "florece"
+    }
+   }
+  ]
+ },
+ {
+  "id": "condor-andes",
+  "title": "The Condor's Gift",
+  "orig": "Andean legend",
+  "level": "A1",
+  "icon": "🦅",
+  "desc": "Una niña sube la montaña y el gran cóndor le da un regalo.",
+  "pages": [
+   {
+    "en": [
+     "Lucia lives under the big mountains.",
+     "She loves birds and songs."
+    ],
+    "es": [
+     "Lucía vive bajo las grandes montañas.",
+     "Ama los pájaros y las canciones."
+    ],
+    "vocab": {
+     "lives": "vive",
+     "mountains": "montañas",
+     "loves": "ama",
+     "birds": "pájaros",
+     "songs": "canciones"
+    }
+   },
+   {
+    "en": [
+     "Her grandmother is sick in bed.",
+     "Lucia wants a magic flower."
+    ],
+    "es": [
+     "Su abuela está enferma en cama.",
+     "Lucía quiere una flor mágica."
+    ],
+    "vocab": {
+     "sick": "enferma",
+     "bed": "cama",
+     "wants": "quiere",
+     "flower": "flor"
+    }
+   },
+   {
+    "en": [
+     "The flower grows on the high peak.",
+     "Only the condor knows the road."
+    ],
+    "es": [
+     "La flor crece en el pico alto.",
+     "Solo el cóndor conoce el camino."
+    ],
+    "vocab": {
+     "grows": "crece",
+     "high": "alto",
+     "peak": "pico",
+     "knows": "conoce",
+     "road": "camino"
+    }
+   },
+   {
+    "en": [
+     "Lucia climbs up in the morning.",
+     "The air is cold and thin."
+    ],
+    "es": [
+     "Lucía sube por la mañana.",
+     "El aire es frío y delgado."
+    ],
+    "vocab": {
+     "climbs": "sube",
+     "morning": "mañana",
+     "air": "aire",
+     "cold": "frío",
+     "thin": "delgado"
+    }
+   },
+   {
+    "en": [
+     "A big shadow covers the sun.",
+     "The great condor lands near her."
+    ],
+    "es": [
+     "Una gran sombra cubre el sol.",
+     "El gran cóndor aterriza cerca de ella."
+    ],
+    "vocab": {
+     "shadow": "sombra",
+     "covers": "cubre",
+     "sun": "sol",
+     "lands": "aterriza",
+     "near": "cerca"
+    }
+   },
+   {
+    "en": [
+     "Little girl, why do you climb? he asks.",
+     "For my grandmother, she answers."
+    ],
+    "es": [
+     "Niñita, ¿por qué subes? pregunta.",
+     "Por mi abuela, responde ella."
+    ],
+    "vocab": {
+     "little": "pequeña",
+     "climb": "subes",
+     "answers": "responde"
+    }
+   },
+   {
+    "en": [
+     "The condor opens his huge wings.",
+     "Climb on, brave heart, he says."
+    ],
+    "es": [
+     "El cóndor abre sus enormes alas.",
+     "Sube, corazón valiente, dice."
+    ],
+    "vocab": {
+     "wings": "alas",
+     "brave": "valiente",
+     "heart": "corazón",
+     "says": "dice"
+    }
+   },
+   {
+    "en": [
+     "They fly over clouds and snow.",
+     "Lucia laughs with happy tears."
+    ],
+    "es": [
+     "Vuelan sobre nubes y nieve.",
+     "Lucía ríe con lágrimas felices."
+    ],
+    "vocab": {
+     "fly": "vuelan",
+     "clouds": "nubes",
+     "snow": "nieve",
+     "laughs": "ríe",
+     "tears": "lágrimas"
+    }
+   },
+   {
+    "en": [
+     "The flower shines on the peak.",
+     "Lucia takes it with soft hands."
+    ],
+    "es": [
+     "La flor brilla en el pico.",
+     "Lucía la toma con manos suaves."
+    ],
+    "vocab": {
+     "shines": "brilla",
+     "takes": "toma",
+     "soft": "suaves",
+     "hands": "manos"
+    }
+   },
+   {
+    "en": [
+     "Grandmother smiles and is well.",
+     "Love flies higher than condors."
+    ],
+    "es": [
+     "La abuela sonríe y está bien.",
+     "El amor vuela más alto que los cóndores."
+    ],
+    "vocab": {
+     "smiles": "sonríe",
+     "love": "amor",
+     "higher": "más alto"
+    }
+   }
+  ]
+ },
+ {
+  "id": "viking-compass",
+  "title": "The Stone Compass",
+  "orig": "Northern saga",
+  "level": "B1",
+  "icon": "🧭",
+  "desc": "Una joven vikinga roba la brújula de piedra y navega a lo desconocido.",
+  "pages": [
+   {
+    "en": [
+     "Freya mends nets while men plan war.",
+     "Her eyes always look past the horizon."
+    ],
+    "es": [
+     "Freya remienda redes mientras los hombres planean la guerra.",
+     "Sus ojos siempre miran más allá del horizonte."
+    ],
+    "vocab": {
+     "mends": "remienda",
+     "nets": "redes",
+     "war": "guerra",
+     "horizon": "horizonte"
+    }
+   },
+   {
+    "en": [
+     "Her father guards a stone compass.",
+     "It points to lands no map remembers."
+    ],
+    "es": [
+     "Su padre guarda una brújula de piedra.",
+     "Apunta a tierras que ningún mapa recuerda."
+    ],
+    "vocab": {
+     "guards": "guarda",
+     "compass": "brújula",
+     "points": "apunta",
+     "remembers": "recuerda"
+    }
+   },
+   {
+    "en": [
+     "One stormy night Freya takes it.",
+     "Forgive me, father, she whispers to the wind."
+    ],
+    "es": [
+     "Una noche de tormenta Freya la toma.",
+     "Perdóname, padre, susurra al viento."
+    ],
+    "vocab": {
+     "stormy": "de tormenta",
+     "takes": "toma",
+     "forgive": "perdóname",
+     "whispers": "susurra",
+     "wind": "viento"
+    }
+   },
+   {
+    "en": [
+     "She sails west with three friends.",
+     "The sea is a slave to no king."
+    ],
+    "es": [
+     "Navega al oeste con tres amigos.",
+     "El mar no es esclavo de ningún rey."
+    ],
+    "vocab": {
+     "sails": "navega",
+     "west": "oeste",
+     "sea": "mar",
+     "king": "rey"
+    }
+   },
+   {
+    "en": [
+     "For days, fog eats the sun.",
+     "The crew sings to kill the fear."
+    ],
+    "es": [
+     "Por días, la niebla devora el sol.",
+     "La tripulación canta para matar el miedo."
+    ],
+    "vocab": {
+     "fog": "niebla",
+     "crew": "tripulación",
+     "fear": "miedo"
+    }
+   },
+   {
+    "en": [
+     "On the seventh dawn, birds scream.",
+     "Land! Land! cries the youngest sailor."
+    ],
+    "es": [
+     "Al séptimo amanecer, los pájaros gritan.",
+     "¡Tierra! ¡Tierra! llora el marinero más joven."
+    ],
+    "vocab": {
+     "dawn": "amanecer",
+     "birds": "pájaros",
+     "sailor": "marinero"
+    }
+   },
+   {
+    "en": [
+     "Green cliffs rise from white foam.",
+     "Berries shine like red stars."
+    ],
+    "es": [
+     "Acantilados verdes surgen de espuma blanca.",
+     "Bayas brillan como estrellas rojas."
+    ],
+    "vocab": {
+     "cliffs": "acantilados",
+     "foam": "espuma",
+     "berries": "bayas",
+     "stars": "estrellas"
+    }
+   },
+   {
+    "en": [
+     "Strangers bring bread, not swords.",
+     "Freya offers amber for salt."
+    ],
+    "es": [
+     "Extraños traen pan, no espadas.",
+     "Freya ofrece ámbar por sal."
+    ],
+    "vocab": {
+     "strangers": "extraños",
+     "bread": "pan",
+     "swords": "espadas",
+     "offers": "ofrece",
+     "salt": "sal"
+    }
+   },
+   {
+    "en": [
+     "They return before the first snow.",
+     "Her father's anger melts into pride."
+    ],
+    "es": [
+     "Regresan antes de la primera nieve.",
+     "La ira de su padre se derrite en orgullo."
+    ],
+    "vocab": {
+     "return": "regresan",
+     "snow": "nieve",
+     "anger": "ira",
+     "pride": "orgullo"
+    }
+   },
+   {
+    "en": [
+     "The compass now points home.",
+     "Courage is the truest north."
+    ],
+    "es": [
+     "La brújula ahora apunta a casa.",
+     "El valor es el verdadero norte."
+    ],
+    "vocab": {
+     "home": "casa",
+     "courage": "valor",
+     "north": "norte"
+    }
+   }
+  ]
+ },
+ {
+  "id": "sahara-secret",
+  "title": "The Well of Stars",
+  "orig": "Desert tale",
+  "level": "B2",
+  "icon": "🏜️",
+  "desc": "Una guía tuareg busca el pozo que solo aparece sin luna.",
+  "pages": [
+   {
+    "en": [
+     "Amina guides caravans through the dunes.",
+     "She reads sand the way others read books."
+    ],
+    "es": [
+     "Amina guía caravanas por las dunas.",
+     "Lee la arena como otros leen libros."
+    ],
+    "vocab": {
+     "guides": "guía",
+     "caravans": "caravanas",
+     "dunes": "dunas",
+     "sand": "arena"
+    }
+   },
+   {
+    "en": [
+     "Her grandfather spoke of a hidden well.",
+     "It opens only on moonless nights, he swore."
+    ],
+    "es": [
+     "Su abuelo habló de un pozo oculto.",
+     "Solo se abre en noches sin luna, juró."
+    ],
+    "vocab": {
+     "hidden": "oculto",
+     "well": "pozo",
+     "moonless": "sin luna",
+     "swore": "juró"
+    }
+   },
+   {
+    "en": [
+     "A merchant offers gold for its water.",
+     "Water that never dries, he dreams aloud."
+    ],
+    "es": [
+     "Un mercader ofrece oro por su agua.",
+     "Agua que nunca se seca, sueña en voz alta."
+    ],
+    "vocab": {
+     "merchant": "mercader",
+     "gold": "oro",
+     "dries": "se seca",
+     "dreams": "sueña"
+    }
+   },
+   {
+    "en": [
+     "Amina refuses to sell the desert.",
+     "Some chains shine like coins, she answers."
+    ],
+    "es": [
+     "Amina se niega a vender el desierto.",
+     "Algunas cadenas brillan como monedas, responde."
+    ],
+    "vocab": {
+     "refuses": "se niega",
+     "sell": "vender",
+     "chains": "cadenas",
+     "coins": "monedas"
+    }
+   },
+   {
+    "en": [
+     "On the darkest night they ride out.",
+     "Three camels, two skins of water, one secret."
+    ],
+    "es": [
+     "En la noche más oscura cabalgan.",
+     "Tres camellos, dos odres de agua, un secreto."
+    ],
+    "vocab": {
+     "darkest": "más oscura",
+     "ride": "cabalgan",
+     "camels": "camellos",
+     "secret": "secreto"
+    }
+   },
+   {
+    "en": [
+     "The merchant follows in secret.",
+     "Greed rides faster than camels."
+    ],
+    "es": [
+     "El mercader los sigue en secreto.",
+     "La codicia cabalga más rápido que los camellos."
+    ],
+    "vocab": {
+     "greed": "codicia"
+    }
+   },
+   {
+    "en": [
+     "At midnight the sand begins to sing.",
+     "Stars fall and open a black mirror."
+    ],
+    "es": [
+     "A medianoche la arena empieza a cantar.",
+     "Las estrellas caen y abren un espejo negro."
+    ],
+    "vocab": {
+     "midnight": "medianoche",
+     "sing": "cantar",
+     "mirror": "espejo"
+    }
+   },
+   {
+    "en": [
+     "Amina drinks and fills one skin.",
+     "Enough for all, never for sale, she vows."
+    ],
+    "es": [
+     "Amina bebe y llena un odre.",
+     "Suficiente para todos, nunca en venta, jura."
+    ],
+    "vocab": {
+     "drinks": "bebe",
+     "enough": "suficiente",
+     "sale": "venta",
+     "vows": "jura"
+    }
+   },
+   {
+    "en": [
+     "The merchant dives in with his bags.",
+     "The well closes over his greed."
+    ],
+    "es": [
+     "El mercader se lanza con sus bolsas.",
+     "El pozo se cierra sobre su codicia."
+    ],
+    "vocab": {
+     "dives": "se lanza",
+     "closes": "se cierra"
+    }
+   },
+   {
+    "en": [
+     "Amina leads the caravan home.",
+     "The desert keeps slaves and freed alike."
+    ],
+    "es": [
+     "Amina guía la caravana a casa.",
+     "El desierto guarda esclavos y libres por igual."
+    ],
+    "vocab": {
+     "leads": "guía",
+     "keeps": "guarda",
+     "freed": "libres",
+     "alike": "por igual"
+    }
+   }
+  ]
+ },
+ {
+  "id": "mermaid-zanzibar",
+  "title": "The Pearl Singer",
+  "orig": "Swahili legend",
+  "level": "A2",
+  "icon": "🧜",
+  "desc": "Un pescador oye cantar bajo el mar y halla una sirena herida.",
+  "pages": [
+   {
+    "en": [
+     "Juma fishes at dawn every day.",
+     "His boat is small but his heart is big."
+    ],
+    "es": [
+     "Juma pesca al amanecer cada día.",
+     "Su barca es pequeña pero su corazón es grande."
+    ],
+    "vocab": {
+     "fishes": "pesca",
+     "dawn": "amanecer",
+     "boat": "barca",
+     "heart": "corazón"
+    }
+   },
+   {
+    "en": [
+     "One morning he hears sweet singing.",
+     "It comes from under the blue waves."
+    ],
+    "es": [
+     "Una mañana oye un dulce canto.",
+     "Viene de debajo de las olas azules."
+    ],
+    "vocab": {
+     "hears": "oye",
+     "singing": "canto",
+     "waves": "olas"
+    }
+   },
+   {
+    "en": [
+     "A mermaid lies hurt on the sand.",
+     "A net holds her silver tail."
+    ],
+    "es": [
+     "Una sirena yace herida en la arena.",
+     "Una red sujeta su cola plateada."
+    ],
+    "vocab": {
+     "mermaid": "sirena",
+     "hurt": "herida",
+     "sand": "arena",
+     "net": "red",
+     "tail": "cola"
+    }
+   },
+   {
+    "en": [
+     "Do not be afraid, Juma says softly.",
+     "I will free you now."
+    ],
+    "es": [
+     "No tengas miedo, dice Juma suave.",
+     "Te liberaré ahora."
+    ],
+    "vocab": {
+     "afraid": "miedo",
+     "softly": "suave",
+     "free": "liberaré"
+    }
+   },
+   {
+    "en": [
+     "He cuts the net with his knife.",
+     "The mermaid cries happy tears."
+    ],
+    "es": [
+     "Corta la red con su cuchillo.",
+     "La sirena llora lágrimas felices."
+    ],
+    "vocab": {
+     "cuts": "corta",
+     "knife": "cuchillo",
+     "tears": "lágrimas"
+    }
+   },
+   {
+    "en": [
+     "Take this pearl for your kindness, she sings.",
+     "It shines when danger is near."
+    ],
+    "es": [
+     "Toma esta perla por tu bondad, canta.",
+     "Brilla cuando el peligro está cerca."
+    ],
+    "vocab": {
+     "pearl": "perla",
+     "kindness": "bondad",
+     "shines": "brilla",
+     "danger": "peligro",
+     "near": "cerca"
+    }
+   },
+   {
+    "en": [
+     "Juma sells fish and saves money.",
+     "He buys medicine for his village."
+    ],
+    "es": [
+     "Juma vende pescado y ahorra dinero.",
+     "Compra medicina para su aldea."
+    ],
+    "vocab": {
+     "sells": "vende",
+     "fish": "pescado",
+     "money": "dinero",
+     "medicine": "medicina",
+     "village": "aldea"
+    }
+   },
+   {
+    "en": [
+     "One night pirates attack the village.",
+     "The pearl burns red in his pocket."
+    ],
+    "es": [
+     "Una noche piratas atacan la aldea.",
+     "La perla arde roja en su bolsillo."
+    ],
+    "vocab": {
+     "pirates": "piratas",
+     "attack": "atacan",
+     "burns": "arde",
+     "pocket": "bolsillo"
+    }
+   },
+   {
+    "en": [
+     "Juma throws the pearl to the sea.",
+     "Waves rise and push the pirates away."
+    ],
+    "es": [
+     "Juma lanza la perla al mar.",
+     "Las olas se alzan y empujan a los piratas."
+    ],
+    "vocab": {
+     "throws": "lanza",
+     "rise": "se alzan",
+     "push": "empujan",
+     "away": "lejos"
+    }
+   },
+   {
+    "en": [
+     "The village is safe and sings.",
+     "Kindness returns like the tide."
+    ],
+    "es": [
+     "La aldea está a salvo y canta.",
+     "La bondad regresa como la marea."
+    ],
+    "vocab": {
+     "safe": "a salvo",
+     "kindness": "bondad",
+     "tide": "marea"
+    }
+   }
+  ]
+ },
+ {
+  "id": "atlantis-bell",
+  "title": "The Bell of Atlantis",
+  "orig": "Sea myth",
+  "level": "B2",
+  "icon": "🔔",
+  "desc": "Una buceadora halla una campana que toca sola… y la ciudad despierta.",
+  "pages": [
+   {
+    "en": [
+     "Mara dives deeper than anyone dares.",
+     "Her grandfather vanished in these waters."
+    ],
+    "es": [
+     "Mara bucea más hondo de lo que nadie se atreve.",
+     "Su abuelo desapareció en estas aguas."
+    ],
+    "vocab": {
+     "dives": "bucea",
+     "deeper": "más hondo",
+     "dares": "se atreve",
+     "vanished": "desapareció",
+     "waters": "aguas"
+    }
+   },
+   {
+    "en": [
+     "At forty meters the light turns green.",
+     "A bronze bell sleeps in the sand."
+    ],
+    "es": [
+     "A cuarenta metros la luz se vuelve verde.",
+     "Una campana de bronce duerme en la arena."
+    ],
+    "vocab": {
+     "light": "luz",
+     "bell": "campana",
+     "sand": "arena"
+    }
+   },
+   {
+    "en": [
+     "Mara touches it; it rings alone.",
+     "Sound travels where light cannot."
+    ],
+    "es": [
+     "Mara la toca; suena sola.",
+     "El sonido viaja donde la luz no puede."
+    ],
+    "vocab": {
+     "rings": "suena",
+     "sound": "sonido",
+     "travels": "viaja"
+    }
+   },
+   {
+    "en": [
+     "The sand opens like an eye.",
+     "Stairs of white stone invite her down."
+    ],
+    "es": [
+     "La arena se abre como un ojo.",
+     "Escalones de piedra blanca la invitan a bajar."
+    ],
+    "vocab": {
+     "opens": "se abre",
+     "stairs": "escalones",
+     "stone": "piedra",
+     "invite": "invitan"
+    }
+   },
+   {
+    "en": [
+     "A city of glass wakes slowly.",
+     "Fishermen with silver eyes stare at her."
+    ],
+    "es": [
+     "Una ciudad de cristal despierta despacio.",
+     "Pescadores de ojos plateados la miran."
+    ],
+    "vocab": {
+     "city": "ciudad",
+     "glass": "cristal",
+     "stare": "miran"
+    }
+   },
+   {
+    "en": [
+     "You rang the debt bell, they chant.",
+     "One of ours for one of yours, they demand."
+    ],
+    "es": [
+     "Tocaste la campana de la deuda, corean.",
+     "Uno de los nuestros por uno de los tuyos, exigen."
+    ],
+    "vocab": {
+     "debt": "deuda",
+     "chant": "corean",
+     "demand": "exigen"
+    }
+   },
+   {
+    "en": [
+     "Mara understands: her grandfather stayed.",
+     "He traded his years for their storm wall."
+    ],
+    "es": [
+     "Mara comprende: su abuelo se quedó.",
+     "Cambió sus años por su muro de tormentas."
+    ],
+    "vocab": {
+     "understands": "comprende",
+     "traded": "cambió",
+     "storm": "tormentas",
+     "wall": "muro"
+    }
+   },
+   {
+    "en": [
+     "Take me instead, Mara offers.",
+     "The bell rings twice and accepts."
+    ],
+    "es": [
+     "Tómame a mí en cambio, ofrece Mara.",
+     "La campana suena dos veces y acepta."
+    ],
+    "vocab": {
+     "instead": "en cambio",
+     "offers": "ofrece",
+     "accepts": "acepta"
+    }
+   },
+   {
+    "en": [
+     "An old man with her eyes steps forward.",
+     "Grandfather! Time kept him young."
+    ],
+    "es": [
+     "Un anciano con sus ojos avanza.",
+     "¡Abuelo! El tiempo lo mantuvo joven."
+    ],
+    "vocab": {
+     "steps": "avanza",
+     "young": "joven"
+    }
+   },
+   {
+    "en": [
+     "They rise together toward the sun.",
+     "Some chains break when love pays."
+    ],
+    "es": [
+     "Suben juntos hacia el sol.",
+     "Algunas cadenas se rompen cuando el amor paga."
+    ],
+    "vocab": {
+     "rise": "suben",
+     "sun": "sol",
+     "break": "se rompen",
+     "love": "amor"
+    }
+   }
+  ]
+ },
+ {
+  "id": "last-library",
+  "title": "The Last Library",
+  "orig": "A tale for readers",
+  "level": "C1",
+  "icon": "📚",
+  "desc": "En un mundo sin libros, una niña guarda la última biblioteca bajo tierra.",
+  "pages": [
+   {
+    "en": [
+     "In the gray city, screens replaced every book.",
+     "Forgetting became the law of comfort."
+    ],
+    "es": [
+     "En la ciudad gris, las pantallas reemplazaron cada libro.",
+     "Olvidar se volvió la ley de la comodidad."
+    ],
+    "vocab": {
+     "screens": "pantallas",
+     "replaced": "reemplazaron",
+     "forgetting": "olvidar",
+     "comfort": "comodidad"
+    }
+   },
+   {
+    "en": [
+     "Wren, twelve, inherits a brass key.",
+     "Her grandmother's whisper guides her moves."
+    ],
+    "es": [
+     "Wren, doce años, hereda una llave de latón.",
+     "El susurro de su abuela guía sus pasos."
+    ],
+    "vocab": {
+     "inherits": "hereda",
+     "brass": "latón",
+     "whisper": "susurro",
+     "guides": "guía"
+    }
+   },
+   {
+    "en": [
+     "Beneath the bakery, stairs descend into warmth.",
+     "Ten thousand spines breathe in the dark."
+    ],
+    "es": [
+     "Bajo la panadería, escalones descienden al calor.",
+     "Diez mil lomos respiran en la oscuridad."
+    ],
+    "vocab": {
+     "beneath": "bajo",
+     "descend": "descienden",
+     "warmth": "calor",
+     "breathe": "respiran"
+    }
+   },
+   {
+    "en": [
+     "The Inspectors hunt remaining paper.",
+     "Ink, they preach, enslaves the mind."
+    ],
+    "es": [
+     "Los Inspectores cazan el papel restante.",
+     "La tinta, predican, esclaviza la mente."
+    ],
+    "vocab": {
+     "hunt": "cazan",
+     "remaining": "restante",
+     "preach": "predican",
+     "enslaves": "esclaviza"
+    }
+   },
+   {
+    "en": [
+     "Wren memorizes one poem each night.",
+     "Words become birds she cannot cage."
+    ],
+    "es": [
+     "Wren memoriza un poema cada noche.",
+     "Las palabras se vuelven pájaros que no puede enjaular."
+    ],
+    "vocab": {
+     "memorizes": "memoriza",
+     "poem": "poema",
+     "birds": "pájaros",
+     "cage": "enjaular"
+    }
+   },
+   {
+    "en": [
+     "She teaches fragments to trusted friends.",
+     "Each child carries one forbidden verse."
+    ],
+    "es": [
+     "Enseña fragmentos a amigos de confianza.",
+     "Cada niño lleva un verso prohibido."
+    ],
+    "vocab": {
+     "teaches": "enseña",
+     "trusted": "de confianza",
+     "forbidden": "prohibido",
+     "verse": "verso"
+    }
+   },
+   {
+    "en": [
+     "Betrayed by hunger, she is caught at dawn.",
+     "The key burns cold in her fist."
+    ],
+    "es": [
+     "Traicionada por el hambre, la atrapan al amanecer.",
+     "La llave quema fría en su puño."
+    ],
+    "vocab": {
+     "betrayed": "traicionada",
+     "hunger": "hambre",
+     "caught": "atrapan",
+     "fist": "puño"
+    }
+   },
+   {
+    "en": [
+     "Burn them, orders the pale Inspector.",
+     "Wren smiles: they live in us now."
+    ],
+    "es": [
+     "Quémenlos, ordena el pálido Inspector.",
+     "Wren sonríe: ahora viven en nosotros."
+    ],
+    "vocab": {
+     "burn": "quemen",
+     "orders": "ordena",
+     "pale": "pálido"
+    }
+   },
+   {
+    "en": [
+     "Forty voices recite in the square.",
+     "The fire forgets whom to devour."
+    ],
+    "es": [
+     "Cuarenta voces recitan en la plaza.",
+     "El fuego olvida a quién devorar."
+    ],
+    "vocab": {
+     "recite": "recitan",
+     "square": "plaza",
+     "devour": "devorar"
+    }
+   },
+   {
+    "en": [
+     "The city learns to read again.",
+     "No wall outlives a whispered tale."
+    ],
+    "es": [
+     "La ciudad aprende a leer de nuevo.",
+     "Ningún muro sobrevive a un cuento susurrado."
+    ],
+    "vocab": {
+     "learns": "aprende",
+     "outlives": "sobrevive",
+     "tale": "cuento"
+    }
+   }
+  ]
+ },
+ {
+  "id": "moon-garden",
+  "title": "The Moon Garden",
+  "orig": "A bedtime tale",
+  "level": "A1",
+  "icon": "🌙",
+  "desc": "Lila planta semillas de noche y el jardín despierta con la luna.",
+  "pages": [
+   {
+    "en": [
+     "Lila loves night flowers.",
+     "She plants seeds after dinner."
+    ],
+    "es": [
+     "A Lila le encantan las flores nocturnas.",
+     "Planta semillas después de cenar."
+    ],
+    "vocab": {
+     "loves": "le encantan",
+     "flowers": "flores",
+     "plants": "planta",
+     "seeds": "semillas",
+     "dinner": "cena"
+    }
+   },
+   {
+    "en": [
+     "Grandpa gives her silver seeds.",
+     "Plant them with a song, he says."
+    ],
+    "es": [
+     "El abuelo le da semillas plateadas.",
+     "Plántalas con una canción, dice."
+    ],
+    "vocab": {
+     "silver": "plateadas",
+     "song": "canción",
+     "says": "dice"
+    }
+   },
+   {
+    "en": [
+     "Lila sings to the dark soil.",
+     "The soil smells like rain."
+    ],
+    "es": [
+     "Lila le canta a la tierra oscura.",
+     "La tierra huele a lluvia."
+    ],
+    "vocab": {
+     "sings": "canta",
+     "soil": "tierra",
+     "smells": "huele",
+     "rain": "lluvia"
+    }
+   },
+   {
+    "en": [
+     "The moon rises round and kind.",
+     "Moonlight touches the garden."
+    ],
+    "es": [
+     "La luna sale redonda y amable.",
+     "La luz de luna toca el jardín."
+    ],
+    "vocab": {
+     "moon": "luna",
+     "kind": "amable",
+     "touches": "toca",
+     "garden": "jardín"
+    }
+   },
+   {
+    "en": [
+     "Tiny sprouts open silver eyes.",
+     "Hello, Lila, they whisper."
+    ],
+    "es": [
+     "Brotes pequeños abren ojos plateados.",
+     "Hola, Lila, susurran."
+    ],
+    "vocab": {
+     "sprouts": "brotes",
+     "open": "abren",
+     "eyes": "ojos",
+     "whisper": "susurran"
+    }
+   },
+   {
+    "en": [
+     "Bluebells ring soft songs.",
+     "Fireflies dance over them."
+    ],
+    "es": [
+     "Campanillas tocan canciones suaves.",
+     "Luciérnagas bailan sobre ellas."
+    ],
+    "vocab": {
+     "songs": "canciones",
+     "soft": "suaves",
+     "dance": "bailan"
+    }
+   },
+   {
+    "en": [
+     "A sleepy owl lands near.",
+     "Beautiful garden, he hoots."
+    ],
+    "es": [
+     "Un búho soñoliento aterriza cerca.",
+     "Hermoso jardín, ulula."
+    ],
+    "vocab": {
+     "sleepy": "soñoliento",
+     "owl": "búho",
+     "lands": "aterriza",
+     "beautiful": "hermoso"
+    }
+   },
+   {
+    "en": [
+     "Lila gives him a moonflower.",
+     "For your night flights, she says."
+    ],
+    "es": [
+     "Lila le da una flor lunar.",
+     "Para tus vuelos nocturnos, dice."
+    ],
+    "vocab": {
+     "gives": "da",
+     "flights": "vuelos",
+     "night": "nocturnos"
+    }
+   },
+   {
+    "en": [
+     "The garden glows till dawn.",
+     "Stars clap with tiny hands."
+    ],
+    "es": [
+     "El jardín brilla hasta el amanecer.",
+     "Las estrellas aplauden con manitas."
+    ],
+    "vocab": {
+     "glows": "brilla",
+     "dawn": "amanecer",
+     "stars": "estrellas"
+    }
+   },
+   {
+    "en": [
+     "Lila sleeps with a smile.",
+     "Dreams smell like moonflowers."
+    ],
+    "es": [
+     "Lila duerme con sonrisa.",
+     "Los sueños huelen a flores lunares."
+    ],
+    "vocab": {
+     "sleeps": "duerme",
+     "smile": "sonrisa",
+     "dreams": "sueños",
+     "smell": "huelen"
+    }
+   }
+  ]
+ },
+ {
+  "id": "cloud-shepherd",
+  "title": "The Cloud Shepherd",
+  "orig": "A sky tale",
+  "level": "A1",
+  "icon": "☁️",
+  "desc": "Nico cuida nubes traviesas con un silbato de viento.",
+  "pages": [
+   {
+    "en": [
+     "Nico lives on a high hill.",
+     "He keeps clouds, not sheep."
+    ],
+    "es": [
+     "Nico vive en una colina alta.",
+     "Cuida nubes, no ovejas."
+    ],
+    "vocab": {
+     "lives": "vive",
+     "hill": "colina",
+     "keeps": "cuida",
+     "clouds": "nubes",
+     "sheep": "ovejas"
+    }
+   },
+   {
+    "en": [
+     "His whistle is made of wind.",
+     "Clouds come when he calls."
+    ],
+    "es": [
+     "Su silbato es de viento.",
+     "Las nubes vienen cuando llama."
+    ],
+    "vocab": {
+     "whistle": "silbato",
+     "wind": "viento",
+     "calls": "llama"
+    }
+   },
+   {
+    "en": [
+     "Morning clouds are white lambs.",
+     "They drink sunshine happily."
+    ],
+    "es": [
+     "Las nubes mañaneras son corderos blancos.",
+     "Beben sol felices."
+    ],
+    "vocab": {
+     "morning": "mañaneras",
+     "lambs": "corderos",
+     "drink": "beben",
+     "sunshine": "sol"
+    }
+   },
+   {
+    "en": [
+     "One gray cloud always runs.",
+     "Catch me, shepherd! it laughs."
+    ],
+    "es": [
+     "Una nube gris siempre corre.",
+     "¡Atrápame, pastor! ríe."
+    ],
+    "vocab": {
+     "gray": "gris",
+     "runs": "corre",
+     "catch": "atrapa",
+     "laughs": "ríe"
+    }
+   },
+   {
+    "en": [
+     "Nico runs after it fast.",
+     "Wait for me, little storm!"
+    ],
+    "es": [
+     "Nico corre tras ella rápido.",
+     "¡Espérame, tormentita!"
+    ],
+    "vocab": {
+     "after": "tras",
+     "fast": "rápido",
+     "storm": "tormenta"
+    }
+   },
+   {
+    "en": [
+     "The cloud cries rainy tears.",
+     "I only want to play, it sobs."
+    ],
+    "es": [
+     "La nube llora lágrimas de lluvia.",
+     "Solo quiero jugar, solloza."
+    ],
+    "vocab": {
+     "cries": "llora",
+     "tears": "lágrimas",
+     "play": "jugar"
+    }
+   },
+   {
+    "en": [
+     "Nico hugs the soft cloud.",
+     "Play with me, not alone, he says."
+    ],
+    "es": [
+     "Nico abraza la nube suave.",
+     "Juega conmigo, no sola, dice."
+    ],
+    "vocab": {
+     "hugs": "abraza",
+     "soft": "suave",
+     "alone": "sola",
+     "says": "dice"
+    }
+   },
+   {
+    "en": [
+     "They race across the sky.",
+     "Villages below get soft rain."
+    ],
+    "es": [
+     "Corren por el cielo.",
+     "Las aldeas reciben lluvia suave."
+    ],
+    "vocab": {
+     "race": "corren",
+     "sky": "cielo",
+     "rain": "lluvia"
+    }
+   },
+   {
+    "en": [
+     "At night clouds sleep in blue.",
+     "Nico sings them to rest."
+    ],
+    "es": [
+     "De noche las nubes duermen en azul.",
+     "Nico les canta para dormir."
+    ],
+    "vocab": {
+     "night": "noche",
+     "sleep": "duermen",
+     "sings": "canta",
+     "rest": "dormir"
+    }
+   },
+   {
+    "en": [
+     "The gray cloud smiles now.",
+     "Shepherd of my heart, it sighs."
+    ],
+    "es": [
+     "La nube gris sonríe ahora.",
+     "Pastor de mi corazón, suspira."
+    ],
+    "vocab": {
+     "smiles": "sonríe",
+     "heart": "corazón"
+    }
+   }
+  ]
+ },
+ {
+  "id": "troll-bridge",
+  "title": "The Troll Who Charged Tales",
+  "orig": "A bridge tale",
+  "level": "A1",
+  "icon": "🌉",
+  "desc": "Bajo el puente, Gruñón no quiere monedas: quiere cuentos.",
+  "pages": [
+   {
+    "en": [
+     "A troll lives under the bridge.",
+     "His name is Grumpy."
+    ],
+    "es": [
+     "Un troll vive bajo el puente.",
+     "Se llama Gruñón."
+    ],
+    "vocab": {
+     "lives": "vive",
+     "bridge": "puente",
+     "name": "llama"
+    }
+   },
+   {
+    "en": [
+     "He stops every traveler.",
+     "Pay with a story, he growls."
+    ],
+    "es": [
+     "Detiene a cada viajero.",
+     "Paga con un cuento, gruñe."
+    ],
+    "vocab": {
+     "stops": "detiene",
+     "traveler": "viajero",
+     "story": "cuento"
+    }
+   },
+   {
+    "en": [
+     "Coins? No! Keep your gold.",
+     "Stories feed my heart, he says."
+    ],
+    "es": [
+     "¿Monedas? ¡No! Guarda tu oro.",
+     "Los cuentos alimentan mi corazón, dice."
+    ],
+    "vocab": {
+     "gold": "oro",
+     "feed": "alimentan",
+     "heart": "corazón",
+     "says": "dice"
+    }
+   },
+   {
+    "en": [
+     "A baker tells of warm bread.",
+     "Grumpy smiles a little."
+    ],
+    "es": [
+     "Un panadero cuenta del pan tibio.",
+     "Gruñón sonríe un poco."
+    ],
+    "vocab": {
+     "baker": "panadero",
+     "bread": "pan",
+     "smiles": "sonríe"
+    }
+   },
+   {
+    "en": [
+     "A child tells of a lost kite.",
+     "Grumpy wipes one tear."
+    ],
+    "es": [
+     "Un niño cuenta de una cometa perdida.",
+     "Gruñón seca una lágrima."
+    ],
+    "vocab": {
+     "child": "niño",
+     "lost": "perdida",
+     "tear": "lágrima"
+    }
+   },
+   {
+    "en": [
+     "A sailor tells of wild waves.",
+     "Grumpy claps his big hands."
+    ],
+    "es": [
+     "Un marinero cuenta de olas salvajes.",
+     "Gruñón aplaude con sus manotas."
+    ],
+    "vocab": {
+     "sailor": "marinero",
+     "waves": "olas",
+     "hands": "manos"
+    }
+   },
+   {
+    "en": [
+     "One day nobody comes.",
+     "The bridge stands silent and gray."
+    ],
+    "es": [
+     "Un día nadie viene.",
+     "El puente queda gris y callado."
+    ],
+    "vocab": {
+     "nobody": "nadie",
+     "silent": "callado",
+     "gray": "gris"
+    }
+   },
+   {
+    "en": [
+     "Grumpy feels empty inside.",
+     "Stories were my sunshine, he sighs."
+    ],
+    "es": [
+     "Gruñón se siente vacío.",
+     "Los cuentos eran mi sol, suspira."
+    ],
+    "vocab": {
+     "empty": "vacío",
+     "sunshine": "sol"
+    }
+   },
+   {
+    "en": [
+     "A small girl brings a book.",
+     "Read to me, troll, she asks."
+    ],
+    "es": [
+     "Una niñita trae un libro.",
+     "Léeme, troll, pide."
+    ],
+    "vocab": {
+     "brings": "trae",
+     "book": "libro",
+     "asks": "pide"
+    }
+   },
+   {
+    "en": [
+     "Now they trade tales nightly.",
+     "The happiest toll in the world."
+    ],
+    "es": [
+     "Ahora cambian cuentos cada noche.",
+     "El peaje más feliz del mundo."
+    ],
+    "vocab": {
+     "trade": "cambian",
+     "nightly": "cada noche",
+     "happy": "feliz"
+    }
+   }
+  ]
+ },
+ {
+  "id": "star-whale",
+  "title": "The Whale Who Swam the Stars",
+  "orig": "A cosmic tale",
+  "level": "A2",
+  "icon": "🐋",
+  "desc": "Una ballena vieja nada al cielo para encender estrellas apagadas.",
+  "pages": [
+   {
+    "en": [
+     "Old Mara swims the deep sea.",
+     "She is the oldest whale alive."
+    ],
+    "es": [
+     "La vieja Mara nada el mar hondo.",
+     "Es la ballena viva más vieja."
+    ],
+    "vocab": {
+     "swims": "nada",
+     "deep": "hondo",
+     "sea": "mar",
+     "oldest": "más vieja",
+     "alive": "viva"
+    }
+   },
+   {
+    "en": [
+     "One night stars begin to fall.",
+     "The sky loses its lights."
+    ],
+    "es": [
+     "Una noche las estrellas caen.",
+     "El cielo pierde sus luces."
+    ],
+    "vocab": {
+     "stars": "estrellas",
+     "fall": "caen",
+     "sky": "cielo",
+     "lights": "luces"
+    }
+   },
+   {
+    "en": [
+     "Mara sings to the dark sky.",
+     "Let me help, she hums."
+    ],
+    "es": [
+     "Mara le canta al cielo oscuro.",
+     "Déjame ayudar, tararea."
+    ],
+    "vocab": {
+     "sings": "canta",
+     "dark": "oscuro",
+     "help": "ayudar"
+    }
+   },
+   {
+    "en": [
+     "The moon lends a silver road.",
+     "Swim up, grandmother, it smiles."
+    ],
+    "es": [
+     "La luna presta un camino plateado.",
+     "Nada arriba, abuela, sonríe."
+    ],
+    "vocab": {
+     "moon": "luna",
+     "road": "camino",
+     "smiles": "sonríe"
+    }
+   },
+   {
+    "en": [
+     "Mara beats her mighty tail.",
+     "Water turns to clouds of light."
+    ],
+    "es": [
+     "Mara bate su cola potente.",
+     "El agua se vuelve nubes de luz."
+    ],
+    "vocab": {
+     "tail": "cola",
+     "water": "agua",
+     "clouds": "nubes",
+     "light": "luz"
+    }
+   },
+   {
+    "en": [
+     "She gathers stars in her mouth.",
+     "Gently, like lost babies."
+    ],
+    "es": [
+     "Recoge estrellas en su boca.",
+     "Suave, como bebés perdidos."
+    ],
+    "vocab": {
+     "mouth": "boca",
+     "lost": "perdidos"
+    }
+   },
+   {
+    "en": [
+     "She blows them back to the sky.",
+     "Each one burns bright again."
+    ],
+    "es": [
+     "Las sopla de vuelta al cielo.",
+     "Cada una arde brillante otra vez."
+    ],
+    "vocab": {
+     "burns": "arde",
+     "bright": "brillante",
+     "again": "otra vez"
+    }
+   },
+   {
+    "en": [
+     "The smallest star is afraid.",
+     "Hold my fin, Mara sings."
+    ],
+    "es": [
+     "La estrellita tiene miedo.",
+     "Toma mi aleta, canta Mara."
+    ],
+    "vocab": {
+     "smallest": "más pequeña",
+     "afraid": "miedo",
+     "fin": "aleta"
+    }
+   },
+   {
+    "en": [
+     "Now the sky shines fully.",
+     "Sailors thank the whale's song."
+    ],
+    "es": [
+     "Ahora el cielo brilla entero.",
+     "Los marineros agradecen su canto."
+    ],
+    "vocab": {
+     "shines": "brilla",
+     "song": "canto"
+    }
+   },
+   {
+    "en": [
+     "Mara sleeps among comets.",
+     "Even whales can touch heaven."
+    ],
+    "es": [
+     "Mara duerme entre cometas.",
+     "Hasta las ballenas tocan el cielo."
+    ],
+    "vocab": {
+     "sleeps": "duerme",
+     "heaven": "cielo"
+    }
+   }
+  ]
+ },
+ {
+  "id": "witch-apprentice",
+  "title": "Soup Spells",
+  "orig": "A cozy tale",
+  "level": "A2",
+  "icon": "🧙",
+  "desc": "Pipa mezcla un hechizo con la sopa y la aldea flota un poco.",
+  "pages": [
+   {
+    "en": [
+     "Pipa learns magic from Granny.",
+     "Her wand is a wooden spoon."
+    ],
+    "es": [
+     "Pipa aprende magia de la Abuela.",
+     "Su varita es una cuchara de madera."
+    ],
+    "vocab": {
+     "learns": "aprende",
+     "magic": "magia",
+     "wand": "varita",
+     "spoon": "cuchara"
+    }
+   },
+   {
+    "en": [
+     "Today: soup for the village.",
+     "Carrots, laughs, and thyme."
+    ],
+    "es": [
+     "Hoy: sopa para la aldea.",
+     "Zanahorias, risas y tomillo."
+    ],
+    "vocab": {
+     "soup": "sopa",
+     "village": "aldea",
+     "laughs": "risas"
+    }
+   },
+   {
+    "en": [
+     "Pipa adds a flying spell.",
+     "Just a pinch, she giggles."
+    ],
+    "es": [
+     "Pipa agrega un hechizo volador.",
+     "Solo una pizca, ríe."
+    ],
+    "vocab": {
+     "adds": "agrega",
+     "spell": "hechizo",
+     "giggles": "ríe"
+    }
+   },
+   {
+    "en": [
+     "The pot bubbles blue and gold.",
+     "The kitchen smells like clouds."
+    ],
+    "es": [
+     "La olla burbujea azul y oro.",
+     "La cocina huele a nubes."
+    ],
+    "vocab": {
+     "pot": "olla",
+     "kitchen": "cocina",
+     "clouds": "nubes"
+    }
+   },
+   {
+    "en": [
+     "Villagers taste one spoon.",
+     "Suddenly shoes feel light!"
+    ],
+    "es": [
+     "Los aldeanos prueban una cucharada.",
+     "¡Los zapatos se sienten ligeros!"
+    ],
+    "vocab": {
+     "taste": "prueban",
+     "shoes": "zapatos",
+     "light": "ligeros"
+    }
+   },
+   {
+    "en": [
+     "The baker floats to his roof.",
+     "My pies! Come back! he laughs."
+    ],
+    "es": [
+     "El panadero flota a su techo.",
+     "¡Mis pays! ¡Vuelvan! ríe."
+    ],
+    "vocab": {
+     "floats": "flota",
+     "roof": "techo",
+     "laughs": "ríe"
+    }
+   },
+   {
+    "en": [
+     "Children bounce like balloons.",
+     "Best soup ever! they cheer."
+    ],
+    "es": [
+     "Los niños rebotan como globos.",
+     "¡Mejor sopa! vitorean."
+    ],
+    "vocab": {
+     "children": "niños",
+     "balloons": "globos",
+     "cheer": "vitorean"
+    }
+   },
+   {
+    "en": [
+     "Granny lands softly laughing.",
+     "Too much pinch, little cook!"
+    ],
+    "es": [
+     "La Abuela aterriza riendo suave.",
+     "¡Mucha pizca, cocinera!"
+    ],
+    "vocab": {
+     "lands": "aterriza",
+     "cook": "cocinera"
+    }
+   },
+   {
+    "en": [
+     "Pipa serves grounding bread.",
+     "Eat, floaters! Down you go!"
+    ],
+    "es": [
+     "Pipa sirve pan de aterrizaje.",
+     "¡Coman, flotadores! ¡Abajo!"
+    ],
+    "vocab": {
+     "bread": "pan",
+     "down": "abajo"
+    }
+   },
+   {
+    "en": [
+     "The village naps happily.",
+     "Magic tastes like carrot soup."
+    ],
+    "es": [
+     "La aldea duerme feliz.",
+     "La magia sabe a sopa de zanahoria."
+    ],
+    "vocab": {
+     "tastes": "sabe"
+    }
+   }
+  ]
+ },
+ {
+  "id": "dragon-library",
+  "title": "The Last Dragon Librarian",
+  "orig": "A fireproof tale",
+  "level": "B1",
+  "icon": "🐉",
+  "desc": "Bajo la ciudad, un dragón guarda libros que nadie lee… hasta hoy.",
+  "pages": [
+   {
+    "en": [
+     "Tom finds a bronze door at midnight.",
+     "It breathes warm air like soup."
+    ],
+    "es": [
+     "Tom halla una puerta de bronce a medianoche.",
+     "Respira aire tibio como sopa."
+    ],
+    "vocab": {
+     "finds": "halla",
+     "door": "puerta",
+     "breathes": "respira",
+     "warm": "tibio",
+     "air": "aire"
+    }
+   },
+   {
+    "en": [
+     "Stairs spiral into golden dark.",
+     "A dragon snores among shelves."
+    ],
+    "es": [
+     "Escalones bajan al dorado oscuro.",
+     "Un dragón ronca entre estantes."
+    ],
+    "vocab": {
+     "stairs": "escalones",
+     "snores": "ronca",
+     "shelves": "estantes"
+    }
+   },
+   {
+    "en": [
+     "Who dares? rumbles the beast.",
+     "One eye opens like a lamp."
+    ],
+    "es": [
+     "¿Quién se atreve? retumba la bestia.",
+     "Un ojo se abre como lámpara."
+    ],
+    "vocab": {
+     "beast": "bestia",
+     "eye": "ojo",
+     "lamp": "lámpara"
+    }
+   },
+   {
+    "en": [
+     "I love books, Tom whispers.",
+     "The dragon laughs smoke rings."
+    ],
+    "es": [
+     "Amo los libros, susurra Tom.",
+     "El dragón ríe anillos de humo."
+    ],
+    "vocab": {
+     "books": "libros",
+     "laughs": "ríe",
+     "smoke": "humo",
+     "rings": "anillos"
+    }
+   },
+   {
+    "en": [
+     "Then you are hired, boy.",
+     "Dust them with your dreams, he orders."
+    ],
+    "es": [
+     "Quedas contratado, niño.",
+     "Empólvalos con tus sueños, ordena."
+    ],
+    "vocab": {
+     "hired": "contratado",
+     "dreams": "sueños",
+     "orders": "ordena"
+    }
+   },
+   {
+    "en": [
+     "Tom reads aloud every evening.",
+     "Dragons cry at sad endings."
+    ],
+    "es": [
+     "Tom lee en voz alta cada noche.",
+     "Los dragones lloran con finales tristes."
+    ],
+    "vocab": {
+     "reads": "lee",
+     "evening": "noche",
+     "cry": "lloran",
+     "endings": "finales"
+    }
+   },
+   {
+    "en": [
+     "One book is chained and cold.",
+     "Never open the gray one, warns the dragon."
+    ],
+    "es": [
+     "Un libro está encadenado y frío.",
+     "Nunca abras el gris, advierte el dragón."
+    ],
+    "vocab": {
+     "chained": "encadenado",
+     "cold": "frío",
+     "warns": "advierte"
+    }
+   },
+   {
+    "en": [
+     "Curiosity burns Tom's fingers.",
+     "He opens one forbidden page."
+    ],
+    "es": [
+     "La curiosidad quema sus dedos.",
+     "Abre una página prohibida."
+    ],
+    "vocab": {
+     "burns": "quema",
+     "forbidden": "prohibida",
+     "page": "página"
+    }
+   },
+   {
+    "en": [
+     "The page eats the library's light.",
+     "Sorry! Tom shouts to the dark."
+    ],
+    "es": [
+     "La página devora la luz.",
+     "¡Perdón! grita Tom a la oscuridad."
+    ],
+    "vocab": {
+     "eats": "devora",
+     "light": "luz",
+     "dark": "oscuridad"
+    }
+   },
+   {
+    "en": [
+     "The dragon breathes story-fire.",
+     "Light returns; Tom becomes the librarian."
+    ],
+    "es": [
+     "El dragón sopla fuego de cuentos.",
+     "La luz vuelve; Tom se vuelve bibliotecario."
+    ],
+    "vocab": {
+     "returns": "vuelve",
+     "librarian": "bibliotecario"
+    }
+   }
+  ]
+ },
+ {
+  "id": "firebird-feather",
+  "title": "The Firebird's Feather",
+  "orig": "A slavic tale",
+  "level": "B1",
+  "icon": "🔥",
+  "desc": "Iván roba una pluma ardiente y el bosque entero despierta.",
+  "pages": [
+   {
+    "en": [
+     "Ivan guards wheat at night.",
+     "A light brighter than dawn appears."
+    ],
+    "es": [
+     "Iván cuida trigo de noche.",
+     "Una luz más brillante que el alba aparece."
+    ],
+    "vocab": {
+     "guards": "cuida",
+     "wheat": "trigo",
+     "light": "luz",
+     "dawn": "alba"
+    }
+   },
+   {
+    "en": [
+     "A firebird lands on the fence.",
+     "Her feathers sing like bells."
+    ],
+    "es": [
+     "Un pájaro de fuego baja a la cerca.",
+     "Sus plumas cantan como campanas."
+    ],
+    "vocab": {
+     "lands": "baja",
+     "fence": "cerca",
+     "feathers": "plumas",
+     "bells": "campanas"
+    }
+   },
+   {
+    "en": [
+     "Ivan catches one fallen feather.",
+     "It burns cold in his hand."
+    ],
+    "es": [
+     "Iván atrapa una pluma caída.",
+     "Quema fría en su mano."
+    ],
+    "vocab": {
+     "catches": "atrapa",
+     "fallen": "caída",
+     "burns": "quema",
+     "hand": "mano"
+    }
+   },
+   {
+    "en": [
+     "The forest wakes around him.",
+     "Wolves bow, owls salute."
+    ],
+    "es": [
+     "El bosque despierta en torno.",
+     "Lobos se inclinan, búhos saludan."
+    ],
+    "vocab": {
+     "forest": "bosque",
+     "wolves": "lobos",
+     "owls": "búhos"
+    }
+   },
+   {
+    "en": [
+     "A gray wolf speaks slowly.",
+     "Thief of light, ride my back."
+    ],
+    "es": [
+     "Un lobo gris habla despacio.",
+     "Ladrón de luz, monta mi lomo."
+    ],
+    "vocab": {
+     "speaks": "habla",
+     "thief": "ladrón",
+     "ride": "monta"
+    }
+   },
+   {
+    "en": [
+     "They fly over sleeping rivers.",
+     "The feather guides like a star."
+    ],
+    "es": [
+     "Vuelan sobre ríos dormidos.",
+     "La pluma guía como estrella."
+    ],
+    "vocab": {
+     "rivers": "ríos",
+     "guides": "guía",
+     "star": "estrella"
+    }
+   },
+   {
+    "en": [
+     "The tsar demands the whole bird.",
+     "Bring it, or lose your head!"
+    ],
+    "es": [
+     "El zar exige el ave entera.",
+     "¡Tráela o pierde tu cabeza!"
+    ],
+    "vocab": {
+     "demands": "exige",
+     "lose": "pierde",
+     "head": "cabeza"
+    }
+   },
+   {
+    "en": [
+     "Ivan frees the firebird instead.",
+     "Fly, sister of dawn, he cries."
+    ],
+    "es": [
+     "Iván libera al ave en cambio.",
+     "Vuela, hermana del alba, llora."
+    ],
+    "vocab": {
+     "frees": "libera",
+     "instead": "en cambio",
+     "cries": "llora"
+    }
+   },
+   {
+    "en": [
+     "She gifts him dawn in a jar.",
+     "The tsar's gold turns to leaves."
+    ],
+    "es": [
+     "Ella le regala alba en un frasco.",
+     "El oro del zar se vuelve hojas."
+    ],
+    "vocab": {
+     "gifts": "regala",
+     "gold": "oro",
+     "leaves": "hojas"
+    }
+   },
+   {
+    "en": [
+     "Ivan returns to his wheat.",
+     "Kindness outshines every feather."
+    ],
+    "es": [
+     "Iván vuelve a su trigo.",
+     "La bondad brilla más que plumas."
+    ],
+    "vocab": {
+     "returns": "vuelve",
+     "kindness": "bondad"
+    }
+   }
+  ]
+ },
+ {
+  "id": "goblin-market",
+  "title": "The Goblin Market",
+  "orig": "A cunning tale",
+  "level": "B2",
+  "icon": "👺",
+  "desc": "En el mercado goblin se paga con recuerdos: Lisa vende uno caro.",
+  "pages": [
+   {
+    "en": [
+     "Behind the laundry door, bells ring.",
+     "The goblin market opens at dusk."
+    ],
+    "es": [
+     "Tras la puerta del lavadero, suenan campanas.",
+     "El mercado goblin abre al atardecer."
+    ],
+    "vocab": {
+     "behind": "tras",
+     "bells": "campanas",
+     "market": "mercado",
+     "dusk": "atardecer"
+    }
+   },
+   {
+    "en": [
+     "Stalls sell bottled thunder.",
+     "Second-hand shadows, half price."
+    ],
+    "es": [
+     "Puestos venden trueno embotellado.",
+     "Sombras de segunda, mitad de precio."
+    ],
+    "vocab": {
+     "sell": "venden",
+     "shadows": "sombras",
+     "price": "precio"
+    }
+   },
+   {
+    "en": [
+     "No coins here, snarls a merchant.",
+     "We trade in memories, sweet ones cost more."
+    ],
+    "es": [
+     "Aquí no hay monedas, gruñe un mercader.",
+     "Comerciamos recuerdos; los dulces cuestan más."
+    ],
+    "vocab": {
+     "trade": "comerciamos",
+     "memories": "recuerdos",
+     "sweet": "dulces",
+     "cost": "cuestan"
+    }
+   },
+   {
+    "en": [
+     "Lisa wants medicine for her brother.",
+     "Her purse holds three bright summers."
+    ],
+    "es": [
+     "Lisa quiere medicina para su hermano.",
+     "Su bolsa guarda tres veranos brillantes."
+    ],
+    "vocab": {
+     "medicine": "medicina",
+     "brother": "hermano",
+     "summers": "veranos"
+    }
+   },
+   {
+    "en": [
+     "A goblin sniffs her happiest day.",
+     "Birthday cake, your grandmother singing. Sold?"
+    ],
+    "es": [
+     "Un goblin huele su día más feliz.",
+     "Pastel, tu abuela cantando. ¿Vendido?"
+    ],
+    "vocab": {
+     "birthday": "cumpleaños",
+     "cake": "pastel",
+     "singing": "cantando"
+    }
+   },
+   {
+    "en": [
+     "Lisa hugs the memory tight.",
+     "This one is not for sale, she says."
+    ],
+    "es": [
+     "Lisa abraza el recuerdo fuerte.",
+     "Este no está en venta, dice."
+    ],
+    "vocab": {
+     "hugs": "abraza",
+     "tight": "fuerte",
+     "sale": "venta",
+     "says": "dice"
+    }
+   },
+   {
+    "en": [
+     "Then she offers a rainy Monday.",
+     "Nobody wants gray hours, they laugh."
+    ],
+    "es": [
+     "Ofrece un lunes lluvioso.",
+     "Nadie quiere horas grises, ríen."
+    ],
+    "vocab": {
+     "offers": "ofrece",
+     "rainy": "lluvioso",
+     "laugh": "ríen"
+    }
+   },
+   {
+    "en": [
+     "The smallest goblin weeps softly.",
+     "I collect sad days to feel less alone."
+    ],
+    "es": [
+     "El goblin menor llora suave.",
+     "Colecciono días tristes para sentirme menos solo."
+    ],
+    "vocab": {
+     "collect": "colecciono",
+     "alone": "solo"
+    }
+   },
+   {
+    "en": [
+     "Lisa trades Monday for medicine.",
+     "Both smile; the bells approve."
+    ],
+    "es": [
+     "Lisa cambia el lunes por medicina.",
+     "Ambos sonríen; las campanas aprueban."
+    ],
+    "vocab": {
+     "trades": "cambia",
+     "smile": "sonríen",
+     "approve": "aprueban"
+    }
+   },
+   {
+    "en": [
+     "She keeps her summers burning.",
+     "The richest purse holds no coins."
+    ],
+    "es": [
+     "Guarda sus veranos ardiendo.",
+     "La bolsa más rica no lleva monedas."
+    ],
+    "vocab": {
+     "keeps": "guarda",
+     "richest": "más rica",
+     "coins": "monedas"
+    }
+   }
+  ]
+ },
+ {
+  "id": "mirror-twins",
+  "title": "The Mirror Twins",
+  "orig": "A reflecting tale",
+  "level": "B2",
+  "icon": "🪞",
+  "desc": "Nia halla su gemela al otro lado del espejo… y sus mundos se mezclan.",
+  "pages": [
+   {
+    "en": [
+     "Nia brushes her hair at seven.",
+     "The mirror brushes back, late by one second."
+    ],
+    "es": [
+     "Nia cepilla su pelo a las siete.",
+     "El espejo cepilla tarde, un segundo después."
+    ],
+    "vocab": {
+     "brushes": "cepilla",
+     "hair": "pelo",
+     "mirror": "espejo",
+     "second": "segundo"
+    }
+   },
+   {
+    "en": [
+     "Her reflection winks first.",
+     "I am Aina, she mouths silently."
+    ],
+    "es": [
+     "Su reflejo guiña primero.",
+     "Soy Aina, articula en silencio."
+    ],
+    "vocab": {
+     "winks": "guiña",
+     "silently": "en silencio"
+    }
+   },
+   {
+    "en": [
+     "They trade names through glass.",
+     "Cold fingers meet warm ones."
+    ],
+    "es": [
+     "Cambian nombres por el vidrio.",
+     "Dedos fríos tocan tibios."
+    ],
+    "vocab": {
+     "trade": "cambian",
+     "names": "nombres",
+     "glass": "vidrio",
+     "warm": "tibios"
+    }
+   },
+   {
+    "en": [
+     "Aina's world rains upward.",
+     "Umbrellas open toward the ground."
+    ],
+    "es": [
+     "En el mundo de Aina llueve hacia arriba.",
+     "Paraguas se abren al suelo."
+    ],
+    "vocab": {
+     "rains": "llueve",
+     "upward": "hacia arriba",
+     "ground": "suelo"
+    }
+   },
+   {
+    "en": [
+     "Nia passes a paper boat.",
+     "It sails the mirror river slowly."
+    ],
+    "es": [
+     "Nia pasa un barquito.",
+     "Navega lento el río espejo."
+    ],
+    "vocab": {
+     "boat": "barquito",
+     "sails": "navega",
+     "river": "río",
+     "slowly": "lento"
+    }
+   },
+   {
+    "en": [
+     "Aina returns a starfold letter.",
+     "Read it only at midnight, she warns."
+    ],
+    "es": [
+     "Aina devuelve carta plegada estrella.",
+     "Léela solo a medianoche, advierte."
+    ],
+    "vocab": {
+     "letter": "carta",
+     "midnight": "medianoche",
+     "warns": "advierte"
+    }
+   },
+   {
+    "en": [
+     "The letter says: we are one.",
+     "Halves of a dropped moon, it explains."
+    ],
+    "es": [
+     "La carta dice: somos una.",
+     "Mitades de luna caída, explica."
+    ],
+    "vocab": {
+     "halves": "mitades",
+     "moon": "luna",
+     "explains": "explica"
+    }
+   },
+   {
+    "en": [
+     "Both mirrors crack at dawn.",
+     "Which side is real? Neither knows."
+    ],
+    "es": [
+     "Ambos espejos se agrietan al alba.",
+     "¿Qué lado es real? Ninguna sabe."
+    ],
+    "vocab": {
+     "crack": "se agrietan",
+     "dawn": "alba",
+     "real": "real"
+    }
+   },
+   {
+    "en": [
+     "They step through together.",
+     "Two girls, one shared shadow."
+    ],
+    "es": [
+     "Cruzan juntas.",
+     "Dos niñas, una sombra compartida."
+    ],
+    "vocab": {
+     "together": "juntas",
+     "shared": "compartida",
+     "shadow": "sombra"
+    }
+   },
+   {
+    "en": [
+     "Now each mirrors the other.",
+     "Sisters across every glass."
+    ],
+    "es": [
+     "Ahora cada una refleja a la otra.",
+     "Hermanas en cada vidrio."
+    ],
+    "vocab": {
+     "sisters": "hermanas",
+     "glass": "vidrio"
+    }
+   }
+  ]
+ },
+ {
+  "id": "dream-weaver",
+  "title": "The Dreamweaver's Snapped Thread",
+  "orig": "A midnight tale",
+  "level": "C1",
+  "icon": "🌌",
+  "desc": "Cuando el hilo de los sueños se rompe, una tejedora debe hilar con recuerdos.",
+  "pages": [
+   {
+    "en": [
+     "Above the sleeping town, looms hum.",
+     "The weaver threads stars into children's sleep."
+    ],
+    "es": [
+     "Sobre el pueblo dormido, zumban telares.",
+     "La tejedora hila estrellas en el sueño infantil."
+    ],
+    "vocab": {
+     "looms": "telares",
+     "threads": "hila",
+     "stars": "estrellas",
+     "sleep": "sueño"
+    }
+   },
+   {
+    "en": [
+     "Her silver thread snaps at three.",
+     "A thousand dreams unravel at once."
+    ],
+    "es": [
+     "Su hilo de plata se rompe a las tres.",
+     "Mil sueños se deshilachan a la vez."
+    ],
+    "vocab": {
+     "snaps": "se rompe",
+     "unravel": "se deshilachan",
+     "once": "a la vez"
+    }
+   },
+   {
+    "en": [
+     "Nightmares leak through the cracks.",
+     "The town tosses in tangled sheets."
+    ],
+    "es": [
+     "Pesadillas se filtran por grietas.",
+     "El pueblo se revuelve en sábanas enredadas."
+    ],
+    "vocab": {
+     "leak": "se filtran",
+     "cracks": "grietas",
+     "sheets": "sábanas"
+    }
+   },
+   {
+    "en": [
+     "The weaver descends, barefoot and furious.",
+     "Lend me your kindest memory, she begs each door."
+    ],
+    "es": [
+     "La tejedora baja, descalza y furiosa.",
+     "Préstame tu recuerdo más amable, ruega puerta a puerta."
+    ],
+    "vocab": {
+     "barefoot": "descalza",
+     "furious": "furiosa",
+     "begs": "ruega"
+    }
+   },
+   {
+    "en": [
+     "A baker lends first-day snow.",
+     "A widow lends her wedding dance."
+    ],
+    "es": [
+     "Un panadero presta la primera nieve.",
+     "Una viuda presta su baile de bodas."
+    ],
+    "vocab": {
+     "lends": "presta",
+     "snow": "nieve",
+     "wedding": "bodas",
+     "dance": "baile"
+    }
+   },
+   {
+    "en": [
+     "She spins them on a moonlit wheel.",
+     "Grief and gold twist into dawn-colored yarn."
+    ],
+    "es": [
+     "Los hila en rueca de luna.",
+     "Pena y oro se tuercen en hilo color alba."
+    ],
+    "vocab": {
+     "spins": "hila",
+     "grief": "pena",
+     "gold": "oro",
+     "yarn": "hilo"
+    }
+   },
+   {
+    "en": [
+     "She reweaves the torn sky.",
+     "Each patch glows with borrowed joy."
+    ],
+    "es": [
+     "Reteje el cielo rasgado.",
+     "Cada parche brilla con alegría prestada."
+    ],
+    "vocab": {
+     "sky": "cielo",
+     "glows": "brilla",
+     "joy": "alegría"
+    }
+   },
+   {
+    "en": [
+     "The town dreams in chorus.",
+     "A thousand borrowed mornings bloom."
+    ],
+    "es": [
+     "El pueblo sueña en coro.",
+     "Mil mañanas prestadas florecen."
+    ],
+    "vocab": {
+     "dreams": "sueña",
+     "chorus": "coro",
+     "bloom": "florecen"
+    }
+   },
+   {
+    "en": [
+     "At dawn she returns every memory.",
+     "With interest: one nightmare, mended."
+    ],
+    "es": [
+     "Al alba devuelve cada recuerdo.",
+     "Con interés: una pesadilla, remendada."
+    ],
+    "vocab": {
+     "returns": "devuelve",
+     "interest": "interés",
+     "mended": "remendada"
+    }
+   },
+   {
+    "en": [
+     "Her loom now weaves itself.",
+     "Kindness, she learns, needs no hands."
+    ],
+    "es": [
+     "Su telar ahora teje solo.",
+     "La bondad, aprende, no necesita manos."
+    ],
+    "vocab": {
+     "loom": "telar",
+     "kindness": "bondad",
+     "hands": "manos"
+    }
+   }
+  ]
+ }
+]

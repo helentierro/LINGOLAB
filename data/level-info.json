@@ -1,0 +1,32 @@
+{
+ "A1": {
+  "t": "Primeros pasos",
+  "d": "Saludos y presente simple",
+  "c": "#3fdf9f"
+ },
+ "A2": {
+  "t": "Vida cotidiana",
+  "d": "Pasado y rutinas",
+  "c": "#5bc9f5"
+ },
+ "B1": {
+  "t": "Independencia",
+  "d": "Condicionales y opiniones",
+  "c": "#ffc24b"
+ },
+ "B2": {
+  "t": "Fluidez",
+  "d": "Phrasal verbs y matices",
+  "c": "#ff6e6e"
+ },
+ "C1": {
+  "t": "Dominio",
+  "d": "Estructuras avanzadas",
+  "c": "#b58cff"
+ },
+ "Conversación": {
+  "t": "Charla real",
+  "d": "Frases nativas del día a día",
+  "c": "#ff8fb2"
+ }
+}

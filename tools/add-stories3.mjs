@@ -1,0 +1,66 @@
+import fs from "node:fs";
+const arr = JSON.parse(fs.readFileSync("data/stories.json", "utf8"));
+arr.push(
+{id:"moon-garden",title:"The Moon Garden",orig:"A bedtime tale",level:"A1",icon:"🌙",desc:"Lila planta semillas de noche y el jardín despierta con la luna.",
+pages:[
+{en:["Lila loves night flowers.","She plants seeds after dinner."],es:["A Lila le encantan las flores nocturnas.","Planta semillas después de cenar."],vocab:{loves:"le encantan",flowers:"flores",plants:"planta",seeds:"semillas",dinner:"cena"}},
+{en:["Grandpa gives her silver seeds.","Plant them with a song, he says."],es:["El abuelo le da semillas plateadas.","Plántalas con una canción, dice."],vocab:{silver:"plateadas",song:"canción",says:"dice"}},
+{en:["Lila sings to the dark soil.","The soil smells like rain."],es:["Lila le canta a la tierra oscura.","La tierra huele a lluvia."],vocab:{sings:"canta",soil:"tierra",smells:"huele",rain:"lluvia"}},
+{en:["The moon rises round and kind.","Moonlight touches the garden."],es:["La luna sale redonda y amable.","La luz de luna toca el jardín."],vocab:{moon:"luna",kind:"amable",touches:"toca",garden:"jardín"}},
+{en:["Tiny sprouts open silver eyes.","Hello, Lila, they whisper."],es:["Brotes pequeños abren ojos plateados.","Hola, Lila, susurran."],vocab:{sprouts:"brotes",open:"abren",eyes:"ojos",whisper:"susurran"}},
+{en:["Bluebells ring soft songs.","Fireflies dance over them."],es:["Campanillas tocan canciones suaves.","Luciérnagas bailan sobre ellas."],vocab:{songs:"canciones",soft:"suaves",dance:"bailan"}},
+{en:["A sleepy owl lands near.","Beautiful garden, he hoots."],es:["Un búho soñoliento aterriza cerca.","Hermoso jardín, ulula."],vocab:{sleepy:"soñoliento",owl:"búho",lands:"aterriza",beautiful:"hermoso"}},
+{en:["Lila gives him a moonflower.","For your night flights, she says."],es:["Lila le da una flor lunar.","Para tus vuelos nocturnos, dice."],vocab:{gives:"da",flights:"vuelos",night:"nocturnos"}},
+{en:["The garden glows till dawn.","Stars clap with tiny hands."],es:["El jardín brilla hasta el amanecer.","Las estrellas aplauden con manitas."],vocab:{glows:"brilla",dawn:"amanecer",stars:"estrellas"}},
+{en:["Lila sleeps with a smile.","Dreams smell like moonflowers."],es:["Lila duerme con sonrisa.","Los sueños huelen a flores lunares."],vocab:{sleeps:"duerme",smile:"sonrisa",dreams:"sueños",smell:"huelen"}}]},
+{id:"cloud-shepherd",title:"The Cloud Shepherd",orig:"A sky tale",level:"A1",icon:"☁️",desc:"Nico cuida nubes traviesas con un silbato de viento.",
+pages:[
+{en:["Nico lives on a high hill.","He keeps clouds, not sheep."],es:["Nico vive en una colina alta.","Cuida nubes, no ovejas."],vocab:{lives:"vive",hill:"colina",keeps:"cuida",clouds:"nubes",sheep:"ovejas"}},
+{en:["His whistle is made of wind.","Clouds come when he calls."],es:["Su silbato es de viento.","Las nubes vienen cuando llama."],vocab:{whistle:"silbato",wind:"viento",calls:"llama"}},
+{en:["Morning clouds are white lambs.","They drink sunshine happily."],es:["Las nubes mañaneras son corderos blancos.","Beben sol felices."],vocab:{morning:"mañaneras",lambs:"corderos",drink:"beben",sunshine:"sol"}},
+{en:["One gray cloud always runs.","Catch me, shepherd! it laughs."],es:["Una nube gris siempre corre.","¡Atrápame, pastor! ríe."],vocab:{gray:"gris",runs:"corre",catch:"atrapa",laughs:"ríe"}},
+{en:["Nico runs after it fast.","Wait for me, little storm!"],es:["Nico corre tras ella rápido.","¡Espérame, tormentita!"],vocab:{after:"tras",fast:"rápido",storm:"tormenta"}},
+{en:["The cloud cries rainy tears.","I only want to play, it sobs."],es:["La nube llora lágrimas de lluvia.","Solo quiero jugar, solloza."],vocab:{cries:"llora",tears:"lágrimas",play:"jugar"}},
+{en:["Nico hugs the soft cloud.","Play with me, not alone, he says."],es:["Nico abraza la nube suave.","Juega conmigo, no sola, dice."],vocab:{hugs:"abraza",soft:"suave",alone:"sola",says:"dice"}},
+{en:["They race across the sky.","Villages below get soft rain."],es:["Corren por el cielo.","Las aldeas reciben lluvia suave."],vocab:{race:"corren",sky:"cielo",rain:"lluvia"}},
+{en:["At night clouds sleep in blue.","Nico sings them to rest."],es:["De noche las nubes duermen en azul.","Nico les canta para dormir."],vocab:{night:"noche",sleep:"duermen",sings:"canta",rest:"dormir"}},
+{en:["The gray cloud smiles now.","Shepherd of my heart, it sighs."],es:["La nube gris sonríe ahora.","Pastor de mi corazón, suspira."],vocab:{smiles:"sonríe",heart:"corazón"}}]},
+{id:"troll-bridge",title:"The Troll Who Charged Tales",orig:"A bridge tale",level:"A1",icon:"🌉",desc:"Bajo el puente, Gruñón no quiere monedas: quiere cuentos.",
+pages:[
+{en:["A troll lives under the bridge.","His name is Grumpy."],es:["Un troll vive bajo el puente.","Se llama Gruñón."],vocab:{lives:"vive",bridge:"puente",name:"llama"}},
+{en:["He stops every traveler.","Pay with a story, he growls."],es:["Detiene a cada viajero.","Paga con un cuento, gruñe."],vocab:{stops:"detiene",traveler:"viajero",story:"cuento"}},
+{en:["Coins? No! Keep your gold.","Stories feed my heart, he says."],es:["¿Monedas? ¡No! Guarda tu oro.","Los cuentos alimentan mi corazón, dice."],vocab:{gold:"oro",feed:"alimentan",heart:"corazón",says:"dice"}},
+{en:["A baker tells of warm bread.","Grumpy smiles a little."],es:["Un panadero cuenta del pan tibio.","Gruñón sonríe un poco."],vocab:{baker:"panadero",bread:"pan",smiles:"sonríe"}},
+{en:["A child tells of a lost kite.","Grumpy wipes one tear."],es:["Un niño cuenta de una cometa perdida.","Gruñón seca una lágrima."],vocab:{child:"niño",lost:"perdida",tear:"lágrima"}},
+{en:["A sailor tells of wild waves.","Grumpy claps his big hands."],es:["Un marinero cuenta de olas salvajes.","Gruñón aplaude con sus manotas."],vocab:{sailor:"marinero",waves:"olas",hands:"manos"}},
+{en:["One day nobody comes.","The bridge stands silent and gray."],es:["Un día nadie viene.","El puente queda gris y callado."],vocab:{nobody:"nadie",silent:"callado",gray:"gris"}},
+{en:["Grumpy feels empty inside.","Stories were my sunshine, he sighs."],es:["Gruñón se siente vacío.","Los cuentos eran mi sol, suspira."],vocab:{empty:"vacío",sunshine:"sol"}},
+{en:["A small girl brings a book.","Read to me, troll, she asks."],es:["Una niñita trae un libro.","Léeme, troll, pide."],vocab:{brings:"trae",book:"libro",asks:"pide"}},
+{en:["Now they trade tales nightly.","The happiest toll in the world."],es:["Ahora cambian cuentos cada noche.","El peaje más feliz del mundo."],vocab:{trade:"cambian",nightly:"cada noche",happy:"feliz"}}]},
+{id:"star-whale",title:"The Whale Who Swam the Stars",orig:"A cosmic tale",level:"A2",icon:"🐋",desc:"Una ballena vieja nada al cielo para encender estrellas apagadas.",
+pages:[
+{en:["Old Mara swims the deep sea.","She is the oldest whale alive."],es:["La vieja Mara nada el mar hondo.","Es la ballena viva más vieja."],vocab:{swims:"nada",deep:"hondo",sea:"mar",oldest:"más vieja",alive:"viva"}},
+{en:["One night stars begin to fall.","The sky loses its lights."],es:["Una noche las estrellas caen.","El cielo pierde sus luces."],vocab:{stars:"estrellas",fall:"caen",sky:"cielo",lights:"luces"}},
+{en:["Mara sings to the dark sky.","Let me help, she hums."],es:["Mara le canta al cielo oscuro.","Déjame ayudar, tararea."],vocab:{sings:"canta",dark:"oscuro",help:"ayudar"}},
+{en:["The moon lends a silver road.","Swim up, grandmother, it smiles."],es:["La luna presta un camino plateado.","Nada arriba, abuela, sonríe."],vocab:{moon:"luna",road:"camino",smiles:"sonríe"}},
+{en:["Mara beats her mighty tail.","Water turns to clouds of light."],es:["Mara bate su cola potente.","El agua se vuelve nubes de luz."],vocab:{tail:"cola",water:"agua",clouds:"nubes",light:"luz"}},
+{en:["She gathers stars in her mouth.","Gently, like lost babies."],es:["Recoge estrellas en su boca.","Suave, como bebés perdidos."],vocab:{mouth:"boca",lost:"perdidos"}},
+{en:["She blows them back to the sky.","Each one burns bright again."],es:["Las sopla de vuelta al cielo.","Cada una arde brillante otra vez."],vocab:{burns:"arde",bright:"brillante",again:"otra vez"}},
+{en:["The smallest star is afraid.","Hold my fin, Mara sings."],es:["La estrellita tiene miedo.","Toma mi aleta, canta Mara."],vocab:{smallest:"más pequeña",afraid:"miedo",fin:"aleta"}},
+{en:["Now the sky shines fully.","Sailors thank the whale's song."],es:["Ahora el cielo brilla entero.","Los marineros agradecen su canto."],vocab:{shines:"brilla",song:"canto"}},
+{en:["Mara sleeps among comets.","Even whales can touch heaven."],es:["Mara duerme entre cometas.","Hasta las ballenas tocan el cielo."],vocab:{sleeps:"duerme",heaven:"cielo"}}]},
+{id:"witch-apprentice",title:"Soup Spells",orig:"A cozy tale",level:"A2",icon:"🧙",desc:"Pipa mezcla un hechizo con la sopa y la aldea flota un poco.",
+pages:[
+{en:["Pipa learns magic from Granny.","Her wand is a wooden spoon."],es:["Pipa aprende magia de la Abuela.","Su varita es una cuchara de madera."],vocab:{learns:"aprende",magic:"magia",wand:"varita",spoon:"cuchara"}},
+{en:["Today: soup for the village.","Carrots, laughs, and thyme."],es:["Hoy: sopa para la aldea.","Zanahorias, risas y tomillo."],vocab:{soup:"sopa",village:"aldea",laughs:"risas"}},
+{en:["Pipa adds a flying spell.","Just a pinch, she giggles."],es:["Pipa agrega un hechizo volador.","Solo una pizca, ríe."],vocab:{adds:"agrega",spell:"hechizo",giggles:"ríe"}},
+{en:["The pot bubbles blue and gold.","The kitchen smells like clouds."],es:["La olla burbujea azul y oro.","La cocina huele a nubes."],vocab:{pot:"olla",kitchen:"cocina",clouds:"nubes"}},
+{en:["Villagers taste one spoon.","Suddenly shoes feel light!"],es:["Los aldeanos prueban una cucharada.","¡Los zapatos se sienten ligeros!"],vocab:{taste:"prueban",shoes:"zapatos",light:"ligeros"}},
+{en:["The baker floats to his roof.","My pies! Come back! he laughs."],es:["El panadero flota a su techo.","¡Mis pays! ¡Vuelvan! ríe."],vocab:{floats:"flota",roof:"techo",laughs:"ríe"}},
+{en:["Children bounce like balloons.","Best soup ever! they cheer."],es:["Los niños rebotan como globos.","¡Mejor sopa! vitorean."],vocab:{children:"niños",balloons:"globos",cheer:"vitorean"}},
+{en:["Granny lands softly laughing.","Too much pinch, little cook!"],es:["La Abuela aterriza riendo suave.","¡Mucha pizca, cocinera!"],vocab:{lands:"aterriza",cook:"cocinera"}},
+{en:["Pipa serves grounding bread.","Eat, floaters! Down you go!"],es:["Pipa sirve pan de aterrizaje.","¡Coman, flotadores! ¡Abajo!"],vocab:{bread:"pan",down:"abajo"}},
+{en:["The village naps happily.","Magic tastes like carrot soup."],es:["La aldea duerme feliz.","La magia sabe a sopa de zanahoria."],vocab:{tastes:"sabe"}}]}
+);
+fs.writeFileSync("data/stories.json", JSON.stringify(arr, null, 1));
+console.log("stories:", arr.length);

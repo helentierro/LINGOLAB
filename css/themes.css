@@ -1,0 +1,29 @@
+/* LingoLab 2.0 — tokens + tema claro + accesibilidad. Gratis, sin servidor. */
+:root{
+  --focus:#ffc24b;
+  --ok:#3fdf9f; --warn:#ffc24b; --bad:#ff6e6e;
+}
+[data-theme="light"]{
+  --bg:#f5f3ff; --bg2:#ffffff; --panel:#ffffff; --panel2:#efeaff;
+  --line:rgba(60,50,140,.14);
+  --ink:#1c1440; --mut:#4d4480; --dim:#7a72a8;
+  --amber:#d9930d; --amber2:#c26a12; --mint:#0d8a56; --coral:#d63d3d; --sky:#0b6cb8; --lilac:#6a3fd4;
+}
+[data-theme="light"] body{background:var(--bg);color:var(--ink)}
+[data-theme="light"] header.top{background:rgba(255,255,255,.95)}
+[data-theme="light"] .bg-grid{background-image:radial-gradient(rgba(20,60,100,.10) 1px,transparent 1.4px)}
+[data-theme="light"] .glow{opacity:.25}
+[data-theme="light"] input.txt,[data-theme="light"] textarea.txt,[data-theme="light"] select.sel{background:#fff;color:var(--ink)}
+[data-theme="light"] .card{background:linear-gradient(180deg,#ffffff,#f2f7fc)}
+[data-theme="light"] .msg.a{background:#e8f2fc}
+[data-theme="light"] .msg.b{background:#e4f7ec}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}
+  html{scroll-behavior:auto}
+}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#themeBtn{font-size:16px}
+#srsCard{border-color:rgba(63,223,159,.35)}
+#srsCard .chip{cursor:default}

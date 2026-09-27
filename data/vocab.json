@@ -1,0 +1,880 @@
+{
+ "Esenciales": [
+  [
+   "hello",
+   "hola",
+   "həˈloʊ",
+   "Hello! It's great to see you.",
+   "¡Hola! Qué gusto verte."
+  ],
+  [
+   "please",
+   "por favor",
+   "pliːz",
+   "Please, take a seat.",
+   "Por favor, toma asiento."
+  ],
+  [
+   "thank you",
+   "gracias",
+   "θæŋk juː",
+   "Thank you for your help.",
+   "Gracias por tu ayuda."
+  ],
+  [
+   "sorry",
+   "lo siento",
+   "ˈsɑːri",
+   "Sorry, I didn't mean to.",
+   "Lo siento, no fue mi intención."
+  ],
+  [
+   "friend",
+   "amigo / amiga",
+   "frend",
+   "She is my best friend.",
+   "Ella es mi mejor amiga."
+  ],
+  [
+   "family",
+   "familia",
+   "ˈfæməli",
+   "Family always comes first.",
+   "La familia siempre va primero."
+  ],
+  [
+   "time",
+   "tiempo / hora",
+   "taɪm",
+   "What time is it?",
+   "¿Qué hora es?"
+  ],
+  [
+   "today",
+   "hoy",
+   "təˈdeɪ",
+   "Today is a beautiful day.",
+   "Hoy es un día hermoso."
+  ],
+  [
+   "tomorrow",
+   "mañana",
+   "təˈmɑːroʊ",
+   "See you tomorrow!",
+   "¡Nos vemos mañana!"
+  ],
+  [
+   "people",
+   "gente / personas",
+   "ˈpiːpl",
+   "Many people live in this city.",
+   "Mucha gente vive en esta ciudad."
+  ]
+ ],
+ "Comida": [
+  [
+   "breakfast",
+   "desayuno",
+   "ˈbrekfəst",
+   "Breakfast is my favorite meal.",
+   "El desayuno es mi comida favorita."
+  ],
+  [
+   "water",
+   "agua",
+   "ˈwɔːtər",
+   "A glass of water, please.",
+   "Un vaso de agua, por favor."
+  ],
+  [
+   "bread",
+   "pan",
+   "bred",
+   "This bread is freshly baked.",
+   "Este pan está recién horneado."
+  ],
+  [
+   "chicken",
+   "pollo",
+   "ˈtʃɪkɪn",
+   "The chicken soup smells great.",
+   "La sopa de pollo huele genial."
+  ],
+  [
+   "fruit",
+   "fruta",
+   "fruːt",
+   "Eat more fruit every day.",
+   "Come más fruta cada día."
+  ],
+  [
+   "hungry",
+   "hambriento",
+   "ˈhʌŋɡri",
+   "I'm so hungry right now!",
+   "¡Tengo muchísima hambre ahora!"
+  ],
+  [
+   "taste",
+   "sabor",
+   "teɪst",
+   "This cake has an amazing taste.",
+   "Este pastel tiene un sabor increíble."
+  ],
+  [
+   "dinner",
+   "cena",
+   "ˈdɪnər",
+   "Dinner is ready, come to the table.",
+   "La cena está lista, ven a la mesa."
+  ],
+  [
+   "delicious",
+   "delicioso",
+   "dɪˈlɪʃəs",
+   "The dinner was absolutely delicious.",
+   "La cena estaba absolutamente deliciosa."
+  ],
+  [
+   "recipe",
+   "receta",
+   "ˈresəpi",
+   "This recipe is from my grandmother.",
+   "Esta receta es de mi abuela."
+  ]
+ ],
+ "Viajes": [
+  [
+   "airport",
+   "aeropuerto",
+   "ˈerpɔːrt",
+   "The airport is far from downtown.",
+   "El aeropuerto está lejos del centro."
+  ],
+  [
+   "ticket",
+   "boleto / pasaje",
+   "ˈtɪkɪt",
+   "I bought a one-way ticket.",
+   "Compré un boleto de ida."
+  ],
+  [
+   "luggage",
+   "equipaje",
+   "ˈlʌɡɪdʒ",
+   "My luggage weighs twenty kilos.",
+   "Mi equipaje pesa veinte kilos."
+  ],
+  [
+   "passport",
+   "pasaporte",
+   "ˈpæspɔːrt",
+   "Don't forget your passport.",
+   "No olvides tu pasaporte."
+  ],
+  [
+   "journey",
+   "viaje / trayecto",
+   "ˈdʒɜːrni",
+   "The journey took five hours.",
+   "El viaje duró cinco horas."
+  ],
+  [
+   "abroad",
+   "al extranjero",
+   "əˈbrɔːd",
+   "She moved abroad last year.",
+   "Ella se mudó al extranjero el año pasado."
+  ],
+  [
+   "map",
+   "mapa",
+   "mæp",
+   "Let's check the map again.",
+   "Revisemos el mapa otra vez."
+  ],
+  [
+   "train",
+   "tren",
+   "treɪn",
+   "The train leaves at noon.",
+   "El tren sale al mediodía."
+  ],
+  [
+   "delay",
+   "retraso",
+   "dɪˈleɪ",
+   "The flight has a small delay.",
+   "El vuelo tiene un pequeño retraso."
+  ],
+  [
+   "destination",
+   "destino",
+   "ˌdestɪˈneɪʃn",
+   "We finally reached our destination.",
+   "Por fin llegamos a nuestro destino."
+  ]
+ ],
+ "Trabajo": [
+  [
+   "meeting",
+   "reunión",
+   "ˈmiːtɪŋ",
+   "The meeting starts at nine.",
+   "La reunión empieza a las nueve."
+  ],
+  [
+   "deadline",
+   "fecha límite",
+   "ˈdedlaɪn",
+   "The deadline is next Friday.",
+   "La fecha límite es el próximo viernes."
+  ],
+  [
+   "schedule",
+   "horario / agenda",
+   "ˈskedʒuːl",
+   "My schedule is full today.",
+   "Mi agenda está llena hoy."
+  ],
+  [
+   "skill",
+   "habilidad",
+   "skɪl",
+   "Practice improves any skill.",
+   "La práctica mejora cualquier habilidad."
+  ],
+  [
+   "goal",
+   "meta / objetivo",
+   "ɡoʊl",
+   "Set a clear goal and pursue it.",
+   "Fija una meta clara y persíguela."
+  ],
+  [
+   "colleague",
+   "colega",
+   "ˈkɑːliːɡ",
+   "My colleague helped me a lot.",
+   "Mi colega me ayudó mucho."
+  ],
+  [
+   "boss",
+   "jefe / jefa",
+   "bɔːs",
+   "The boss approved the project.",
+   "El jefe aprobó el proyecto."
+  ],
+  [
+   "research",
+   "investigación",
+   "ˈriːsɜːrtʃ",
+   "The research took two years.",
+   "La investigación tomó dos años."
+  ],
+  [
+   "training",
+   "capacitación",
+   "ˈtreɪnɪŋ",
+   "The training was really useful.",
+   "La capacitación fue muy útil."
+  ],
+  [
+   "achievement",
+   "logro",
+   "əˈtʃiːvmənt",
+   "Winning was a huge achievement.",
+   "Ganar fue un logro enorme."
+  ]
+ ],
+ "Emociones": [
+  [
+   "happy",
+   "feliz",
+   "ˈhæpi",
+   "I feel happy when I sing.",
+   "Me siento feliz cuando canto."
+  ],
+  [
+   "sad",
+   "triste",
+   "sæd",
+   "The movie made her sad.",
+   "La película la puso triste."
+  ],
+  [
+   "angry",
+   "enojado",
+   "ˈæŋɡri",
+   "Don't be angry, it was an accident.",
+   "No te enojes, fue un accidente."
+  ],
+  [
+   "excited",
+   "emocionado",
+   "ɪkˈsaɪtɪd",
+   "The kids are excited about the trip.",
+   "Los niños están emocionados por el viaje."
+  ],
+  [
+   "worried",
+   "preocupado",
+   "ˈwɜːrid",
+   "She's worried about the exam.",
+   "Ella está preocupada por el examen."
+  ],
+  [
+   "proud",
+   "orgulloso",
+   "praʊd",
+   "We are proud of you.",
+   "Estamos orgullosos de ti."
+  ],
+  [
+   "surprised",
+   "sorprendido",
+   "sərˈpraɪzd",
+   "I was surprised by the news.",
+   "Me sorprendió la noticia."
+  ],
+  [
+   "grateful",
+   "agradecido",
+   "ˈɡreɪtfl",
+   "I'm grateful for your support.",
+   "Estoy agradecido por tu apoyo."
+  ],
+  [
+   "confident",
+   "seguro de sí mismo",
+   "ˈkɑːnfɪdənt",
+   "Practice makes you confident.",
+   "La práctica te da seguridad."
+  ],
+  [
+   "bored",
+   "aburrido",
+   "bɔːrd",
+   "He got bored during the lecture.",
+   "Se aburrió durante la charla."
+  ]
+ ],
+ "Casa y rutina": [
+  [
+   "kitchen",
+   "cocina",
+   "ˈkɪtʃɪn",
+   "The kitchen smells wonderful.",
+   "La cocina huele de maravilla."
+  ],
+  [
+   "mirror",
+   "espejo",
+   "ˈmɪrər",
+   "She looked at herself in the mirror.",
+   "Ella se miró en el espejo."
+  ],
+  [
+   "blanket",
+   "manta",
+   "ˈblæŋkɪt",
+   "This blanket is so warm.",
+   "Esta manta es muy cálida."
+  ],
+  [
+   "shower",
+   "ducha",
+   "ˈʃaʊər",
+   "I take a shower every morning.",
+   "Me ducho cada mañana."
+  ],
+  [
+   "chore",
+   "tarea doméstica",
+   "tʃɔːr",
+   "We split the chores evenly.",
+   "Repartimos las tareas por igual."
+  ],
+  [
+   "laundry",
+   "lavandería / ropa sucia",
+   "ˈlɔːndri",
+   "I do the laundry on Sundays.",
+   "Lavo la ropa los domingos."
+  ],
+  [
+   "nap",
+   "siesta",
+   "næp",
+   "A short nap gives you energy.",
+   "Una siesta corta te da energía."
+  ],
+  [
+   "grocery store",
+   "supermercado",
+   "ˈɡroʊsəri stɔːr",
+   "We need to go to the grocery store.",
+   "Tenemos que ir al supermercado."
+  ],
+  [
+   "tidy",
+   "ordenado",
+   "ˈtaɪdi",
+   "Keep your room tidy.",
+   "Mantén tu cuarto ordenado."
+  ],
+  [
+   "routine",
+   "rutina",
+   "ruːˈtiːn",
+   "Exercise is part of my routine.",
+   "El ejercicio es parte de mi rutina."
+  ]
+ ],
+ "Naturaleza": [
+  [
+   "mountain",
+   "montaña",
+   "ˈmaʊntən",
+   "The mountain was covered in snow.",
+   "La montaña estaba cubierta de nieve."
+  ],
+  [
+   "river",
+   "río",
+   "ˈrɪvər",
+   "The river flows to the sea.",
+   "El río fluye hacia el mar."
+  ],
+  [
+   "forest",
+   "bosque",
+   "ˈfɔːrɪst",
+   "We hiked through the forest.",
+   "Caminamos por el bosque."
+  ],
+  [
+   "weather",
+   "clima",
+   "ˈweðər",
+   "The weather is perfect today.",
+   "El clima está perfecto hoy."
+  ],
+  [
+   "storm",
+   "tormenta",
+   "stɔːrm",
+   "A big storm is coming tonight.",
+   "Se acerca una gran tormenta esta noche."
+  ],
+  [
+   "sunrise",
+   "amanecer",
+   "ˈsʌnraɪz",
+   "The sunrise was breathtaking.",
+   "El amanecer fue impresionante."
+  ],
+  [
+   "breeze",
+   "brisa",
+   "briːz",
+   "A cool breeze came from the sea.",
+   "Una brisa fresca llegó del mar."
+  ],
+  [
+   "wildlife",
+   "fauna",
+   "ˈwaɪldlaɪf",
+   "The park protects local wildlife.",
+   "El parque protege la fauna local."
+  ],
+  [
+   "rainbow",
+   "arcoíris",
+   "ˈreɪnboʊ",
+   "A rainbow appeared after the rain.",
+   "Apareció un arcoíris después de la lluvia."
+  ],
+  [
+   "shore",
+   "orilla / costa",
+   "ʃɔːr",
+   "Waves reached the shore.",
+   "Las olas llegaban a la orilla."
+  ]
+ ],
+ "Salud": [
+  [
+   "headache",
+   "dolor de cabeza",
+   "ˈhedeɪk",
+   "I have a terrible headache.",
+   "Tengo un dolor de cabeza terrible."
+  ],
+  [
+   "fever",
+   "fiebre",
+   "ˈfiːvər",
+   "The child has a high fever.",
+   "El niño tiene fiebre alta."
+  ],
+  [
+   "cough",
+   "tos",
+   "kɔːf",
+   "That cough sounds bad.",
+   "Esa tos suena mal."
+  ],
+  [
+   "medicine",
+   "medicina",
+   "ˈmedɪsn",
+   "Take your medicine after meals.",
+   "Toma tu medicina después de comer."
+  ],
+  [
+   "healthy",
+   "saludable",
+   "ˈhelθi",
+   "Eat healthy and feel great.",
+   "Come saludable y siéntete genial."
+  ],
+  [
+   "exercise",
+   "ejercicio",
+   "ˈeksərsaɪz",
+   "Daily exercise keeps you strong.",
+   "El ejercicio diario te mantiene fuerte."
+  ],
+  [
+   "injury",
+   "lesión",
+   "ˈɪndʒəri",
+   "The player recovered from his injury.",
+   "El jugador se recuperó de su lesión."
+  ],
+  [
+   "appointment",
+   "cita",
+   "əˈpɔɪntmənt",
+   "I have a doctor's appointment.",
+   "Tengo una cita con el médico."
+  ],
+  [
+   "symptom",
+   "síntoma",
+   "ˈsɪmptəm",
+   "Describe your symptoms, please.",
+   "Describe tus síntomas, por favor."
+  ],
+  [
+   "recover",
+   "recuperarse",
+   "rɪˈkʌvər",
+   "She recovered in two weeks.",
+   "Se recuperó en dos semanas."
+  ]
+ ],
+ "Tecnología": [
+  [
+   "keyboard",
+   "teclado",
+   "ˈkiːbɔːrd",
+   "This keyboard is very comfortable.",
+   "Este teclado es muy cómodo."
+  ],
+  [
+   "screen",
+   "pantalla",
+   "skriːn",
+   "Clean the screen with a soft cloth.",
+   "Limpia la pantalla con un paño suave."
+  ],
+  [
+   "download",
+   "descargar",
+   "ˈdaʊnloʊd",
+   "Download the app for free.",
+   "Descarga la aplicación gratis."
+  ],
+  [
+   "password",
+   "contraseña",
+   "ˈpæswɜːrd",
+   "Choose a strong password.",
+   "Elige una contraseña segura."
+  ],
+  [
+   "update",
+   "actualización",
+   "ˈʌpdeɪt",
+   "The update fixes several bugs.",
+   "La actualización corrige varios errores."
+  ],
+  [
+   "device",
+   "dispositivo",
+   "dɪˈvaɪs",
+   "Turn off the device at night.",
+   "Apaga el dispositivo por la noche."
+  ],
+  [
+   "wireless",
+   "inalámbrico",
+   "ˈwɪrləs",
+   "These headphones are wireless.",
+   "Estos audífonos son inalámbricos."
+  ],
+  [
+   "browser",
+   "navegador",
+   "ˈbraʊzər",
+   "Open a new browser tab.",
+   "Abre una nueva pestaña del navegador."
+  ],
+  [
+   "file",
+   "archivo",
+   "faɪl",
+   "Save the file before closing.",
+   "Guarda el archivo antes de cerrar."
+  ],
+  [
+   "storage",
+   "almacenamiento",
+   "ˈstɔːrɪdʒ",
+   "My phone is out of storage.",
+   "Mi teléfono no tiene almacenamiento."
+  ]
+ ],
+ "Social": [
+  [
+   "party",
+   "fiesta",
+   "ˈpɑːrti",
+   "The party starts at eight.",
+   "La fiesta empieza a las ocho."
+  ],
+  [
+   "joke",
+   "chiste / broma",
+   "dʒoʊk",
+   "He told a funny joke.",
+   "Contó un chiste gracioso."
+  ],
+  [
+   "laugh",
+   "reír / risa",
+   "læf",
+   "Her laugh is contagious.",
+   "Su risa es contagiosa."
+  ],
+  [
+   "invite",
+   "invitar",
+   "ɪnˈvaɪt",
+   "They invited us to dinner.",
+   "Nos invitaron a cenar."
+  ],
+  [
+   "neighbor",
+   "vecino / vecina",
+   "ˈneɪbər",
+   "Our neighbor is very kind.",
+   "Nuestro vecino es muy amable."
+  ],
+  [
+   "stranger",
+   "desconocido",
+   "ˈstreɪndʒər",
+   "Don't accept rides from strangers.",
+   "No aceptes viajes de desconocidos."
+  ],
+  [
+   "crowd",
+   "multitud",
+   "kraʊd",
+   "A crowd gathered in the square.",
+   "Una multitud se reunió en la plaza."
+  ],
+  [
+   "conversation",
+   "conversación",
+   "ˌkɑːnvərˈseɪʃn",
+   "We had a long conversation.",
+   "Tuvimos una larga conversación."
+  ],
+  [
+   "advice",
+   "consejo",
+   "ədˈvaɪs",
+   "Her advice was very helpful.",
+   "Su consejo fue muy útil."
+  ],
+  [
+   "trust",
+   "confianza",
+   "trʌst",
+   "Trust takes time to build.",
+   "La confianza toma tiempo en construirse."
+  ]
+ ],
+ "Adjetivos": [
+  [
+   "clever",
+   "astuto / inteligente",
+   "ˈklevər",
+   "That's a clever solution.",
+   "Es una solución astuta."
+  ],
+  [
+   "brave",
+   "valiente",
+   "breɪv",
+   "The brave dog saved the child.",
+   "El perro valiente salvó al niño."
+  ],
+  [
+   "gentle",
+   "amable / delicado",
+   "ˈdʒentl",
+   "She has a gentle voice.",
+   "Ella tiene una voz delicada."
+  ],
+  [
+   "huge",
+   "enorme",
+   "hjuːdʒ",
+   "They live in a huge house.",
+   "Viven en una casa enorme."
+  ],
+  [
+   "narrow",
+   "estrecho",
+   "ˈnæroʊ",
+   "The street is very narrow.",
+   "La calle es muy estrecha."
+  ],
+  [
+   "steep",
+   "empinado",
+   "stiːp",
+   "The hill is quite steep.",
+   "La colina es bastante empinada."
+  ],
+  [
+   "shiny",
+   "brillante",
+   "ˈʃaɪni",
+   "Her new bike is shiny.",
+   "Su bici nueva es brillante."
+  ],
+  [
+   "rough",
+   "áspero / agitado",
+   "rʌf",
+   "The sea was rough yesterday.",
+   "El mar estaba agitado ayer."
+  ],
+  [
+   "smooth",
+   "suave / liso",
+   "smuːð",
+   "The surface feels smooth.",
+   "La superficie se siente suave."
+  ],
+  [
+   "sharp",
+   "afilado",
+   "ʃɑːrp",
+   "Be careful, the knife is sharp.",
+   "Cuidado, el cuchillo está afilado."
+  ]
+ ],
+ "Verbos": [
+  [
+   "achieve",
+   "lograr",
+   "əˈtʃiːv",
+   "You can achieve anything.",
+   "Puedes lograr lo que sea."
+  ],
+  [
+   "borrow",
+   "pedir prestado",
+   "ˈbɑːroʊ",
+   "Can I borrow your pen?",
+   "¿Puedo pedir prestado tu bolígrafo?"
+  ],
+  [
+   "build",
+   "construir",
+   "bɪld",
+   "They built a wooden cabin.",
+   "Construyeron una cabaña de madera."
+  ],
+  [
+   "catch",
+   "atrapar / tomar",
+   "kætʃ",
+   "Catch the ball, quick!",
+   "¡Atrapa la pelota, rápido!"
+  ],
+  [
+   "choose",
+   "elegir",
+   "tʃuːz",
+   "Choose your favorite color.",
+   "Elige tu color favorito."
+  ],
+  [
+   "decide",
+   "decidir",
+   "dɪˈsaɪd",
+   "It's time to decide.",
+   "Es hora de decidir."
+  ],
+  [
+   "escape",
+   "escapar",
+   "ɪˈskeɪp",
+   "The cat escaped from the garden.",
+   "El gato escapó del jardín."
+  ],
+  [
+   "gather",
+   "reunirse / juntar",
+   "ˈɡæðər",
+   "We gather every Friday.",
+   "Nos reunimos cada viernes."
+  ],
+  [
+   "guess",
+   "adivinar",
+   "ɡes",
+   "Guess what I bought!",
+   "¡Adivina qué compré!"
+  ],
+  [
+   "improve",
+   "mejorar",
+   "ɪmˈpruːv",
+   "Read daily to improve.",
+   "Lee a diario para mejorar."
+  ],
+  [
+   "join",
+   "unirse",
+   "dʒɔɪn",
+   "Join us for lunch!",
+   "¡Únete a almorzar!"
+  ],
+  [
+   "reach",
+   "alcanzar",
+   "riːtʃ",
+   "We reached the summit at dawn.",
+   "Alcanzamos la cima al amanecer."
+  ]
+ ]
+}

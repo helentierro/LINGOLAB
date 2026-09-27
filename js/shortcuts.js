@@ -1,0 +1,36 @@
+/* LingoLab 3.0 — atajos de teclado. Presiona ? para verlos. */
+(function () {
+  "use strict";
+  const VIEWS = ["panel", "vocab", "lecciones", "lectura", "dialogs", "pron", "dictado", "escritura", "quiz", "juegos", "progreso"];
+  function inField() {
+    const a = document.activeElement;
+    return a && (a.tagName === "INPUT" || a.tagName === "TEXTAREA" || a.tagName === "SELECT");
+  }
+  function click(id) { const el = document.getElementById(id); if (el && !el.hidden && el.offsetParent) { el.click(); return true; } return false; }
+  function toggleHelp(force) {
+    const m = document.getElementById("keysModal"); if (!m) return;
+    m.hidden = force !== undefined ? !force : !m.hidden;
+  }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { toggleHelp(false); return; }
+    if (inField()) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const k = e.key;
+    if (k === "?") { e.preventDefault(); toggleHelp(); return; }
+    const n = parseInt(k, 10);
+    if (!isNaN(n)) {
+      const v = VIEWS[n === 0 ? 9 : n - 1];
+      if (v) { try { go(v); } catch (err) {} }
+      return;
+    }
+    switch (k.toLowerCase()) {
+      case " ": e.preventDefault(); click("btnPrRec") || click("btnRdRec") || click("btnDgRec") || click("btnDicPlay") || click("btnQuizStart"); break;
+      case "arrowright": click("btnPrNext") || click("btnDicNext") || click("btnWrNext") || click("lpNext"); break;
+      case "f": { const f = document.getElementById("flashCard"); if (f && f.offsetParent) f.click(); break; }
+      case "m": click("btnPrRec") || click("btnRdRec") || click("btnDgRec"); break;
+      case "t": click("lpEsBtn") || click("btnRdEs") || click("btnDgEs"); break;
+      case "l": click("btnPrPlay") || click("btnRdPlay"); break;
+    }
+  });
+  window.LingoKeys = { views: VIEWS, help: toggleHelp };
+})();

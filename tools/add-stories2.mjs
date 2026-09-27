@@ -1,0 +1,66 @@
+import fs from "node:fs";
+const arr = JSON.parse(fs.readFileSync("data/stories.json", "utf8"));
+arr.push(
+{id:"viking-compass",title:"The Stone Compass",orig:"Northern saga",level:"B1",icon:"🧭",desc:"Una joven vikinga roba la brújula de piedra y navega a lo desconocido.",
+pages:[
+{en:["Freya mends nets while men plan war.","Her eyes always look past the horizon."],es:["Freya remienda redes mientras los hombres planean la guerra.","Sus ojos siempre miran más allá del horizonte."],vocab:{mends:"remienda",nets:"redes",war:"guerra",horizon:"horizonte"}},
+{en:["Her father guards a stone compass.","It points to lands no map remembers."],es:["Su padre guarda una brújula de piedra.","Apunta a tierras que ningún mapa recuerda."],vocab:{guards:"guarda",compass:"brújula",points:"apunta",remembers:"recuerda"}},
+{en:["One stormy night Freya takes it.","Forgive me, father, she whispers to the wind."],es:["Una noche de tormenta Freya la toma.","Perdóname, padre, susurra al viento."],vocab:{stormy:"de tormenta",takes:"toma",forgive:"perdóname",whispers:"susurra",wind:"viento"}},
+{en:["She sails west with three friends.","The sea is a slave to no king."],es:["Navega al oeste con tres amigos.","El mar no es esclavo de ningún rey."],vocab:{sails:"navega",west:"oeste",sea:"mar",king:"rey"}},
+{en:["For days, fog eats the sun.","The crew sings to kill the fear."],es:["Por días, la niebla devora el sol.","La tripulación canta para matar el miedo."],vocab:{fog:"niebla",crew:"tripulación",fear:"miedo"}},
+{en:["On the seventh dawn, birds scream.","Land! Land! cries the youngest sailor."],es:["Al séptimo amanecer, los pájaros gritan.","¡Tierra! ¡Tierra! llora el marinero más joven."],vocab:{dawn:"amanecer",birds:"pájaros",sailor:"marinero"}},
+{en:["Green cliffs rise from white foam.","Berries shine like red stars."],es:["Acantilados verdes surgen de espuma blanca.","Bayas brillan como estrellas rojas."],vocab:{cliffs:"acantilados",foam:"espuma",berries:"bayas",stars:"estrellas"}},
+{en:["Strangers bring bread, not swords.","Freya offers amber for salt."],es:["Extraños traen pan, no espadas.","Freya ofrece ámbar por sal."],vocab:{strangers:"extraños",bread:"pan",swords:"espadas",offers:"ofrece",salt:"sal"}},
+{en:["They return before the first snow.","Her father's anger melts into pride."],es:["Regresan antes de la primera nieve.","La ira de su padre se derrite en orgullo."],vocab:{return:"regresan",snow:"nieve",anger:"ira",pride:"orgullo"}},
+{en:["The compass now points home.","Courage is the truest north."],es:["La brújula ahora apunta a casa.","El valor es el verdadero norte."],vocab:{home:"casa",courage:"valor",north:"norte"}}]},
+{id:"sahara-secret",title:"The Well of Stars",orig:"Desert tale",level:"B2",icon:"🏜️",desc:"Una guía tuareg busca el pozo que solo aparece sin luna.",
+pages:[
+{en:["Amina guides caravans through the dunes.","She reads sand the way others read books."],es:["Amina guía caravanas por las dunas.","Lee la arena como otros leen libros."],vocab:{guides:"guía",caravans:"caravanas",dunes:"dunas",sand:"arena"}},
+{en:["Her grandfather spoke of a hidden well.","It opens only on moonless nights, he swore."],es:["Su abuelo habló de un pozo oculto.","Solo se abre en noches sin luna, juró."],vocab:{hidden:"oculto",well:"pozo",moonless:"sin luna",swore:"juró"}},
+{en:["A merchant offers gold for its water.","Water that never dries, he dreams aloud."],es:["Un mercader ofrece oro por su agua.","Agua que nunca se seca, sueña en voz alta."],vocab:{merchant:"mercader",gold:"oro",dries:"se seca",dreams:"sueña"}},
+{en:["Amina refuses to sell the desert.","Some chains shine like coins, she answers."],es:["Amina se niega a vender el desierto.","Algunas cadenas brillan como monedas, responde."],vocab:{refuses:"se niega",sell:"vender",chains:"cadenas",coins:"monedas"}},
+{en:["On the darkest night they ride out.","Three camels, two skins of water, one secret."],es:["En la noche más oscura cabalgan.","Tres camellos, dos odres de agua, un secreto."],vocab:{darkest:"más oscura",ride:"cabalgan",camels:"camellos",secret:"secreto"}},
+{en:["The merchant follows in secret.","Greed rides faster than camels."],es:["El mercader los sigue en secreto.","La codicia cabalga más rápido que los camellos."],vocab:{greed:"codicia"}},
+{en:["At midnight the sand begins to sing.","Stars fall and open a black mirror."],es:["A medianoche la arena empieza a cantar.","Las estrellas caen y abren un espejo negro."],vocab:{midnight:"medianoche",sing:"cantar",mirror:"espejo"}},
+{en:["Amina drinks and fills one skin.","Enough for all, never for sale, she vows."],es:["Amina bebe y llena un odre.","Suficiente para todos, nunca en venta, jura."],vocab:{drinks:"bebe",enough:"suficiente",sale:"venta",vows:"jura"}},
+{en:["The merchant dives in with his bags.","The well closes over his greed."],es:["El mercader se lanza con sus bolsas.","El pozo se cierra sobre su codicia."],vocab:{dives:"se lanza",closes:"se cierra"}},
+{en:["Amina leads the caravan home.","The desert keeps slaves and freed alike."],es:["Amina guía la caravana a casa.","El desierto guarda esclavos y libres por igual."],vocab:{leads:"guía",keeps:"guarda",freed:"libres",alike:"por igual"}}]},
+{id:"mermaid-zanzibar",title:"The Pearl Singer",orig:"Swahili legend",level:"A2",icon:"🧜",desc:"Un pescador oye cantar bajo el mar y halla una sirena herida.",
+pages:[
+{en:["Juma fishes at dawn every day.","His boat is small but his heart is big."],es:["Juma pesca al amanecer cada día.","Su barca es pequeña pero su corazón es grande."],vocab:{fishes:"pesca",dawn:"amanecer",boat:"barca",heart:"corazón"}},
+{en:["One morning he hears sweet singing.","It comes from under the blue waves."],es:["Una mañana oye un dulce canto.","Viene de debajo de las olas azules."],vocab:{hears:"oye",singing:"canto",waves:"olas"}},
+{en:["A mermaid lies hurt on the sand.","A net holds her silver tail."],es:["Una sirena yace herida en la arena.","Una red sujeta su cola plateada."],vocab:{mermaid:"sirena",hurt:"herida",sand:"arena",net:"red",tail:"cola"}},
+{en:["Do not be afraid, Juma says softly.","I will free you now."],es:["No tengas miedo, dice Juma suave.","Te liberaré ahora."],vocab:{afraid:"miedo",softly:"suave",free:"liberaré"}},
+{en:["He cuts the net with his knife.","The mermaid cries happy tears."],es:["Corta la red con su cuchillo.","La sirena llora lágrimas felices."],vocab:{cuts:"corta",knife:"cuchillo",tears:"lágrimas"}},
+{en:["Take this pearl for your kindness, she sings.","It shines when danger is near."],es:["Toma esta perla por tu bondad, canta.","Brilla cuando el peligro está cerca."],vocab:{pearl:"perla",kindness:"bondad",shines:"brilla",danger:"peligro",near:"cerca"}},
+{en:["Juma sells fish and saves money.","He buys medicine for his village."],es:["Juma vende pescado y ahorra dinero.","Compra medicina para su aldea."],vocab:{sells:"vende",fish:"pescado",money:"dinero",medicine:"medicina",village:"aldea"}},
+{en:["One night pirates attack the village.","The pearl burns red in his pocket."],es:["Una noche piratas atacan la aldea.","La perla arde roja en su bolsillo."],vocab:{pirates:"piratas",attack:"atacan",burns:"arde",pocket:"bolsillo"}},
+{en:["Juma throws the pearl to the sea.","Waves rise and push the pirates away."],es:["Juma lanza la perla al mar.","Las olas se alzan y empujan a los piratas."],vocab:{throws:"lanza",rise:"se alzan",push:"empujan",away:"lejos"}},
+{en:["The village is safe and sings.","Kindness returns like the tide."],es:["La aldea está a salvo y canta.","La bondad regresa como la marea."],vocab:{safe:"a salvo",kindness:"bondad",tide:"marea"}}]},
+{id:"atlantis-bell",title:"The Bell of Atlantis",orig:"Sea myth",level:"B2",icon:"🔔",desc:"Una buceadora halla una campana que toca sola… y la ciudad despierta.",
+pages:[
+{en:["Mara dives deeper than anyone dares.","Her grandfather vanished in these waters."],es:["Mara bucea más hondo de lo que nadie se atreve.","Su abuelo desapareció en estas aguas."],vocab:{dives:"bucea",deeper:"más hondo",dares:"se atreve",vanished:"desapareció",waters:"aguas"}},
+{en:["At forty meters the light turns green.","A bronze bell sleeps in the sand."],es:["A cuarenta metros la luz se vuelve verde.","Una campana de bronce duerme en la arena."],vocab:{light:"luz",bell:"campana",sand:"arena"}},
+{en:["Mara touches it; it rings alone.","Sound travels where light cannot."],es:["Mara la toca; suena sola.","El sonido viaja donde la luz no puede."],vocab:{rings:"suena",sound:"sonido",travels:"viaja"}},
+{en:["The sand opens like an eye.","Stairs of white stone invite her down."],es:["La arena se abre como un ojo.","Escalones de piedra blanca la invitan a bajar."],vocab:{opens:"se abre",stairs:"escalones",stone:"piedra",invite:"invitan"}},
+{en:["A city of glass wakes slowly.","Fishermen with silver eyes stare at her."],es:["Una ciudad de cristal despierta despacio.","Pescadores de ojos plateados la miran."],vocab:{city:"ciudad",glass:"cristal",stare:"miran"}},
+{en:["You rang the debt bell, they chant.","One of ours for one of yours, they demand."],es:["Tocaste la campana de la deuda, corean.","Uno de los nuestros por uno de los tuyos, exigen."],vocab:{debt:"deuda",chant:"corean",demand:"exigen"}},
+{en:["Mara understands: her grandfather stayed.","He traded his years for their storm wall."],es:["Mara comprende: su abuelo se quedó.","Cambió sus años por su muro de tormentas."],vocab:{understands:"comprende",traded:"cambió",storm:"tormentas",wall:"muro"}},
+{en:["Take me instead, Mara offers.","The bell rings twice and accepts."],es:["Tómame a mí en cambio, ofrece Mara.","La campana suena dos veces y acepta."],vocab:{instead:"en cambio",offers:"ofrece",accepts:"acepta"}},
+{en:["An old man with her eyes steps forward.","Grandfather! Time kept him young."],es:["Un anciano con sus ojos avanza.","¡Abuelo! El tiempo lo mantuvo joven."],vocab:{steps:"avanza",young:"joven"}},
+{en:["They rise together toward the sun.","Some chains break when love pays."],es:["Suben juntos hacia el sol.","Algunas cadenas se rompen cuando el amor paga."],vocab:{rise:"suben",sun:"sol",break:"se rompen",love:"amor"}}]},
+{id:"last-library",title:"The Last Library",orig:"A tale for readers",level:"C1",icon:"📚",desc:"En un mundo sin libros, una niña guarda la última biblioteca bajo tierra.",
+pages:[
+{en:["In the gray city, screens replaced every book.","Forgetting became the law of comfort."],es:["En la ciudad gris, las pantallas reemplazaron cada libro.","Olvidar se volvió la ley de la comodidad."],vocab:{screens:"pantallas",replaced:"reemplazaron",forgetting:"olvidar",comfort:"comodidad"}},
+{en:["Wren, twelve, inherits a brass key.","Her grandmother's whisper guides her moves."],es:["Wren, doce años, hereda una llave de latón.","El susurro de su abuela guía sus pasos."],vocab:{inherits:"hereda",brass:"latón",whisper:"susurro",guides:"guía"}},
+{en:["Beneath the bakery, stairs descend into warmth.","Ten thousand spines breathe in the dark."],es:["Bajo la panadería, escalones descienden al calor.","Diez mil lomos respiran en la oscuridad."],vocab:{beneath:"bajo",descend:"descienden",warmth:"calor",breathe:"respiran"}},
+{en:["The Inspectors hunt remaining paper.","Ink, they preach, enslaves the mind."],es:["Los Inspectores cazan el papel restante.","La tinta, predican, esclaviza la mente."],vocab:{hunt:"cazan",remaining:"restante",preach:"predican",enslaves:"esclaviza"}},
+{en:["Wren memorizes one poem each night.","Words become birds she cannot cage."],es:["Wren memoriza un poema cada noche.","Las palabras se vuelven pájaros que no puede enjaular."],vocab:{memorizes:"memoriza",poem:"poema",birds:"pájaros",cage:"enjaular"}},
+{en:["She teaches fragments to trusted friends.","Each child carries one forbidden verse."],es:["Enseña fragmentos a amigos de confianza.","Cada niño lleva un verso prohibido."],vocab:{teaches:"enseña",trusted:"de confianza",forbidden:"prohibido",verse:"verso"}},
+{en:["Betrayed by hunger, she is caught at dawn.","The key burns cold in her fist."],es:["Traicionada por el hambre, la atrapan al amanecer.","La llave quema fría en su puño."],vocab:{betrayed:"traicionada",hunger:"hambre",caught:"atrapan",fist:"puño"}},
+{en:["Burn them, orders the pale Inspector.","Wren smiles: they live in us now."],es:["Quémenlos, ordena el pálido Inspector.","Wren sonríe: ahora viven en nosotros."],vocab:{burn:"quemen",orders:"ordena",pale:"pálido"}},
+{en:["Forty voices recite in the square.","The fire forgets whom to devour."],es:["Cuarenta voces recitan en la plaza.","El fuego olvida a quién devorar."],vocab:{recite:"recitan",square:"plaza",devour:"devorar"}},
+{en:["The city learns to read again.","No wall outlives a whispered tale."],es:["La ciudad aprende a leer de nuevo.","Ningún muro sobrevive a un cuento susurrado."],vocab:{learns:"aprende",outlives:"sobrevive",tale:"cuento"}}]}
+);
+fs.writeFileSync("data/stories.json", JSON.stringify(arr, null, 1));
+console.log("stories:", arr.length);
