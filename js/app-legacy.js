@@ -172,7 +172,7 @@ const TICKER=[["Break a leg!","¡Mucho éxito!"],["It's raining cats and dogs","
 const DB_KEY="lingolab_v1";
 /* Versión de la app. Si tocas el código, súbela: el marcador del panel y el
    aviso de caché usan este número para decirte si lo tienes fresco. */
-const V="v12";
+const V="v13";
 /* micMode: "auto" (celular=pulsar, PC=corrido) | "pulsar" (un toque=una frase) | "corrido" (libre)
    noise:    "off" | "normal" | "strict"  (filtro antiruido)
    alwaysES: mostrar el español sin depender del botón 👁 */
@@ -2442,8 +2442,8 @@ $("btnReset").onclick=()=>{
   $("flashModal").hidden=true;
   /* Marcador de versión: la app te dice qué versión tienes abierta, para saber
      de un vistazo si los cambios nuevos ya llegaron o estás viendo la caché. */
-  $("appVer").textContent="v12";
-  $("appVer").title="Versión v12 · si acabas de cambiar el código y no cambia nada, recarga con Ctrl+Shift+R";
+  $("appVer").textContent="v13";
+  $("appVer").title="Versión v13 · si acabas de cambiar el código y no cambia nada, recarga con Ctrl+Shift+R";
   /* Avisa si el service worker está sirviendo una versión cacheada antigua. */
   if(navigator.serviceWorker&&navigator.serviceWorker.controller){
     navigator.serviceWorker.addEventListener("message",e=>{

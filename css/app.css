@@ -23,6 +23,17 @@ input,textarea,select{font:inherit;color:var(--ink)}
 .glow.a{width:560px;height:560px;left:-180px;top:-160px;background:radial-gradient(circle,rgba(255,207,92,.15),transparent 65%)}
 .glow.b{width:640px;height:640px;right:-220px;bottom:-220px;background:radial-gradient(circle,rgba(108,200,255,.12),transparent 65%)}
 .glow.c{width:400px;height:400px;left:40%;top:35%;background:radial-gradient(circle,rgba(196,165,255,.10),transparent 60%)}
+/* Letras de fondo: es decoración, así que no puede tocar el scroll.
+   El contenedor no tenía ni position ni overflow, de modo que sus span en
+   absoluto se posicionaban contra el bloque inicial (no contra el div), con
+   bottom:-15% y un tamaño aleatorio de 40 a 130 px. Eso ampliaba el área
+   desplazable del documento una cantidad RANDOM en cada carga: por eso el
+   scroll de las secciones cortas "a veces" pasaba y a veces no, y por eso dos
+   mediciones seguidas del mismo código daban números distintos.
+   Con position:fixed el navegador no lo cuenta para el scroll de la página, y
+   con overflow:hidden las letras se recortan a la pantalla, que es lo que se
+   quiere de un fondo. */
+#bgLetters{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
 #bgLetters span{position:absolute;font-family:var(--disp);font-weight:800;color:#9d9df5;opacity:.06;bottom:-15%;animation:floatUp linear infinite}
 @keyframes floatUp{from{transform:translateY(0) rotate(-6deg)}to{transform:translateY(-130vh) rotate(10deg)}}
 
@@ -58,8 +69,36 @@ header.top{position:sticky;top:0;z-index:40;background:rgba(10,20,29,.96);border
 .lvl-track i{display:block;height:100%;background:linear-gradient(90deg,var(--sky),var(--mint));border-radius:99px;transition:width .6s cubic-bezier(.2,.8,.3,1)}
 
 /* ══════════ LAYOUT ══════════ */
-.shell{display:grid;grid-template-columns:236px 1fr;max-width:1440px;margin:0 auto;min-height:calc(100vh - 100px)}
-nav.side{padding:26px 14px;border-right:1px solid var(--line);position:sticky;top:69px;height:calc(100vh - 69px);display:flex;flex-direction:column;gap:4px}
+/* El shell ya no es una rejilla de 2 columnas. La lateral pasa a position:fixed
+   (ver overhaul.css), así que sale del flujo y deja de sumar altura; el hueco que
+   deja lo rellena este padding. main conserva max-width y se centra con margin
+   auto sobre el espacio restante, que da EXACTAMENTE la misma posición que antes
+   (comprobado a 1280 y a 1920).
+
+   El min-height baja de 100 a 105 porque el chrome fijo de arriba mide 105 de
+   verdad: .ticker 36 + header 69 (el propio CSS lo confirmaba con top:69px en la
+   lateral). Con -100 sobraban 5 px, y se sumaban a los 31 px que la lateral
+   medía de más: 36 px de scroll que no llevaban a ninguna parte. La barra se
+   movía 36 px al bajar la rueda y se paraba, sin nada debajo. Medido con
+   tools/measure-scroll.mjs. */
+/* El aire de abajo (antes padding-bottom de main) vive ahora aquí. Con
+   box-sizing:border-box cuenta DENTRO de la altura mínima, así que en las
+   secciones cortas ese hueco se paga con el presupuesto de la ventana y no
+   empuja el documento: medido, main con 70px de padding dejaba 5px de scroll
+   inútil en Lecciones y 41px en Pronunciación. En las largas, como el contenido
+   pasa del mínimo, el aire se suma al final igual que antes. */
+.shell{display:block;min-height:calc(100dvh - 105px);padding-left:236px;padding-bottom:70px}
+/* Lateral fija. Fuera del flujo a propósito: mientras estuvo "sticky" dentro de
+   la rejilla, medía 31 px más que la fila y se salía por abajo del documento, y
+   como el shell começaba 105 px más abajo, eso añadía 36 px de scroll que no
+   llevaban a nada (la barra se movía 36 px al bajar la rueda y se paraba).
+   top+bottom, sin height: así llega siempre al final de la pantalla y no hay
+   hueco. En móvil la reescribe la regla de max-width:980px de abajo. */
+nav.side{
+  position:fixed;top:69px;left:0;bottom:0;width:236px;
+  padding:26px 14px;border-right:1px solid var(--line);
+  display:flex;flex-direction:column;gap:4px;overflow-y:auto
+}
 nav.side .nav-label{font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:var(--dim);text-transform:uppercase;padding:0 12px;margin:14px 0 6px}
 nav.side .nav-label:first-child{margin-top:0}
 .nav-btn{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:var(--r-md);color:var(--mut);font-weight:700;font-size:14.5px;border:1px solid transparent;transition:all .2s;position:relative;text-align:left;width:100%}
@@ -70,7 +109,7 @@ nav.side .nav-label:first-child{margin-top:0}
 .side-foot{margin-top:auto;padding:12px;border:1px dashed var(--line);border-radius:var(--r-md);font-size:12px;color:var(--dim)}
 .side-foot b{color:var(--mint)}
 
-main{padding:30px 34px 70px;max-width:1120px;width:100%}
+main{padding:30px 34px 0;max-width:1120px;width:100%;margin:0 auto}
 /* La entrada de cada sección anima SOLO la opacidad. Antes era
    from{opacity:0;transform:translateY(14px)}, y un transform desplazado SÍ
    amplía el área desplazable del documento aunque no ocupe espacio en el
@@ -302,8 +341,12 @@ input.range::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px
 /* Responsive */
 @media(max-width:1080px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:980px){
-  .shell{grid-template-columns:1fr}
-  nav.side{position:fixed;bottom:0;left:0;right:0;top:auto;height:auto;flex-direction:row;overflow-x:auto;padding:8px 10px;background:rgba(10,20,29,.98);border-right:none;border-top:1px solid var(--line);z-index:60;gap:2px}
+  /* En móvil la lateral se convierte en la tira de botones de abajo. Como ahora
+     la de escritorio lleva width:236px fijo, hay que quitarlo (si no, se queda
+     en 236 px en vez de ocupar el ancho) y el shell deja de reservar el hueco
+     izquierdo. */
+  .shell{padding-left:0;padding-bottom:0;min-height:calc(100dvh - 105px)}
+  nav.side{position:fixed;bottom:0;left:0;right:0;top:auto;width:auto;height:auto;flex-direction:row;overflow-x:auto;overflow-y:hidden;padding:8px 10px;background:rgba(10,20,29,.98);border-right:none;border-top:1px solid var(--line);z-index:60;gap:2px}
   nav.side .nav-label,.side-foot{display:none}
   .nav-btn{flex-direction:column;gap:4px;font-size:10.5px;padding:8px 11px;min-width:70px;justify-content:center}
   .nav-btn.active::before{left:15%;right:15%;top:auto;bottom:-8px;width:auto;height:3px;border-radius:4px 4px 0 0}
