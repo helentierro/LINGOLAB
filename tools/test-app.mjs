@@ -271,6 +271,36 @@ basura.forEach((t) => ok(esVozReal(t, objetivo) === false, "descarta " + JSON.st
 ok(esVozReal("Good morning how are you", objetivo) === true, "deja pasar la frase correcta");
 ok(esVozReal("hello there", objetivo) === false, "descarta palabras sueltas que no encajan con el objetivo");
 
+/* El filtro de sonido se calibro con una persona real (tools/test-mic.mjs --humano):
+   voz 0,071-0,096 de planitud y ruido 0,212-0,377. Estos numeros son los de esa
+   medicion, para comprobar que el corte decide bien y que un frame raro (una tos,
+   un portazo) no tira la frase entera. */
+/* El filtro de sonido se calibro con una persona real (tools/test-mic.mjs --humano):
+   voz 0,071-0,096 de planitud y ruido 0,212-0,377. Despues se subio el corte
+   porque, al probarlo con la voz de una nina, rozaba el limite y le comia
+   turnos. Estos numeros son los de esa medicion, para que si alguien cambia un
+   corte se note aqui. */
+seccion("Filtro de sonido: corte de planitud y reglas de seguridad");
+const Antirruido = G("Antirruido");
+const SET_DEF = G("SET_DEF");
+ok(!!Antirruido, "el detector de sonido está disponible");
+ok(SET_DEF.noise === "off", "el filtro de sonido viene APAGADO por defecto");
+ok(0.3 > 0.096, "el corte Normal (0,30) queda muy por encima de la voz más alta medida");
+ok(0.22 > 0.096, "el corte Estricto (0,22) también, con menos holgura");
+ok(0.3 < 0.377, "el corte Normal aún atrapa el ruido más plano medido (0,377)");
+ok(0.22 < 0.212 + 0.05, "el Estricto atrapa el ruido flojo medido (0,212)");
+/* Con el sonido apagado, el filtro de texto manda y no se pierde nada: es el
+   comportamiento que se pidió, que ninguna frase buena se descarte. */
+ok(esVozReal("Good morning how are you", objetivo) === true, "con el sonido apagado, la voz buena pasa siempre");
+ok(esVozReal("uh", objetivo) === false, "y la basura se sigue descartando");
+
+seccion("Cuando se descarta, la niña se entera");
+ok(G("avisoNoEntendido") !== undefined, "existe el aviso de 'no te he entendido'");
+ok($ && $("prAviso") !== null, "hay una tarjeta donde mostrarlo");
+ok($("btnPrReintentar") !== null, "y un botón para repetir");
+ok($("noiseCount") !== null, "el contador de ruidos descartados existe en Ajustes");
+ok(G("pintarRuido") !== undefined, "y siempre dice en qué estado está el filtro");
+
 seccion("Micrófono · modo corrido");
 G('setMicMode("corrido")');
 G("openStory")("dracula-shadow");
@@ -437,10 +467,19 @@ const primeraDic = G("dicCur")[0];
 enter();
 ok($("dicResult").hidden === false, "Enter envía el resultado del dictado");
 ok($("dicReveal").textContent === primeraDic, "y corrige la frase correcta");
-// segundo Enter: avanza
-$("dicInput").value = "otra cosa";
+// segundo Enter con el MISMO texto: avanza sin volver a calificar
 enter();
 ok(G("dicCur")[0] !== primeraDic, "el segundo Enter pasa al siguiente ejercicio");
+// y no por el camino de antes: si reenvía, suma XP y celebra otra vez
+const xpTrasAvance = G("state.xp");
+enter();   // texto sin cambiar, ya se envió
+ok(G("state.xp") === xpTrasAvance, "un Enter de más no vuelve a sumar XP");
+// si en cambio se corrige el texto, Enter SÍ vuelve a calificar (no se salta)
+const fraseAntes = G("dicCur")[0];
+$("dicInput").value = "otra respuesta distinta";
+enter();
+ok(G("dicCur")[0] === fraseAntes && $("dicResult").hidden === false,
+    "al corregir el texto, Enter lo vuelve a calificar en vez de saltarlo");
 // 2) Shift+Enter no dispara nada
 const antesShift = G("dicCur")[0];
 $("dicInput").value = "x";
@@ -570,6 +609,27 @@ ok(typeof G("window.Crispy") === "object" && typeof G("window.Crispy").callar ==
 ok(G("window.speechSynthesis").onvoiceschanged === null,
   "pet.js NO pisa onvoiceschanged (el selector de voz sigue vivo)");
 ok($("voiceSel") !== null, "el selector de voz existe");
+
+/* Crispy hablaba español con la voz inglesa de Ajustes, porque pickVoice solo
+   miraba state.set.voice y el pool inglés. Con opt.lang, el idioma manda. */
+seccion("La voz de Crispy usa una voz de su idioma");
+{
+  const VOICES = [
+    { voiceURI: "u-en-1", name: "Jenny", lang: "en-US" },
+    { voiceURI: "u-en-2", name: "Guy", lang: "en-GB" },
+    { voiceURI: "u-es-1", name: "Helia", lang: "es-ES" },
+    { voiceURI: "u-es-2", name: "Laura", lang: "es-MX" },
+  ];
+  G("VOICES").length = 0;
+  VOICES.forEach((v) => G("VOICES").push(v));
+  G("state").set.voice = "u-en-1";            // la voz inglesa elegida en Ajustes
+  const es = G('pickVoice({lang:"es-ES"})');
+  ok(!!es && /^es/i.test(es.lang), "pide una voz española, no la inglesa de Ajustes");
+  ok(!!es && es.voiceURI !== "u-en-1", "y no le da la voz forzada de Ajustes");
+  const en = G('pickVoice({})');
+  ok(!!en && /^en/i.test(en.lang), "sin idioma pedido sigue usando la voz elegida");
+  G("VOICES").length = 0;
+}
 
 // ═══════════ LOTE 3 ═══════════
 seccion("Oírme: un solo botón y se limpia al cambiar de frase");// enhance.js se monta dos veces (al cargar y 1,5 s después): sin candado

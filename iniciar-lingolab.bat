@@ -6,10 +6,13 @@ set PORT=8000
 set PAGE=index.html
 
 REM ===============================================
+REM Aqui NO se escribe el numero de version. Antes este archivo decia "v10"
+REM mientras la app ya iba por v11, y porEso el numero mentia. El unico sitio
+REM que tiene la version correcta es el distintivo de la app, arriba a la
+REM derecha, que se actualiza con el codigo. Asi no hay dos verdades.
 echo  LINGOLAB - Laboratorio de Ingles
 echo  Servidor local para que Chrome/Edge
 echo  RECUERDE el permiso del microfono.
-echo  Version de la app: v10
 echo ===============================================
 echo.
 
@@ -52,7 +55,8 @@ echo  Si acabas de cambiar el codigo y NO se nota:
 echo    1) recarga con  Ctrl+Shift+R  (fuerza, ignora la cache)
 echo    2) si sigue igual, abre  F12  -^ Console  -^ borra el
 echo       "Service Worker" y recarga otra vez.
-echo  Arriba a la derecha debe poner  v10.
+echo    El distintivo de arriba a la derecha dice que version estas viendo:
+echo    si no coincide con la que tocaste, hay una copia vieja en cache.
 echo.
 echo  Para detener: cierra la ventana "LINGOLAB servidor".
 echo -----------------------------------------------

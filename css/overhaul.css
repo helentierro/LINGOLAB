@@ -1,6 +1,15 @@
 /* LingoLab 4.0 — Overhaul Noche Mágica. Shape lock: cards 16px, botones/chips pill. */
 .stat-n,.mono,.pill,.q-prompt,#xpLabel{font-variant-numeric:tabular-nums}
 
+/* ── Scroll: que no se mueva solo ──
+   Chrome "ancla" el scroll para mantener en su sitio el elemento que estaba
+   arriba. Útil en un blog, molesto aquí: al aparecer la tarjeta de resultado de
+   Dictado o Escritura, o al pintar el canvas de Quiz o Juegos, el navegador
+   reajusta la posición y la página da un salto por su cuenta. Con
+   overflow-anchor:none la posición la manda el código y no el navegador. */
+.view{overflow-anchor:none}
+html,body{overflow-anchor:none}
+
 /* ── Barra lateral: nunca debe "moverse sola" ──
    1) dvh en vez de vh: vh no cambia al abrir el teclado del móvil y por eso la
       barra pegajosa se desplazaba sola al escribir.
@@ -12,7 +21,12 @@ nav.side{
   height:calc(100dvh - 69px);
   max-height:calc(100dvh - 69px);
   overflow-y:auto;
-  overscroll-behavior:contain;
+  /* Y el overscroll en auto, no en contain: con "contain", al llegar al final de
+     la lateral la rueda se quedaba muerta ahí, porque el navegador no pasaba el
+     scroll a la página. Con el cursor sobre la barra y en secciones cortas, que
+     no tienen a dónde ir, la rueda parecía no hacer nada. */
+  overscroll-behavior-y:auto;
+  overscroll-behavior-x:contain;
   scrollbar-width:thin
 }
 @supports not (height:100dvh){nav.side{height:calc(100vh - 69px);max-height:calc(100vh - 69px)}}

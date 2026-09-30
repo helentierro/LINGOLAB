@@ -27,7 +27,14 @@
   function tts(text, langCode) {
     if (!text) return;
     if (typeof speak === "function") {
-      speak(text, 1.05, { gender: langCode === "es" ? "f" : undefined, pitch: 1.4 }, () => talking(false));
+      /* El idioma va explícito. Antes no se pasaba y speak() cogía la voz global
+         de la app, que es inglesa porque el contenido es inglés: el gato
+         "hablaba español" con acento inglés, leyéndolo un voz inglesa. */
+      speak(text, 1.05, {
+        lang: langCode === "es" ? "es-ES" : "en-US",
+        gender: langCode === "es" ? "f" : undefined,
+        pitch: 1.4,
+      }, () => talking(false));
       talking(true);
       setTimeout(() => talking(false), Math.min(9000, 1200 + text.length * 70));
       return;

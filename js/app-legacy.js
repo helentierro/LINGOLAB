@@ -172,10 +172,15 @@ const TICKER=[["Break a leg!","¡Mucho éxito!"],["It's raining cats and dogs","
 const DB_KEY="lingolab_v1";
 /* Versión de la app. Si tocas el código, súbela: el marcador del panel y el
    aviso de caché usan este número para decirte si lo tienes fresco. */
-const V="v11";
+const V="v12";
 /* micMode: "auto" (celular=pulsar, PC=corrido) | "pulsar" (un toque=una frase) | "corrido" (libre)
    noise:    "off" | "normal" | "strict"  (filtro antiruido)
    alwaysES: mostrar el español sin depender del botón 👁 */
+/* El filtro de SONIDO viene apagado. Se calibró con una persona real, pero
+   con voz de adulto y la app es para una niña: al probarlo rozaba el límite y le
+   quitaba turnos. Un filtro que come frases buenas de la niña es peor que no
+   tener filtro, así que el de texto (siempre activo y medido) lleva el peso y el
+   de sonido queda disponible en Ajustes para quien lo quiera. */
 const SET_DEF={rate:0.95,voice:null,micMode:"auto",noise:"off",alwaysES:true};
 function defaultState(){return{xp:0,streak:0,lastEarn:null,todayXP:0,todayDate:todayStr(),goal:60,log:{},words:{},lessonsDone:{},reading:{},dialogs:{},hist:{pron:[],dic:[],wr:[],quiz:[]},ach:[],set:Object.assign({},SET_DEF),firstRun:true};}
 let state;
@@ -301,6 +306,25 @@ function rankVoice(v){
 }
 function pickVoice(opt){
   opt=opt||{};
+  /* Si quien habla necesita un idioma concreto (Crispy en español), ese idioma
+     manda por encima de todo, incluida la voz que eligió la persona en Ajustes:
+     esa voz es inglesa porque el contenido de la app es inglés, y si se usara
+     para el español se oía a un inglés leyendo español, con acento inglés.
+     Por eso, con opt.lang, la voz forzada se ignora a propósito. */
+  const quiere=opt.lang&&/^(es|en)/i.test(opt.lang||"")?opt.lang.slice(0,2).toLowerCase():null;
+  if(quiere){
+    const propias=VOICES.filter(v=>new RegExp("^"+quiere+"[-_]","i").test(v.lang||""));
+    if(propias.length){
+      let p2=propias;
+      if(opt.gender){
+        const g=p2.filter(v=>new RegExp(opt.gender==="f"?"Jenny|Aria|Michelle|Emma|Ana|Jane|Samantha|Zira|Helia|María|Maria|Laura|Elvira|Sabina|Dalia|Paulina|female|mujer":"Guy|Christopher|Eric|Roger|Brian|David|Diego|Juan|Álvaro|male|hombre","i").test((v.name||"")+" "+(v.voiceURI||"")));
+        if(g.length)p2=g;
+      }
+      return p2.slice().sort((a,b)=>rankVoice(b)-rankVoice(a))[0]||null;
+    }
+    /* No hay voces de ese idioma instaladas: mejor la voz que haya que un
+       silencio, y que el motor decida el idioma con u.lang. */
+  }
   if(!opt.forceAuto&&state.set.voice){const v=VOICES.find(v=>v.voiceURI===state.set.voice);if(v)return v;}
   if(!VOICES.length)return null;
   let pool=VOICES.filter(v=>/^en/i.test(v.lang||""));
@@ -384,14 +408,13 @@ function speak(text,rateMul,voiceOpt,done){
       const r=(Number(state.set.rate)||0.95)*(rateMul||1)*((voiceOpt&&voiceOpt.rate)||1);
       u.rate=Math.min(2,Math.max(0.5,r));
       u.pitch=Math.min(2,Math.max(0,(voiceOpt&&voiceOpt.pitch)||1));
-      u.lang=v?v.lang:"en-US";
+      u.lang=(voiceOpt&&voiceOpt.lang)||(v?v.lang:"en-US");
       const seguir=()=>{
         if(token!==speakToken)return;
         if(partes.length<=1){finish();return;}
         const n=new SpeechSynthesisUtterance(partes[1]);
         if(v)n.voice=v;
-        n.rate=u.rate;n.pitch=u.pitch;n.lang=u.lang;
-        n.onend=seguir;
+        n.rate=u.rate;n.pitch=u.pitch;n.lang=u.lang;        n.onend=seguir;
         n.onerror=()=>{if(token===speakToken)finish();};
         try{speechSynthesis.speak(n);}catch(e){}
       };
@@ -485,9 +508,20 @@ function scoreColor(s){return s>=80?"#4fe3a5":s>=50?"#ffcf5c":"#ff7d7d";}
    * comprimidos en dB y no discriminan). Una persona concentra casi toda la
    * energía por debajo de 3,4 kHz; un ventilador la reparte y sube los agudos. */
   const Antirruido=(function(){
-  const MURO={off:0,normal:0.55,strict:0.8};  /* fraccion de energía en banda de voz */
+  /* Cortes de planitud, calibrados con una persona real (tools/test-mic.mjs
+     --humano): voz 0,071-0,096 · ruido 0,212-0,377.
+     Se SUBIERON respecto a la primera calibración (0,18 / 0,14) porque así lo
+     pidió quien lo probó: rozaba el límite y le comía turnos. El motivo de fondo
+     es que medimos con voz de ADULTO y la app es para una niña: la voz infantil
+     tiene formantes más altos y puede salir más plana, así que 0,18 no tenía el
+     margen que parecía. Ahora hay más de 3 veces de holgura sobre la voz más
+     alta medida. Y como el ruido que medimos era muy flojo (rms 0,0001), el
+     caso difícil sigue sin medirse: por eso el filtro de sonido va apagado de
+     serie y el de texto, que sí está medido, lleva el peso. */
+  const MURO={off:0,normal:0.3,strict:0.22};
   let ctx=null,analyser=null,stream=null,timeBuf=null,freqBuf=null;
   let listo=false,probado=false,avisoMudo=false,fallo=null,esperando=false;
+  let rechazosSeg=0;   /* turnos descartados seguidos: alimenta el fusible */
   let prevEsp=null;   /* espectro de banda de voz del frame anterior, para medir cuánto se mueve */
   let picos=[],descartados=0,vacio=0,ultimo={};
   const LIMIT=1.6;
@@ -532,34 +566,60 @@ function scoreColor(s){return s>=80?"#4fe3a5":s>=50?"#ffcf5c":"#ff7d7d";}
     for(let i=iAgudo;i<freqBuf.length;i++){const d=freqBuf[i];if(isFinite(d)&&d>corte){pAlta+=Math.pow(10,d/10);nAlta++;}}
     const vB=nVoz?pVoz/nVoz:0, aB=nAlta?pAlta/nAlta:0;
     const frac=aB>0?vB/(vB+aB):(vB>0?1:0.5);
-    /* ── Modulación del espectro (ESTA es la que separa de verdad) ──
-       La idea de "la voz LOW-banda vs el ruido agudos" no funciona: medido, un
-       ventilador da frac 0,996 y una voz 0,997, porque el ruido de un ventilador
-       también es casi todo graves. Descartada.
+    /* ── Modulación del espectro ──
+       La idea de "la voz es de graves y el ruido de agudos" no funciona: medido
+       con voz y ventilador REALES, los dos dan frac 0,996-1,000, porque el ruido
+       de un ventilador también es casi todo graves. Descartada.
        Lo que sí distingue a una persona es que el espectro de la banda de la
-       voz se MUEVE: las vocales y los formantes cambian cada sílaba. El
-       ventilador tiene un timbre fijo y su espectro se queda quieto.
-       Así que comparamos este frame con el anterior, bin a bin, en dB: si
-       cambia mucho es alguien hablando; si apenas cambia es un ruido continuo. */
+       voz se MUEVE: vocales y formantes cambian cada sílaba. El ventilador tiene
+       un timbre fijo y su espectro se queda quieto. Así que comparamos este
+       frame con el anterior, bin a bin, en dB: si cambia mucho es alguien
+       hablando; si apenas cambia es un ruido continuo.
+
+       BUG corregido: antes se comparaba solo sobre los bins que superan el
+       corte, y ese número cambia de un frame a otro, así que la comparación casi
+       nunca llegaba a hacerse y `mod` salía 0 siempre (medido con voz real:
+       mod 0 tanto hablando como con el ventilador). Ahora la banda es FIJA, de
+       300 a 3400 Hz, y da igual cuántos bins haya por encima del corte. */
+    const iVoz2=hz(300);
+    const NB=Math.max(4,iVoz-iVoz2);
     let mod=0;
-    if(nVoz>4){
-      const esp=new Float32Array(nVoz);let suma=0;
-      for(let k=0;k<nVoz;k++){esp[k]=10*Math.log10(pVoz>0?Math.max(1e-12,Math.pow(10,freqBuf[iBajo+k]/10)/ (pVoz/nVoz)):1e-12);suma+=esp[k];}
-      const media=suma/nVoz;
-      for(let k=0;k<nVoz;k++)esp[k]-=media;   /* quitar el tono general del micro */
-      if(prevEsp&&prevEsp.length===nVoz){
+    {
+      const esp=new Float32Array(NB);let suma=0;
+      for(let k=0;k<NB;k++){const d=freqBuf[iVoz2+k];esp[k]=isFinite(d)?d:-100;suma+=esp[k];}
+      const media=suma/NB;
+      for(let k=0;k<NB;k++)esp[k]-=media;   /* quitar el tono general del micro */
+      if(prevEsp&&prevEsp.length===NB){
         let dif=0;
-        for(let k=0;k<nVoz;k++)dif+=Math.abs(esp[k]-prevEsp[k]);
-        mod=dif/nVoz;                          /* dB de cambio medio por bin */
+        for(let k=0;k<NB;k++)dif+=Math.abs(esp[k]-prevEsp[k]);
+        mod=dif/NB;                          /* dB de cambio medio por bin */
       }
       prevEsp=esp;
     }
-    /* Modulación: la voz tiene picos y valles; un ruido constante es plano. */
+    /* ── Planitud del espectro (no depende del volumen) ──
+       Otra medida que sí distingue: una persona habla con picos y valles
+       (armónicos y formantes), así que el espectro es "irregular". Un ruido es
+       un goteo liso y su espectro es plano. Se mide con la planitud (media
+       geométrica entre media aritmética): da cerca de 1 para el ruido y bastante
+       menos para la voz. Como solo usa proporciones, no le afecta que el
+       ventilador esté más fuerte o más flojo que la voz. */
+    let plano=0;
+    {
+      let suma=0,logSuma=0,n=0;
+      for(let k=0;k<NB;k++){const d=freqBuf[iVoz2+k];if(!isFinite(d))continue;const p=Math.pow(10,d/10);suma+=p;logSuma+=Math.log(p);n++;}
+      plano=(n&&suma>0)?Math.exp(logSuma/n)/(suma/n):0;
+    }
+    /* Cresta: cuánto supera el máximo el nivel típico. */
     let pico=0;for(let i=0;i<timeBuf.length;i++){const a=Math.abs(timeBuf[i]);if(a>pico)pico=a;}
     const crests=rms>1e-6?pico/rms:0;
-    /* La puntuación es la modulación: la voz la mueve, un ruido fijo no. */
-    const score=mod;
-    ultimo={rms,frac,mod,zcr,crests,pico};
+    /* La puntuación es la PLANITUD del espectro, y aquí se busca lo contrario
+       que en las métricas anteriores: la voz es IRREGULAR (0,07-0,10 medido
+       con una persona real) y el ruido es LISO (0,21-0,38). O sea que en este
+       caso un valor ALTO es mala señal, y por eso el corte va "por debajo de".
+       Es la única medida que resultó insensible al volumen: la misma voz da
+       0,091 con rms 0,0013 y 0,096 con rms 0,0315. */
+    const score=plano;
+    ultimo={rms,frac,mod,plano,zcr,crests,pico};
     const t=performance.now();
     picos.push({t,score});
     while(picos.length&&t-picos[0].t>LIMIT*1000)picos.shift();
@@ -618,13 +678,37 @@ function scoreColor(s){return s>=80?"#4fe3a5":s>=50?"#ffcf5c":"#ff7d7d";}
     if(stream){try{stream.getTracks().forEach(t=>t.stop());}catch(e){}stream=null;}
     ctx=null;analyser=null;listo=false;picos=[];probado=false;prevEsp=null;
   }
-  /* Devuelve true si lo último que se oyó parece voz. level>0 siempre es true. */
+  /* Devuelve true si lo último que se oyó parece voz. Con la Capa B apagada no
+     bloquea nada. Hay dos redes de seguridad, porque perder una frase buena de
+     la niña es el daño que más molesta:
+
+     1) No basta con la mediana. Antes, la mediana bastaba para tirar la frase
+        entera, y la mediana solo exige que la mitad de la ventana sea ruido. Con
+        una tos, un portazo o una silla, media ventana basta para perder el turno.
+        Ahora hace falta el 70%, o sea que el ruido tiene que ser sostenido.
+
+     2) Fusible: si el filtro descarta dos turnos seguidos, es que él está
+        molestando, así que se apaga solo y avisa. Antes el problema era que un
+        filtro mal calibrado podía estropear la sesión entera sin decir nada. */
+  const PROPORCION=0.7;
   function esVoz(){
     const u=nivelUmbral();
     if(u<=0||!listo||!picos.length)return true; /* sin filtro: no bloquea nada */
-    let max=0;const t=performance.now();
-    for(let i=picos.length-1;i>=0;i--){if(t-picos[i].t>LIMIT*1000)break;if(picos[i].score>max)max=picos[i].score;}
-    return max>=u;
+    const t=performance.now(),v=[];
+    for(let i=picos.length-1;i>=0;i--){if(t-picos[i].t>LIMIT*1000)break;v.push(picos[i].score);}
+    if(!v.length)return true;
+    let planos=0;
+    for(let i=0;i<v.length;i++)if(v[i]>=u)planos++;
+    const esRuido=(planos/v.length)>=PROPORCION;
+    if(!esRuido){rechazosSeg=0;return true;}
+    /* Fusible: dos rechazos seguidos y se apaga. */
+    if(++rechazosSeg>=2){
+      state.set.noise="off";save();pintarRuido();
+      apagar();
+      toast("El filtro de sonido se ha apagado solo: te estaba quitando frases buenas","🛡");
+      return true;   /* este turno se deja pasar: mejor cero filtrado que comerse la frase */
+    }
+    return false;
   }
   /* Se llama DENTRO del clic del usuario: pide el micro una sola vez y lo
      recuerda igual que el reconocedor. Si falla, no insisto. */
@@ -656,14 +740,16 @@ function scoreColor(s){return s>=80?"#4fe3a5":s>=50?"#ffcf5c":"#ff7d7d";}
      frase) el detector se quedaba apagado para toda la sesión: el avisoMudo no
      se limpiaba nunca. Ahora, al empezar a escuchar otra vez se rearma. */
   function reiniciar(){vacio=0;avisoMudo=false;esperando=false;if(!listo&&nivelUmbral()>0)iniciar();}
-  /* Lectura de la puntuación para diagnóstico y pruebas: devuelve la mejor
-     puntuación de voz de los últimos ~1,6 s, o null si el detector no está
-     activo. Sirve para comprobar que el filtro distingue voz de ruido. */
+  /* Lectura de la puntuación para diagnóstico y pruebas: la planitud mediana de
+     los últimos ~1,6 s, o null si el detector no está activo. Es lo que decide
+     si el turno se acepta, así que la prueba puede comprobarlo. */
   function muestra(){
     if(!listo||!picos.length)return null;
-    const t=performance.now();let max=0;
-    for(let i=picos.length-1;i>=0;i--){if(t-picos[i].t>LIMIT*1000)break;if(picos[i].score>max)max=picos[i].score;}
-    return Math.round(max*1000)/1000;
+    const t=performance.now(),v=[];
+    for(let i=picos.length-1;i>=0;i--){if(t-picos[i].t>LIMIT*1000)break;v.push(picos[i].score);}
+    if(!v.length)return null;
+    v.sort((a,b)=>a-b);
+    return Math.round(v[Math.floor(v.length/2)]*1000)/1000;
   }
   /* Volcado de las medidas crudas: sirve para calibrar los umbrales con datos
      reales en vez de a ojo (ver tools/test-mic.mjs). */
@@ -672,6 +758,7 @@ function scoreColor(s){return s>=80?"#4fe3a5":s>=50?"#ffcf5c":"#ff7d7d";}
     if(ultimo.error)return{error:ultimo.error};
     return{rms:Math.round(ultimo.rms*10000)/10000,frac:Math.round(ultimo.frac*1000)/1000,
            mod:Math.round((ultimo.mod||0)*1000)/1000,
+           plano:Math.round((ultimo.plano||0)*1000)/1000,
            zcr:Math.round(ultimo.zcr*1000)/1000,crests:Math.round(ultimo.crests*100)/100,
            /* El estado del contexto explica muchos "rms 0" que no son del micro. */
            ctx:ctx?ctx.state:"sin contexto",
@@ -722,8 +809,27 @@ function esVozReal(texto,ref,nota){
   }
   return Antirruido.esVoz();
 }
-function marcarRuido(){Antirruido.descartados++;const e=$("noiseCount");if(e)e.textContent="🔇 "+Antirruido.descartados+" ruidos descartados";}
-function pintarRuido(){const e=$("noiseCount");if(e&&!Antirruido.descartados)e.textContent=noiseLevel()?"filtro de texto y sonido":"filtro de texto";}
+function marcarRuido(){
+  Antirruido.descartados++;
+  const e=$("noiseCount");
+  if(e)e.textContent="🔇 "+Antirruido.descartados+" "+(Antirruido.descartados===1?"ruido descartado":"ruidos descartados");
+}
+/* Esta línea es el único sitio donde se ve si el filtro está actuando, así que
+   siempre dice algo. Antes iba en gris claro a 12 px y se leía como que no había
+   nada, que es justo lo que pasó: al probar no se veía si el filtro descartaba o
+   no, y sin eso no se puede saber si un fallo es del filtro o de otro sitio. */
+function pintarRuido(){
+  const e=$("noiseCount");if(!e)return;
+  if(Antirruido.descartados){
+    e.textContent="🔇 "+Antirruido.descartados+" "+(Antirruido.descartados===1?"ruido descartado":"ruidos descartados");
+    e.style.color="var(--warn,#f0b429)";
+    return;
+  }
+  e.style.color="";
+  e.textContent=noiseLevel()
+    ? "Filtro activo: texto + sonido (corte "+(state.set.noise==="strict"?"estricto":"normal")+")."
+    : "Filtro activo: solo texto (descarta transcripciones inventadas).";
+}
 
 /* ═══════════════════════════════ RECONOCIMIENTO DE VOZ (sin doble prompt) ═══════════════════════════════
    FIX: antes se pedía getUserMedia + SpeechRecognition (doble prompt) y se hacía
@@ -779,7 +885,10 @@ function getRec(){
       break; /* solo el primer final del lote */
     }
     if(!mejor||!mejor.grade)return;
-    if(!esVozReal(mejor.text,refFrase(),mejor.score)){marcarRuido();recResuelto=true;stopListening();return;}
+    if(!esVozReal(mejor.text,refFrase(),mejor.score)){
+      marcarRuido();avisoNoEntendido("filtro",mejor.text);
+      recResuelto=true;stopListening();return;
+    }
     recResuelto=true;
     showPrResult(mejor.grade,mejor.text);
   };
@@ -838,8 +947,23 @@ function go(v){
   document.querySelectorAll(".view").forEach(s=>s.hidden=true);
   $("view-"+v).hidden=false;
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.view===v));
-  RENDER[v]();window.scrollTo({top:0,behavior:"smooth"});
+  RENDER[v]();
+  /* Ir arriba sin animar. Antes era scrollTo({behavior:"smooth"}), y eso era un
+     problema por partida doble en escritorio:
+     1) Anulaba la regla de accesibilidad. css/themes.css pone scroll-behavior:auto
+        dentro de prefers-reduced-motion, pero un behavior explícito en el JS
+        manda sobre el CSS, así que quien tiene "reducir movimiento" activo
+        seguía viendo la animación.
+     2) Animar mientras cambia el alto de la página se descuadra: aquí se ocultan
+        todas las vistas y se muestra una nueva, y la altura cambia justo cuando
+        la animación está en marcha. El navegador recorta y el scroll salta. */
+  try{scrollTo(0,0);}catch(e){}
 }
+/* El navegador, al volver atrás o adelante, restaura la posición de scroll que
+   tenías. Como cada sección tiene un alto distinto, esa posición guardada ya no
+   existe y la página aparece a media altura: en PC se nota al usar atrás/adelante
+   o al recargar. Aquí manda la app, no el navegador. */
+try{history.scrollRestoration="manual";}catch(e){}
 /* Al bloquear el móvil o cambiar de pestaña, el micro se cierra: si no, el
    reconocedor sigue consumiendo y calificando lo que se oiga de fondo. */
 document.addEventListener("visibilitychange",()=>{if(document.hidden){rdPause();dgPause();stopListening();}});
@@ -1570,7 +1694,7 @@ function rdOnFluidFinal(g,heard,idx){
   if(i<0||i>=rdPhrases.length||rdScores[i]!=null)return;
   /* Filtro antiruido: si lo que se oyó no parece una persona, se descarta sin
      calificar y SIN avanzar. Antes el ruido marcaba rojo y saltaba de frase. */
-  if(!esVozReal(heard,rdPhrases[i],g.score)){marcarRuido();paintFluid(false);return;}
+  if(!esVozReal(heard,rdPhrases[i],g.score)){marcarRuido();toast("No he entendido eso, léelo otra vez","🎤");paintFluid(false);return;}
   rdErrs=0;
   const modoPulsar=rdPulsarFalso;
   rdScores[i]=g.score;
@@ -1823,7 +1947,7 @@ function dgOnFinal(g,heard){
   if(dgIdx>=dgTurns.length||dgTurns[dgIdx][0]!=="B")return;
   /* Antirruido: un ruido de fondo no es un turno tuyo, así que no se califica
      ni avanza la escena. */
-  if(!esVozReal(heard,dgTurns[dgIdx][1],g.score)){marcarRuido();dgPinta();paintDg(false);return;}
+  if(!esVozReal(heard,dgTurns[dgIdx][1],g.score)){marcarRuido();toast("No he entendido eso, dilo otra vez","🎤");dgPinta();paintDg(false);return;}
   dgErrs=0;
   const modoPulsar=dgPulsarFalso;
   const i=dgIdx;dgScores[i]=g.score;
@@ -1921,6 +2045,9 @@ function showPrCard(){
   $("prMeta").textContent="FRASE "+(prI+1)+"/"+prQ.length+" · NIVEL "+prLvl.toUpperCase();
   $("prEn").textContent="“"+s[0]+"”";$("prEs").textContent=s[1];
   $("prResult").hidden=true;
+  /* El aviso de "no te he entendido" tampoco puede quedar pegado a la frase
+     siguiente, o parecería que la frase nueva tampoco se entiende. */
+  $("prAviso").hidden=true;
   /* Aviso de "cambió la frase". enhance.js lo escucha para parar la grabación
      de "Oírme" y limpiar su reproductor; si no, el audio de la frase anterior
      se quedaba en pantalla. */
@@ -1939,6 +2066,25 @@ $("btnMicOnce").onclick=()=>{
   toast("Presiona el micrófono grande y habla: ahí Chrome te pedirá permiso solo 1 vez","🎤");
 };
 $("btnPrRec").onclick=()=>startListening();
+/* Cuando el filtro descarta un turno, antes no pasaba nada: el micrófono se
+   apagaba y la niña se quedaba sin nota, sin XP y sin explicación, lo que se ve
+   como que la app "no oye". Ahora se dice qué pasó y se ofrece repetir.
+   El texto distingue las dos causas porque se arreglan de forma distinta: si es
+   el filtro, el problema es el ajuste; si es una transcripción rara, es ruido. */
+function avisoNoEntendido(motivo,texto){
+  const c=$("prAviso");if(!c)return;
+  const t=$("prAvisoTxt");
+  const filtro=/filtro/i.test(motivo);
+  t.textContent=filtro
+    ? "He oído algo, pero no parece tu voz hablando. Puede que el micrófono esté muy lejos, o que la sala esté ruidosa."
+    : "Eso no me suena a inglés. "+(texto?("Oí: “"+texto+"”."):"")+" Inténtalo otra vez, un poco más cerca del micrófono.";
+  c.hidden=false;
+}
+$("btnPrReintentar").onclick=()=>{
+  const c=$("prAviso");if(c)c.hidden=true;
+  prI=recTargetI;showPrCard();
+  setTimeout(startListening,180);
+};
 function showPrResult(g,heard){
   /* Candado de seguridad. Un intento = un resultado. Antes, cualquier disparo
      extra de onresult (Chrome puede enviar varios) repintaba la tarjeta, hacía
@@ -1995,16 +2141,23 @@ function renderDic(){levelChips($("dicLevels"),dicLvl,l=>{dicLvl=l;newDictation(
 function newDictation(){
   const pool=SENTENCES[dicLvl];
   let s;do{s=pool[Math.floor(Math.random()*pool.length)];}while(pool.length>1&&dicCur&&s[0]===dicCur[0]);
-  dicCur=s;dicPlays=0;$("dicInput").value="";$("dicResult").hidden=true;
+  dicCur=s;dicPlays=0;$("dicInput").value="";$("dicResult").hidden=true;dicUltimo="";
   $("dicPlays").textContent="nivel "+dicLvl;
 }
 function dicPlay(r){speak(dicCur[0],r||1);try{LingoMagic.Sounds.click();}catch(e){}dicPlays++;$("dicPlays").textContent="🔊 ×"+dicPlays;}
 $("btnDicPlay").onclick=()=>dicPlay();
 $("btnDicSlow").onclick=()=>dicPlay(0.6);
 $("btnDicSkip").onclick=newDictation;
+/* Una respuesta = una nota. Sin este candado, la misma respuesta se podía
+   calificar dos veces (doble clic, o Enter repetido): sumo XP otra vez y
+   repetía la celebración. Solo se repite si de verdad es OTRA respuesta. */
+let dicUltimo="";
 $("btnDicCheck").onclick=()=>{
   const typed=$("dicInput").value.trim();
   if(!typed){toast("Primero escribe lo que escuchaste","✍️");return;}
+  const llave=(dicCur?dicCur[0]:"")+"|"+typed;
+  if(llave===dicUltimo)return;   /* ya calificado: no se repite nada */
+  dicUltimo=llave;
   const g=grade(dicCur[0],typed);
   $("dicResult").hidden=false;
   $("dicScore").textContent=g.score+"%";$("dicScore").style.color=scoreColor(g.score);
@@ -2233,7 +2386,7 @@ $("noiseSel").addEventListener("change",e=>{
      apagado, iniciar() ni siquiera lo había abierto, y si estaba encendido hay
      que dejarlo pasar para que el ajuste nuevo surta efecto. */
   Antirruido.apagar();
-  toast(e.target.value==="off"?"Solo el filtro de texto (recomendado)":e.target.value==="strict"?"Filtro estricto: puede descartar frases buenas":"Filtro de texto y sonido (sin calibrar)","🛡");
+  toast(e.target.value==="off"?"Solo el filtro de texto":e.target.value==="strict"?"Filtro estricto: puede descartar frases buenas":"Filtro de texto y sonido","🛡");
 });
 $("esSel").addEventListener("change",e=>{
   const v=e.target.value==="always";
@@ -2289,8 +2442,8 @@ $("btnReset").onclick=()=>{
   $("flashModal").hidden=true;
   /* Marcador de versión: la app te dice qué versión tienes abierta, para saber
      de un vistazo si los cambios nuevos ya llegaron o estás viendo la caché. */
-  $("appVer").textContent="v11";
-  $("appVer").title="Versión v11 · si acabas de cambiar el código y no cambia nada, recarga con Ctrl+Shift+R";
+  $("appVer").textContent="v12";
+  $("appVer").title="Versión v12 · si acabas de cambiar el código y no cambia nada, recarga con Ctrl+Shift+R";
   /* Avisa si el service worker está sirviendo una versión cacheada antigua. */
   if(navigator.serviceWorker&&navigator.serviceWorker.controller){
     navigator.serviceWorker.addEventListener("message",e=>{

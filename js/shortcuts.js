@@ -46,8 +46,12 @@
     return false;
   }
 
+  /* Texto que ya se envió en cada campo, para distinguir "ya contesté esto" de
+     "cambié mi respuesta y quiero que me la califiques otra vez". */
+  const enviados = {};
+
   /* Enter global. Se registra en captura y con stopImmediatePropagation para que
-     no competing con los listeners de los campos: aquí está toda la lógica. */
+     no compita con los listeners de los campos: aquí está toda la lógica. */
   function enterGlobal(e) {
     if (e.key !== "Enter" || e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return;
     const activo = document.activeElement;
@@ -63,8 +67,18 @@
       e.stopImmediatePropagation();
       const caja = document.getElementById(envio.caja);
       const yaEnviado = caja && !caja.hidden;
+      const valor = String(activo.value || "").trim();
+      /* BUG corregido: aquí se pulsaba SIEMPRE el botón, y solo después se
+         avanzaba. Con la regla de arriba ("si ya se envió, Enter avanza"), el
+         segundo Enter volvía a calificar lo mismo: celebraba otra vez, sacaba
+         otro confeti y SUMA XP otra vez, y luego saltaba de ejercicio. Con la
+         hoja abierta se veía clarísimo.
+         Ahora: si ya se envió ESA MISMA respuesta, solo se avanza. Pero si la
+         persona corrigió el texto, Enter sí vuelve a calificar, que es lo que
+         se espera al reescribir. */
+      if (yaEnviado && enviados[envio.campo] === valor) { avanzar(); return; }
+      enviados[envio.campo] = valor;
       boton.click();
-      if (yaEnviado) avanzar();
       return;
     }
     /* Enter con el cuerpo enfocado: avanza directamente. */

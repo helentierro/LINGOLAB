@@ -199,16 +199,16 @@ async function lanzarConAudio({ audio, perfil, puerto, etiqueta }) {
   const ws = new WebSocket((await esperarCDP(puerto)).webSocketDebuggerUrl);
   await new Promise((r, j) => { ws.addEventListener("open", r); ws.addEventListener("error", j); });
   const c = new CDP(ws);
-  const t = await c.enviar("Target.createTarget", { url: "about:blank" });
-  const s = await c.enviar("Target.attachToTarget", { targetId: t.targetId, flatten: true });
-  c.sesion = s.sessionId;
-  await c.enviar("Runtime.enable");
-  await c.enviar("Page.enable");
-  try { await c.enviar("Page.bringToFront"); } catch (e) { /* no critico */ }
-  await c.enviar("Page.navigate", { url: `http://localhost:${PUERTO_APP}/index.html` });
-  const lista = await c.esperarA(`(typeof window.LingoKeys!=="undefined" && typeof go==="function") ? 1 : 0`, 30000);
-  if (!lista) throw new Error("la app no arrancó con " + etiqueta);
-  return { cdp: c, pid: proc.pid, puerto };
+    const t = await c.enviar("Target.createTarget", { url: "about:blank" });
+    const s = await c.enviar("Target.attachToTarget", { targetId: t.targetId, flatten: true });
+    c.sesion = s.sessionId;
+    await c.enviar("Runtime.enable");
+    await c.enviar("Page.enable");
+    try { await c.enviar("Page.bringToFront"); } catch (e) { /* no critico */ }
+    await c.enviar("Page.navigate", { url: `http://localhost:${PUERTO_APP}/index.html` });
+    const lista = await c.esperarA(`(typeof window.LingoKeys!=="undefined" && typeof go==="function") ? 1 : 0`, 60000);
+    if (!lista) throw new Error("la app no arrancó con " + etiqueta);
+    return { cdp: c, pid: proc.pid, puerto };
 }
 
 class CDP {
@@ -532,7 +532,7 @@ function leerTecla() {
 }
 
 async function modoHumano() {
-  seccion("Micrófono real: pulsa 1 para hablar, 2 para el ventilador, 0 para salir");
+  seccion("Micrófono real: 1 = hablas, 2 = solo ruido, 3 = hablas con ruido, 0 = salir");
   console.log("  Se abrirá Chrome con TU micrófono (no se usa ningún audio falso).");
   console.log("  Acepta el permiso cuando lo pida y deja la ventana a la vista.");
   const { cdp, pid, puerto } = await lanzarConAudio({
@@ -572,41 +572,109 @@ async function modoHumano() {
     await cdp.enviar("Input.dispatchMouseEvent", { type: "mouseReleased", x: 20, y: 20, button: "left", clickCount: 1 });
     await new Promise((r) => setTimeout(r, 600));
     console.log("  estado del audio: " + await cdp.evaluar(`JSON.stringify(Antirruido.detalle())`));
+
+    /* Ruido por los ALTAVOCES del portátil, que el micrófono oirá como si fuera
+       una sala ruidosa. Así no hace falta ventilador ni aspiradora: el ruido sale
+       de un altavoz y entra por el micro, que es justo lo que pasa en casa.
+       El ruido es rosa (como el de un ventilador: sube y baja, no un pitido). */
+    await cdp.evaluar(`window.__ruido=(function(){
+      let ctx=null,src=null;
+      return function(on){
+        try{
+          if(on){
+            if(!ctx)ctx=new (window.AudioContext||window.webkitAudioContext)();
+            if(ctx.state!=="running")ctx.resume();
+            if(!src){
+              const len=Math.floor(ctx.sampleRate*4);
+              const buf=ctx.createBuffer(1,len,ctx.sampleRate);
+              const d=buf.getChannelData(0);
+              let b0=0,b1=0,b2=0;
+              for(let i=0;i<len;i++){
+                const w=Math.random()*2-1;
+                b0=0.99765*b0+w*0.0990460;
+                b1=0.96300*b1+w*0.2965164;
+                b2=0.57000*b2+w*1.0526913;
+                d[i]=(b0+b1+b2+w*0.1848)*0.30;
+              }
+              src=ctx.createBufferSource();src.buffer=buf;src.loop=true;
+              const g=ctx.createGain();g.gain.value=1.6;
+              src.connect(g);g.connect(ctx.destination);src.start();
+            }
+          }else if(src){src.stop();src=null;}
+          return ctx?ctx.state:"sin contexto";
+        }catch(e){return "error: "+e.message}
+      };
+    })(); 1`);
+    console.log("  Ruido de fondo disponible: 2 = solo ruido, 3 = tú hablando con ruido de fondo.");
+    console.log("  (Si tienes un secador o una aspiradora, en el 2 mejor eso: es más fiel.)");
+    /* Cada caso se repite varias veces y se queda con la mediana. Con una sola
+       medición no se puede poner un umbral: las voces cambian, la distancia al
+       micro cambia y el ruido de la sala cambia. Antes con un solo intento la
+       ventana "hablando con ruido" salía con el nivel de una ventana en la que
+       la persona no estaba hablando, y se tomaba por una medida buena. */
+    const REPETICIONES = 3, SEGUNDOS = 6;
+    const mediana = (xs) => xs.slice().sort((a, b) => a - b)[Math.floor(xs.length / 2)];
     for (;;) {
       const t = await leerTecla();
       if (t === "0" || t === null) break;
-      console.log((t === "1" ? "  Hablando 8 s...\n" : "  Ventilador 8 s...\n"));
-      /* Se rearranca el detector en cada ventana: si en la anterior se quedó en
-         silencio (una pausa, un momento de silencio) el guard lo apagó, y sin
-         esto las siguientes ventanas medirían "sin contexto" sin medir nada. */
-      await cdp.evaluar(`(function(){
-        Antirruido.apagar(); Antirruido.iniciar(); Antirruido.reiniciar(); return 1 })()`);
-      await cdp.esperarA(`Antirruido.activo ? 1 : 0`, 8000);
-      await cdp.enviar("Input.dispatchMouseEvent", { type: "mousePressed", x: 20, y: 20, button: "left", clickCount: 1 });
-      await cdp.enviar("Input.dispatchMouseEvent", { type: "mouseReleased", x: 20, y: 20, button: "left", clickCount: 1 });
-      const muestras = [];
-      const t0 = Date.now();
-      while (Date.now() - t0 < 8000) {
-        await new Promise((r) => setTimeout(r, 500));
-        const d = await cdp.evaluar(`JSON.stringify(Antirruido.detalle())`);
-        if (d) muestras.push(JSON.parse(d));
+      const conRuido = (t === "2" || t === "3");
+      const hablando = (t === "1" || t === "3");
+      const etiqueta = t === "1" ? "VOZ       " : t === "2" ? "RUIDO     " : "VOZ+RUIDO ";
+      console.log(conRuido
+        ? `  ${hablando ? "HABLANDO CON RUIDO DE FONDO" : "SOLO RUIDO"}: ${REPETICIONES} repeticiones de ${SEGUNDOS} s\n`
+        : `  Hablando: ${REPETICIONES} repeticiones de ${SEGUNDOS} s\n`);
+      const todo = { rms: [], mod: [], plano: [], frac: [], zcr: [], crests: [] };
+      let conSenalTotal = 0, utilesTotal = 0, ctxVisto = "";
+      for (let rep = 0; rep < REPETICIONES; rep++) {
+        await cdp.evaluar(`window.__ruido(${conRuido ? "true" : "false"})`);
+        /* Se rearranca el detector en cada ventana: si en la anterior se quedó
+           en silencio (una pausa) el guard lo apagó, y sin esto las siguientes
+           ventanas medirían "sin contexto" sin medir nada. */
+        await cdp.evaluar(`(function(){
+          Antirruido.apagar(); Antirruido.iniciar(); Antirruido.reiniciar(); return 1 })()`);
+        await cdp.esperarA(`Antirruido.activo ? 1 : 0`, 8000);
+        await cdp.enviar("Input.dispatchMouseEvent", { type: "mousePressed", x: 20, y: 20, button: "left", clickCount: 1 });
+        await cdp.enviar("Input.dispatchMouseEvent", { type: "mouseReleased", x: 20, y: 20, button: "left", clickCount: 1 });
+        process.stdout.write(`    ${rep + 1}/${REPETICIONES} `);
+        const muestras = [];
+        const t0 = Date.now();
+        while (Date.now() - t0 < SEGUNDOS * 1000) {
+          await new Promise((r) => setTimeout(r, 500));
+          /* Una lectura que falle no debe tumbar la sesión: se salta y ya está.
+             Antes un solo timeout cerraba el programa y había que empezar de cero. */
+          try {
+            const d = await cdp.evaluar(`JSON.stringify(Antirruido.detalle())`);
+            if (d) muestras.push(JSON.parse(d));
+          } catch (e) { /* una lectura perdida no importa */ }
+        }
+        await cdp.evaluar(`window.__ruido("false")`);
+        const utiles = muestras.filter((m) => m && typeof m.mod === "number");
+        const conSenal = utiles.filter((m) => m.rms > 0);
+        utilesTotal += utiles.length; conSenalTotal += conSenal.length;
+        if (utiles.length) ctxVisto = utiles[utiles.length - 1].ctx;
+        if (conSenal.length) for (const k of Object.keys(todo)) todo[k].push(mediana(conSenal.map((m) => m[k])));
+        else console.log("rms 0 ");
       }
-      const utiles = muestras.filter((m) => m && typeof m.mod === "number");
-      const conSenal = utiles.filter((m) => m.rms > 0);
-      const estado = utiles.length ? utiles[utiles.length - 1].ctx : "sin contexto";
-      if (!conSenal.length) {
-        console.log(`  no se oyó nada (rms 0) en ${utiles.length} lecturas.` +
-                    ` Estado del audio: ${estado}.\n` +
-                    `  Si dice "suspended", Chrome no ha desbloqueado el audio: haz clic` +
-                    ` dentro de la ventana de Chrome y repite.\n` +
-                    `  Si dice "running" y sigue en 0, entonces sí es el micrófono:` +
-                    ` revisa que no esté muteado y que Windows use el micro correcto.\n`);
+      if (!todo.rms.length) {
+        console.log(`  no se oyó nada en ${utilesTotal} lecturas. Estado del audio: ${ctxVisto || "sin contexto"}.\n` +
+                    `  Si dice "running" y sigue en 0, revisa que el micrófono no esté` +
+                    ` muteado y que Windows use el micro correcto.\n`);
         continue;
       }
-      const med = (k) => conSenal.map((m) => m[k]).sort((a, b) => a - b)[Math.floor(conSenal.length / 2)];
-      console.log(`  ${t === "1" ? "VOZ      " : "VENTILADOR"}  rms ${med("rms")}  ` +
-                  `mod ${med("mod")}  frac ${med("frac")}  zcr ${med("zcr")}  crests ${med("crests")}` +
-                  `  (${conSenal.length}/${utiles.length} lecturas con señal, ctx ${estado})`);
+      const linea = (k) => mediana(todo[k]);
+      console.log(`\n  ${etiqueta} rms ${linea("rms")}  mod ${linea("mod")}  plano ${linea("plano")}  ` +
+                  `frac ${linea("frac")}  zcr ${linea("zcr")}  crests ${linea("crests")}` +
+                  `  (${conSenalTotal}/${utilesTotal} lecturas, ctx ${ctxVisto})`);
+      /* Avisos de honestidad: sin ellos es fácil creerse una medida que no es. */
+      if (hablando && linea("rms") < 0.005) {
+        console.log("  ⚠ El nivel es bajísimo: en esta repetición probablemente NO hablabas.");
+        console.log("    No sirve como medida de voz. Repite el 1 hablando en voz normal.\n");
+      }
+      if (conRuido && linea("rms") < 0.005) {
+        console.log("  ⚠ El ruido de los altavoces casi no llega al micrófono: sube el volumen");
+        console.log("    del portátil o usa un secador. Con el ruido tan flojo la prueba es");
+        console.log("    más fácil que una sala real y el umbral saldría demasiado bajo.\n");
+      }
       console.log("  Anota estos números y dime cuáles son para ajustar el filtro.\n");
     }
   } finally {

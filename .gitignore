@@ -1,2 +1,6 @@
 index1.backup.html
 dist-hermana/_check/
+
+# Grabaciones de pantalla para depurar el scroll (37 MB). No son parte de la app:
+# sin esto, un "git add ." las subía a GitHub.
+*.mp4

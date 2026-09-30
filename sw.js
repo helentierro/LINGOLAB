@@ -9,8 +9,8 @@
  *   · caché primero para el resto (fuentes, iconos, datos), que no cambian.
  * Al subir cambios, sube también la V de abajo: es lo que limpia la caché vieja.
  */
-const V = "lingolab-v11";
-const APP_V = "v11";
+const V = "lingolab-v12";
+const APP_V = "v12";
 const CORE = [
   "index.html",
   "css/app.css",
