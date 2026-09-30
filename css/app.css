@@ -28,7 +28,11 @@ input,textarea,select{font:inherit;color:var(--ink)}
 
 /* ══════════ TICKER ══════════ */
 .ticker{background:#0b1520;border-bottom:1px solid var(--line);overflow:hidden;height:36px;display:flex;align-items:center;position:relative;z-index:50}
-.ticker-track{display:flex;gap:3rem;width:max-content;animation:tick 55s linear infinite;font-family:var(--mono);font-size:12px;color:var(--mut);white-space:nowrap;padding-left:1rem}
+/* El hueco va DENTRO de cada frase, no como `gap` del contenedor. Con gap el
+   ancho total era 2W+(2N-1)*hueco y el -50% no llegaba exactamente al inicio de
+   la segunda copia: la cinta saltaba de golpe cada 55 segundos. */
+.ticker-track{display:flex;gap:0;width:max-content;animation:tick 55s linear infinite;font-family:var(--mono);font-size:12px;color:var(--mut);white-space:nowrap;padding-left:1rem}
+.ticker-track>span{padding-right:3rem}
 .ticker:hover .ticker-track{animation-play-state:paused}
 .ticker-track b{color:var(--amber);font-weight:600}
 .ticker-track i{color:var(--dim);font-style:normal;margin-left:.6rem}

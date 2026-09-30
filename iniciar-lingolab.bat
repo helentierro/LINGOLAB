@@ -5,10 +5,11 @@ cd /d "%~dp0"
 set PORT=8000
 set PAGE=index.html
 
-echo ===============================================
+REM ===============================================
 echo  LINGOLAB - Laboratorio de Ingles
 echo  Servidor local para que Chrome/Edge
 echo  RECUERDE el permiso del microfono.
+echo  Version de la app: v10
 echo ===============================================
 echo.
 
@@ -46,6 +47,13 @@ echo -----------------------------------------------
 echo  LISTO. Usa esa pestana, NO el archivo directo.
 echo  En el microfono dale "Permitir mientras visitas".
 echo  Chrome lo recordara y ya no preguntara cada vez.
+echo.
+echo  Si acabas de cambiar el codigo y NO se nota:
+echo    1) recarga con  Ctrl+Shift+R  (fuerza, ignora la cache)
+echo    2) si sigue igual, abre  F12  -^ Console  -^ borra el
+echo       "Service Worker" y recarga otra vez.
+echo  Arriba a la derecha debe poner  v10.
+echo.
 echo  Para detener: cierra la ventana "LINGOLAB servidor".
 echo -----------------------------------------------
 pause

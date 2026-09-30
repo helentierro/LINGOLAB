@@ -30,39 +30,57 @@
     }
     if (window.LingoSRS) window.LingoSRS.paint();
   }
-  // 3. Auto-escucha: graba tu voz con MediaRecorder para oírte (gratis, local)
+  // 3. Oírme: graba tu voz con MediaRecorder para escucharla (gratis, local)
+  //    Antes era un DOBLE CLIC sobre el micro: en móvil casi nunca se dispara y
+  //    encima pedía el permiso del micro otra vez. Ahora es un botón propio, y
+  //    solo en pantallas con ratón (en el táctil el doble toque hace zoom).
   function hookSelfListen() {
     if (!navigator.mediaDevices || !window.MediaRecorder) return;
-    const btn = document.getElementById("btnPrRec");
-    if (!btn || btn.dataset.self) return;
-    btn.dataset.self = "1";
+    const mic = document.getElementById("btnPrRec");
+    if (!mic) return;
+    if (matchMedia("(pointer:coarse)").matches) {
+      mic.title = "Toca y habla";
+      return; // en celular no offered: el botón iría a medias
+    }
     let mr = null, chunks = [], stream = null, audio = null;
-    btn.addEventListener("dblclick", async () => {
+    const box = mic.closest(".card") || mic.parentElement;
+    const btn = document.createElement("button");
+    btn.className = "btn ghost sm";
+    btn.id = "btnSelfListen";
+    btn.textContent = "🎧 Oírme";
+    btn.title = "Graba 6 segundos de tu voz y te la reproduce";
+    btn.addEventListener("click", async () => {
+      if (mr && mr.state === "recording") { mr.stop(); return; }
       try {
-        if (mr && mr.state === "recording") { mr.stop(); return; }
         stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         chunks = [];
         mr = new MediaRecorder(stream);
+        btn.textContent = "⏹ Detener";
         mr.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
         mr.onstop = () => {
           try { stream.getTracks().forEach((t) => t.stop()); } catch (e) {}
+          btn.textContent = "🎧 Oírme";
+          if (!chunks.length) return;
           const blob = new Blob(chunks, { type: mr.mimeType || "audio/webm" });
           const url = URL.createObjectURL(blob);
           if (!audio) {
             audio = document.createElement("audio");
             audio.controls = true;
             audio.style.cssText = "width:100%;margin-top:8px";
-            audio.title = "Tu voz grabada (doble clic en el mic para grabar/escucharte)";
-            btn.parentElement.appendChild(audio);
+            box.appendChild(audio);
           }
           audio.src = url;
           audio.play().catch(() => {});
         };
         mr.start();
-        setTimeout(() => { try { if (mr.state === "recording") mr.stop(); } catch (e) {} }, 8000);
-      } catch (e) {}
+        setTimeout(() => { try { if (mr.state === "recording") mr.stop(); } catch (e) {} }, 6000);
+      } catch (e) {
+        btn.textContent = "🎧 Oírme";
+        if (window.toast) toast("No se pudo grabar: revisa el permiso del micrófono", "⚠️");
+      }
     });
-    btn.title = "Toca y habla · Doble clic: grábate y escúchate";
+    mic.parentElement.appendChild(btn);
+    mic.title = "Toca y habla";
   }
   document.addEventListener("DOMContentLoaded", () => {
     hookSRS(); hookSelfListen();

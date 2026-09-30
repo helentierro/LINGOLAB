@@ -1,6 +1,24 @@
 /* LingoLab 4.0 — Overhaul Noche Mágica. Shape lock: cards 16px, botones/chips pill. */
 .stat-n,.mono,.pill,.q-prompt,#xpLabel{font-variant-numeric:tabular-nums}
 
+/* ── Barra lateral: nunca debe "moverse sola" ──
+   1) dvh en vez de vh: vh no cambia al abrir el teclado del móvil y por eso la
+      barra pegajosa se desplazaba sola al escribir.
+   2) overflow-y:auto en escritorio: antes, con la ventana baja, Juegos y
+      Progreso quedaban recortados sin forma de llegar a ellos. */
+nav.side{
+  position:sticky;
+  top:69px;
+  height:calc(100dvh - 69px);
+  max-height:calc(100dvh - 69px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin
+}
+@supports not (height:100dvh){nav.side{height:calc(100vh - 69px);max-height:calc(100vh - 69px)}}
+nav.side::-webkit-scrollbar{width:6px}
+nav.side::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+
 /* ── HERO DEL PANEL: Crispy protagonista (reorden visual, DOM intacto) ── */
 #view-panel{display:flex;flex-direction:column}
 #view-panel[hidden]{display:none!important}
@@ -33,11 +51,73 @@
 /* ── Lectura: medida editorial ── */
 .book{max-width:68ch;margin-left:auto;margin-right:auto}
 
-/* ── Nav móvil: scroll-snap legible ── */
+/* ── Micrófono: chip de modo (corrido / un toque) y botón de traducción ── */
+#btnRdMode,#btnDgMode{flex-shrink:0;white-space:nowrap}
+#btnRdMode.active,#btnDgMode.active{border-color:var(--sky);color:var(--sky);background:rgba(108,200,255,.14)}
+#btnRdEs.always,#btnDgEs.always{opacity:1;border-style:dashed;color:var(--amber);background:rgba(255,194,75,.09);cursor:default;pointer-events:auto}
+#btnRdEs.always:hover,#btnDgEs.always:hover{color:var(--amber);border-color:var(--amber)}
+#noiseCount{min-height:1.2em}
+@media(max-width:620px){
+  /* la barra pegajosa no debe desbordar en celular */
+  .sticky-bar{gap:7px;padding:8px;flex-wrap:wrap}
+  #btnRdMode,#btnDgMode{padding:7px 10px;font-size:12px}
+  .sticky-bar .mic-btn{width:48px!important;height:48px!important}
+}
+
+/* ── Lecciones guiadas: barra de 4 pasos ── */
+.lp-steps{display:flex;align-items:center;gap:6px;margin-top:16px;flex-wrap:wrap}
+.lp-step{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;
+  border:1px solid var(--line);background:var(--panel);font-size:12.5px;font-weight:700;color:var(--dim);
+  transition:all .25s}
+.lp-step b{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;
+  background:var(--line);color:var(--mut);font-size:11px}
+.lp-step.on{border-color:var(--amber);color:var(--amber);background:rgba(255,194,75,.13)}
+.lp-step.on b{background:var(--amber);color:#1a1204}
+.lp-step.ok{border-color:rgba(63,223,159,.4);color:var(--mint)}
+.lp-step.ok b{background:var(--mint);color:#04231a}
+.lp-sep{width:12px;height:1px;background:var(--line)}
+#lp1 .q-opt{text-align:left}
+#lp3MicBtn{width:72px;height:72px}
+#lp3MicBtn svg{width:26px;height:26px}
+@media(max-width:560px){
+  .lp-step{font-size:11.5px;padding:5px 9px}
+  .lp-sep{width:6px}
+}
+
+/* ── Barra de acciones de frase (Lectura) ── */
+.rd-actions{position:sticky;bottom:12px;z-index:25;margin-top:18px;padding:14px 16px;border-radius:16px;
+  border:1px solid rgba(255,207,92,.4);background:rgba(12,24,36,.97);
+  box-shadow:0 14px 40px rgba(0,0,0,.55),0 0 0 1px rgba(255,207,92,.08);
+  animation:rdAccIn .22s cubic-bezier(.2,.9,.3,1.1)}
+@keyframes rdAccIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rd-acc-top{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.rd-acc-frase{flex:1;min-width:200px;font-family:var(--disp);font-size:17px;font-weight:700;line-height:1.35;margin:0}
+.rd-acc-es{flex:1;min-width:200px;font-size:14.5px;color:var(--amber);margin:4px 0 0}
+.rd-acc-top .pill{margin-top:4px;flex-shrink:0}
+.rd-acc-top .btn{margin-left:auto;flex-shrink:0}
+
+/* el botón de escuchar por frase ahora es un altavoz, más legible que ↻ */
+.ph .rep{font-size:14px;opacity:.75;margin-left:5px;padding:1px 3px;border-radius:6px;vertical-align:1px}
+.ph .rep:hover{opacity:1;background:rgba(108,200,255,.22);transform:none}
+
+/* ── Nav móvil: tira horizontal sin scroll-snap ──
+   El snap obligatorio (scroll-snap-type:x mandatory) hacía que la barra "se
+   moviera sola": cualquier gesto mínimo, y sobre todo la apertura del teclado
+   del móvil, la desplazaba de golpe. Ahora scrollea libre, que es lo natural
+   en una tira de botones. */
 @media(max-width:980px){
-  nav.side{scroll-snap-type:x mandatory}
-  .nav-btn{scroll-snap-align:center;min-height:56px;min-width:76px}
+  nav.side{
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;
+    padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))
+  }
+  .nav-btn{min-height:56px;min-width:76px;flex-shrink:0}
   #themeBtn{min-height:44px}
+}
+/* Con el teclado abierto la ventana visible se encoge: escondemos la barra para
+   que no "flote" sobre el teclado ni ocupe media pantalla. */
+@media(max-width:980px){
+  html.kb-abierto nav.side{transform:translateY(120%);opacity:0;pointer-events:none;transition:transform .18s,opacity .18s}
 }
 
 /* ── Juegos: cartas con tilt mágico ── */

@@ -68,5 +68,112 @@ dialogs.forEach((d) => {
 });
 ok(`dialogs: ${dialogs.length} diálogos`);
 
+// ═══ SINCRONÍA CON LA APP ═══
+// La app no hace fetch de estos JSON: lleva una copia embebida en js/app-legacy.js
+// (obligatorio para el build single-file y la PWA). Si esa copia se desincroniza,
+// la web sirve contenido viejo. data/ es la fuente de verdad (tools/build-content.mjs).
+const JS_PATH = "js/app-legacy.js";
+if (fs.existsSync(JS_PATH)) {
+  const js = fs.readFileSync(JS_PATH, "utf8");
+  // Extrae el literal que sigue a `const NOMBRE=` respetando strings y anidamiento
+  const literal = (name) => {
+    const at = js.indexOf(`const ${name}=`);
+    if (at < 0) return null;
+    let i = at + `const ${name}=`.length;
+    while (/\s/.test(js[i])) i++;
+    const open = js[i];
+    const close = open === "{" ? "}" : "]";
+    const start = i;
+    let depth = 0, quote = null, esc = false;
+    for (; i < js.length; i++) {
+      const c = js[i];
+      if (quote) {
+        if (esc) esc = false;
+        else if (c === "\\") esc = true;
+        else if (c === quote) quote = null;
+        continue;
+      }
+      if (c === '"' || c === "'" || c === "`") { quote = c; continue; }
+      if (c === open) depth++;
+      else if (c === close) { depth--; if (!depth) return js.slice(start, i + 1); }
+    }
+    return null;
+  };
+  try {
+    const antes = fails;
+    const embST = JSON.parse(literal("STORIES"));
+    const embDG = JSON.parse(literal("DIALOGS"));
+    const embSE = JSON.parse(literal("SENTENCES"));
+
+    // mismo conjunto de ids, en el mismo orden
+    const chk = (name, emb, src) => {
+      if (emb.length !== src.length) fail(`${name}: la app tiene ${emb.length} y data/ tiene ${src.length} — ejecuta node tools/build-content.mjs`);
+      const ids = (a) => a.map((x) => x.id).join(",");
+      if (ids(emb) !== ids(src)) fail(`${name}: los ids de la app no coinciden con data/ — ejecuta node tools/build-content.mjs`);
+    };
+    chk("STORIES", embST, stories);
+    chk("DIALOGS", embDG, dialogs);
+
+    // contenido idéntico, no solo los ids
+    const iguales = (name, emb, src) => {
+      if (JSON.stringify(emb) !== JSON.stringify(src)) fail(`${name}: la copia embebida difiere de data/ — ejecuta node tools/build-content.mjs`);
+    };
+    iguales("STORIES", embST, stories);
+    iguales("DIALOGS", embDG, dialogs);
+    iguales("SENTENCES", embSE, sentences);
+    if (fails === antes) ok(`sincronía app↔data: ${embST.length} cuentos, ${embDG.length} diálogos, ${Object.keys(embSE).length} niveles idénticos`);
+
+    // Alineación de traducciones en Lectura: rdNovel() recorta cada frase EN
+    // contra SU ES. Se comprueba que no queden frases EN sin traducción, salvo
+    // las coletillas (trozos de continuación de una misma frase), que van sin ES
+    // a propósito.
+    const cut = (sentence) => {
+      const parts = String(sentence).split(/([,.;:!?—]+["”']?\s*)/);
+      const out = [];
+      let cur = "";
+      parts.forEach((pt) => {
+        cur += pt;
+        if (/[,.;:!?—]+["”']?\s*$/.test(pt)) {
+          const t = cur.trim();
+          if (t.length > 1 && t.split(" ").length >= 2) out.push(t);
+          cur = "";
+        }
+      });
+      if (cur.trim().length > 1 && cur.trim().split(" ").length >= 2) out.push(cur.trim());
+      return out;
+    };
+    let sinTrad = 0, frases = 0, desalineadas = 0;
+    for (const s of embST) {
+      const en = [], es = [];
+      for (const p of s.pages) {
+        const n = Math.max(p.en.length, p.es.length);
+        for (let i = 0; i < n; i++) {
+          const t = cut(p.en[i] || "");
+          let puesto = false;
+          t.forEach((x) => { en.push(x); es.push(puesto ? "" : (p.es[i] || "")); if (!puesto) puesto = true; });
+        }
+      }
+      if (en.length !== es.length) desalineadas++;
+      frases += en.length;
+      // cada traducción presente debe existir en los datos del cuento
+      const validas = new Set(s.pages.flatMap((p) => p.es));
+      es.filter(Boolean).forEach((t) => { if (!validas.has(t)) sinTrad++; });
+    }
+    if (desalineadas) fail(`Lectura: ${desalineadas} cuentos con EN/ES desalineados`);
+    if (sinTrad) fail(`Lectura: ${sinTrad} traducciones que no pertenecen a su cuento`);
+    ok(`lectura: ${frases} frases de los ${embST.length} cuentos, traducción alineada`);
+
+    // Toda frase de diálogo debe traer su español
+    let turnosSinEs = 0;
+    for (const d of embDG) d.turns.forEach((t) => { if (!t[2]) turnosSinEs++; });
+    if (turnosSinEs) fail(`diálogos: ${turnosSinEs} turnos sin traducción`);
+    ok("diálogos: todos los turnos con traducción");
+  } catch (e) {
+    fail(`no se pudo leer la copia embebida en ${JS_PATH}: ${e.message}`);
+  }
+} else {
+  console.log("· js/app-legacy.js no encontrado: se omite la comprobación de sincronía");
+}
+
 if (fails) { console.error(`\n${fails} error(es)`); process.exit(1); }
 console.log("\nTodo el contenido válido ✔");

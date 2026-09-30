@@ -12,26 +12,39 @@
   function paintLang() { const b = $("crispyLang"); if (b) b.textContent = lang() === "es" ? "🌐 ES" : "🌐 EN"; }
   function kidName() { try { return localStorage.getItem("lingolab-crispy-name") || ""; } catch (e) { return ""; } }
 
-  /* ── Voz tierna ES/EN (TTS local, sin tocar speak legacy) ── */
+  /* ── Voz tierna ES/EN ──
+     Ahora usa speak() de app-legacy (speakToken compartido). Antes llamaba a
+     speechSynthesis por su cuenta: su frase se colaba en otras secciones y
+     además cancelaba la voz de la lección. */
   let VO = [];
   try {
     VO = speechSynthesis.getVoices() || [];
-    speechSynthesis.onvoiceschanged = () => { try { VO = speechSynthesis.getVoices() || []; } catch (e) {} };
+    /* addEventListener y NO `onvoiceschanged =`: pet.js carga después de
+       app-legacy y con `=` pisaba su loadVoices(), dejando el selector de voz
+       de Ajustes vacío para siempre. */
+    try { speechSynthesis.addEventListener("voiceschanged", () => { try { VO = speechSynthesis.getVoices() || []; } catch (e) {} }); } catch (e) {}
   } catch (e) {}
   function tts(text, langCode) {
+    if (!text) return;
+    if (typeof speak === "function") {
+      speak(text, 1.05, { gender: langCode === "es" ? "f" : undefined, pitch: 1.4 }, () => talking(false));
+      talking(true);
+      setTimeout(() => talking(false), Math.min(9000, 1200 + text.length * 70));
+      return;
+    }
     try {
       speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
       const v = (VO || []).filter((x) => (x.lang || "").toLowerCase().startsWith(langCode));
-      if (v.length) u.voice = v.sort((a, b) => (/google|natural|neural/i.test(b.name) ? 1 : 0) - (/google|natural|neural/i.test(a.name) ? 1 : 0))[0];
+      if (v.length) u.voice = v[0];
       u.lang = langCode === "es" ? "es-ES" : "en-US";
       u.rate = 1.05; u.pitch = 1.4;
       u.onend = u.onerror = () => talking(false);
       talking(true);
       speechSynthesis.speak(u);
-      setTimeout(() => talking(false), Math.min(9000, 1200 + text.length * 70));
     } catch (e) {}
   }
+  function callar() { try { if (typeof callarTTS === "function") callarTTS(); else speechSynthesis.cancel(); } catch (e) {} talking(false); }
   function talking(on) { const c = $("crispyCard"); if (c) c.classList.toggle("talking", !!on); }
 
   /* ── SVG bebé blanco + motor de emociones ── */
@@ -73,10 +86,14 @@
     '<circle cx="100" cy="8" r="5" fill="#ffcf5c"/>' +
     "</g></g></svg>";
   const CSS = "#crispyFloat{animation:cfloat 3.4s ease-in-out infinite;transform-origin:100px 150px}#crispyTail{animation:ctail 2.6s ease-in-out infinite;transform-origin:148px 150px}.ceye{animation:cblink 4.6s infinite}@keyframes cfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes ctail{0%,100%{transform:rotate(0)}50%{transform:rotate(-13deg)}}@keyframes cblink{0%,93%,100%{transform:scaleY(1)}95%,97%{transform:scaleY(.08)}}.purring #crispyFloat{animation:cfloat .35s ease-in-out infinite}#crispyBubble{transition:opacity .3s}.emo-laugh #crispyFloat{animation:claugh .4s ease-in-out infinite}@keyframes claugh{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg) translateY(-4px)}75%{transform:rotate(4deg)}}.emo-angry #crispyHead{animation:ctant .5s ease-in-out infinite;transform-origin:100px 102px}@keyframes ctant{0%,100%{transform:rotate(0)}25%{transform:rotate(-7deg)}75%{transform:rotate(7deg)}}.emo-sleep #crispyFloat{animation:cfloat 5.5s ease-in-out infinite}#cTears:not([hidden]){animation:ctear 1.2s ease-in infinite}@keyframes ctear{0%{opacity:0;transform:translateY(-4px)}30%{opacity:1}100%{opacity:0;transform:translateY(10px)}}#cHeart:not([hidden]){animation:cheart 1s ease-out infinite}@keyframes cheart{0%{transform:scale(.4);opacity:0}40%{transform:scale(1.25);opacity:1}100%{transform:scale(1) translateY(-6px);opacity:.9}}.talking #cMouth{animation:ctalk .28s ease-in-out infinite}@keyframes ctalk{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.3)}}#cMouth{transform-origin:center;transform-box:fill-box}.ceye{transform-origin:center;transform-box:fill-box}#cHeart{transform-origin:center;transform-box:fill-box}.cneed{height:8px;border-radius:99px;background:#0a0d24;overflow:hidden}.cneed i{display:block;height:100%;border-radius:99px;transition:width .6s}";
-  let emo = "normal";
+  let emo = "normal", emoT = null;
+  /* Toda emoción con duración vuelve SIEMPRE a la normal. Antes, si se llamaba
+     a setEmo() sin `ms` (por ejemplo al interrumpirse el efecto Tom) el gato se
+     quedaba con esa cara para siempre. */
   function setEmo(name, ms) {
     emo = name;
     const eyes = $("cEyes"), mouth = $("cMouth"), tears = $("cTears"), heart = $("cHeart"), card = $("crispyCard");
+    clearTimeout(emoT);
     if (!eyes) return;
     const map = { normal: ["normal", "smile"], happy: ["happy", "smile"], laugh: ["happy", "laugh"], sad: ["sad", "sad"], angry: ["normal", "sad"], sleep: ["sleep", "sleep"], wow: ["wow", "wow"], love: ["love", "smile"] };
     const [e, m] = map[name] || map.normal;
@@ -85,7 +102,9 @@
     if (heart) heart.hidden = !(name === "love" || name === "happy");
     if (card) card.classList.remove("emo-laugh", "emo-angry", "emo-sleep");
     if (card && (name === "laugh" || name === "angry" || name === "sleep")) card.classList.add("emo-" + name);
-    if (ms) setTimeout(() => { if (emo === name) setEmo(autoEmo()); }, ms);
+    if (name === "sleep") return; /* el sueño es un estado, no un gesto */
+    const dur = ms || 3000;
+    emoT = setTimeout(() => { if (emo === name) setEmo(autoEmo(), 0); }, dur);
   }
   function autoEmo() {
     const n = needs();
@@ -108,6 +127,9 @@
       n.belly = Math.max(0, n.belly - drop); n.fun = Math.max(0, n.fun - drop); n.energy = Math.max(0, n.energy - Math.floor(drop / 2));
     }
     n.t = Date.now();
+    /* Guardamos aquí: antes needs() movía n.t sin persistirlo, así que si
+       cerrabas la pestaña enseguida perdías el desgaste acumulado. */
+    try { localStorage.setItem(NKEY, JSON.stringify(n)); } catch (e) {}
     return n;
   }
   function saveNeeds(n) { n.t = Date.now(); try { localStorage.setItem(NKEY, JSON.stringify(n)); } catch (e) {} }
@@ -213,7 +235,7 @@
   function sleepToggle() {
     const n = needs(); n.sleeping = !n.sleeping;
     if (!n.sleeping) n.energy = Math.min(100, n.energy + 30);
-    saveNeeds(n); paintNeeds(); setEmo(n.sleeping ? "sleep" : "happy", 3000);
+    saveNeeds(n); paintNeeds(); setEmo(n.sleeping ? "sleep" : "happy", n.sleeping ? 0 : 3000);
     say({ id: "slp", es: n.sleeping ? "Zzz… cuídame los sueños." : "¡Despierto! ¿Jugamos?", en: n.sleeping ? "Zzz… watch my dreams." : "Awake! Play?", emo: n.sleeping ? "sleep" : "happy" });
     const b = $("crispySleep"); if (b) b.textContent = n.sleeping ? "☀️ Despertar" : "😴 Dormir";
   }
@@ -225,12 +247,16 @@
   }
   /* Efecto Tom: graba y devuelve agudo */
   let mr = null, chunks = [];
+  /* Efecto Tom: graba y devuelve agudo.
+     En pantallas táctiles ya NO pedimos el micrófono: escribes el texto y te lo
+     devuelve igual. Así la app deja de tener tres consumidores de getUserMedia. */
+  function esTactil() { try { return matchMedia("(pointer:coarse)").matches; } catch (e) { return false; } }
   function echo() {
     const L = lang();
-    if (!navigator.mediaDevices || !window.MediaRecorder) { echoText(); return; }
+    if (esTactil() || !navigator.mediaDevices || !window.MediaRecorder) { echoText(); return; }
     const b = $("crispyBubble");
     if (mr && mr.state === "recording") { try { mr.stop(); } catch (e) {} return; }
-    setEmo("wow");
+    setEmo("wow", 4000);
     if (b) b.innerHTML = "<b>🎙️ " + (L === "es" ? "¡Habla! Te repito en gatuno…" : "Speak! I'll repeat in cat…") + "</b>";
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
       chunks = [];
@@ -238,12 +264,13 @@
       mr.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
       mr.onstop = () => {
         try { stream.getTracks().forEach((t) => t.stop()); } catch (e) {}
+        if (!chunks.length) { echoText(); return; }
         const url = URL.createObjectURL(new Blob(chunks, { type: (mr.mimeType || "audio/webm") }));
         const au = new Audio(url);
-        au.playbackRate = 1.55; au.preservesPitch = false;
-        talking(true); setEmo("happy");
+        au.playbackRate = 1.45; au.preservesPitch = false;
+        talking(true); setEmo("happy", 3000);
         au.play().catch(() => {});
-        au.onended = () => { talking(false); setEmo(autoEmo()); };
+        au.onended = () => { talking(false); setEmo(autoEmo(), 0); };
         try { LingoMagic.Sounds.flip(); } catch (e) {}
       };
       mr.start();
@@ -258,37 +285,31 @@
     b.innerHTML = "<div class='row'><input class='txt' id='crispyEchoIn' style='flex:1' placeholder='" + (L === "es" ? "Escríbeme algo…" : "Type something…") + "'><button class='btn amber sm' id='crispyEchoGo'>🐱</button></div>";
     const go = () => {
       const v = ($("crispyEchoIn").value || "").trim(); if (!v) return;
-      setEmo("happy");
-      // voz Tom: aguda y juguetona
-      try {
-        speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(v);
-        const vs = (VO || []).filter((x) => (x.lang || "").toLowerCase().startsWith(L));
-        if (vs.length) u.voice = vs[0];
-        u.lang = L === "es" ? "es-ES" : "en-US";
-        u.rate = 1.25; u.pitch = 1.8;
-        u.onend = u.onerror = () => talking(false);
-        talking(true); speechSynthesis.speak(u);
-        setTimeout(() => talking(false), 6000);
-      } catch (e) {}
+      setEmo("happy", 3000);
+      // voz Tom: aguda y juguetona, por el mismo motor que el resto de la app
+      tts(v, L);
       b.innerHTML = "<b>“" + esc(v) + "”</b><br><span class='dim'>" + (L === "es" ? "¡Así hablo yo, miau!" : "That's me talking, meow!") + "</span>";
     };
     $("crispyEchoGo").onclick = go;
     $("crispyEchoIn").addEventListener("keydown", (e) => { if (e.key === "Enter") go(); });
     $("crispyEchoIn").focus();
   }
-  function askName() {
+  function askName(auto) {
     const L = lang(), b = $("crispyBubble");
     if (!b) return;
-    setEmo("wow");
-    b.innerHTML = "<div class='row'><input class='txt' id='crispyNameIn' style='flex:1' value='" + esc(kidName()) + "' placeholder='" + (L === "es" ? "¿Cómo te llamas?" : "What's your name?") + "'><button class='btn amber sm' id='crispyNameGo'>💾</button></div>";
+    setEmo("wow", 6000);
+    b.innerHTML = "<div class='row'><input class='txt' id='crispyNameIn' style='flex:1' value='" + esc(kidName()) + "' placeholder='" + (L === "es" ? "¿Cómo te llamas?" : "What's your name?") + "'><button class='btn amber sm' id='crispyNameGo'>💾</button></div>" +
+      "<p class='mut' style='font-size:12.5px;margin-top:8px'>Puedes llamarte como quieras. Es para que te hable por tu nombre.</p>";
     $("crispyNameGo").onclick = () => {
       const v = ($("crispyNameIn").value || "").trim().slice(0, 20);
       try { localStorage.setItem("lingolab-crispy-name", v); } catch (e) {}
       say({ id: "hi", es: v ? "¡Hola, " + v + "! ¡Seremos mejores amigos!" : "¡Hola, amigo! ¡Seremos mejores amigos!", en: v ? "Hi, " + v + "! Best friends!" : "Hi, friend! Best friends!", emo: "love" });
     };
     $("crispyNameIn").addEventListener("keydown", (e) => { if (e.key === "Enter") $("crispyNameGo").click(); });
-    $("crispyNameIn").focus();
+    /* Solo enfocamos si el gato lo pide desde un botón. Al arrancar la app NO:
+       antes salteaba el teclado del móvil y te quitaba el foco de lo que
+       estuvieras escribiendo. */
+    if (auto) $("crispyNameIn").focus();
   }
 
   /* ── Montaje ── */
@@ -300,22 +321,42 @@
     const n = needs();
     const sb = $("crispySleep"); if (sb) sb.textContent = n.sleeping ? "☀️ Despertar" : "😴 Dormir";
     if (!kidName()) {
-      setEmo("wow");
-      setTimeout(askName, 1200);
+      /* Le pedimos el nombre CON UN BOTÓN, no con un autofocus: al arrancar no
+         le quitamos el foco a nadie ni abrimos el teclado del móvil. */
+      setEmo("happy", 6000);
+      const b = $("crispyBubble");
+      if (b) b.innerHTML = '<div class="row" style="gap:8px"><button class="btn amber sm" id="crispyNameAsk">' +
+        (lang() === "es" ? "👋 ¡Dame tu nombre!" : "👋 Tell me your name!") + "</button></div>";
+      const ask = $("crispyNameAsk");
+      if (ask) ask.onclick = () => askName(true);
     } else {
       setEmo(autoEmo());
       say(pick(), true);
       setTimeout(() => say(pick()), 1200);
     }
-    setInterval(() => { // latido tamagotchi
+    /* Latido del tamagotchi. Ahora needs() guarda por su cuenta, así que no
+       hace falta(saveNeeds) aquí. */
+    setInterval(() => {
       const c = $("crispyCard"); if (!c || !c.offsetParent) return;
-      const nn = needs(); saveNeeds(nn); paintNeeds();
+      const nn = needs(); paintNeeds();
       if (Math.min(nn.belly, nn.fun, nn.energy) < 25 && emo !== "sad") {
-        setEmo("sad");
+        setEmo("sad", 5000);
         say({ id: "need", es: nn.belly < 25 ? "¡Mi pancita ruge! ¿Me das de comer?" : nn.fun < 25 ? "¿Juegas conmigo? ¡Estoy aburrido!" : "¡Tengo sueñito! ¿Dormimos?", en: nn.belly < 25 ? "My tummy rumbles! Feed me?" : nn.fun < 25 ? "Play with me? I'm bored!" : "Sleepy! Nap time?", emo: "sad" }, true);
       }
     }, 60000);
-    setInterval(() => { const c = $("crispyCard"); if (c && c.offsetParent && document.hasFocus()) say(pick()); }, 120000);
+    /* Antes hablaba cada 2 minutos. Ahora cada 4, y solo si el Panel está a la
+       vista: menos solapes con el audio de otras secciones. */
+    setInterval(() => {
+      const c = $("crispyCard");
+      if (c && c.offsetParent && document.hasFocus() && !document.documentElement.classList.contains("kb-abierto")) say(pick());
+    }, 240000);
+  }
+  /* Al cambiar de sección Crispy se calla y se calma: así su voz no se queda
+     sonando en la sección siguiente (el "audio fantasma" al salir). */
+  function salirDePanel() {
+    callar();
+    setEmo(autoEmo(), 0);
+    clearTimeout(emoT);
   }
   document.addEventListener("DOMContentLoaded", () => {
     mount(); setTimeout(mount, 1500);
@@ -327,9 +368,10 @@
       else if (e.target.closest("#crispyFeed")) feed();
       else if (e.target.closest("#crispySleep")) sleepToggle();
       else if (e.target.closest("#crispyLang")) { setLang(lang() === "es" ? "en" : "es"); say(pick()); }
-      else if (e.target.closest("#crispyName")) askName();
+      else if (e.target.closest("#crispyName")) askName(true);
+      else if (e.target.closest("#crispyNameAsk")) askName(true);
       else if (e.target.closest("#crispyArt")) poke();
     });
   });
-  window.Crispy = { say, pet, pick, feed, echo, setEmo, setLang };
+  window.Crispy = { say, pet, pick, feed, echo, setEmo, setLang, callar: salirDePanel };
 })();

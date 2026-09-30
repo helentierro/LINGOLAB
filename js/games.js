@@ -122,13 +122,14 @@
     const word = c.country.en.toUpperCase().replace(/[^A-Z]/g, "");
     let lives = 6, got = new Set(), bad = [];
     const stages = ["🎪", "😐", "😟", "😰", "🥵", "😵", "💀"];
-    const draw = () => {
-      const shown = word.split("").map((ch) => (got.has(ch) ? ch : "_")).join(" ");
-      box.innerHTML = shell(
-        '<div class="card" style="text-align:center;padding:28px"><span class="eyebrow">Adivina el país ' + stages[6 - lives] + "</span>" +
-        '<div style="font-size:52px">' + (lives === 6 ? "🌍" : c.emoji) + "</div>" +
-        '<div class="q-prompt" style="letter-spacing:.2em;font-size:30px">' + shown + "</div>" +
-        '<p class="mono" style="font-size:13px">Vidas: ' + "❤️".repeat(lives) + " · Mal: " + (bad.join(" ") || "—") + "</p>" +
+      const draw = () => {
+        const shown = word.split("").map((ch) => (got.has(ch) ? ch : "_")).join(" ");
+        box.innerHTML = shell(
+          '<div class="card" style="text-align:center;padding:28px"><span class="eyebrow">Adivina el país ' + stages[6 - lives] + "</span>" +
+          '<div style="font-size:52px">' + (lives === 6 ? "🌍" : c.emoji) + "</div>" +
+          '<div class="q-prompt" style="letter-spacing:.2em;font-size:30px">' + shown + "</div>" +
+          '<p class="mut" style="font-size:13px">🇪🇸 Pista: <b>' + escH(c.country.es) + "</b></p>" +
+          '<p class="mono" style="font-size:13px">Vidas: ' + "❤️".repeat(lives) + " · Mal: " + (bad.join(" ") || "—") + "</p>" +
         '<div class="chips mg-t" style="justify-content:center">' + "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((ch) =>
           '<button class="chip" data-l="' + ch + '"' + (got.has(ch) || bad.includes(ch) ? " disabled style='opacity:.35'" : "") + ">" + ch + "</button>").join("") + "</div></div>"
       );
@@ -139,13 +140,13 @@
           got.add(ch);
           try { LingoMagic.Sounds.click(); } catch (e) {}
           if (word.split("").every((x) => got.has(x))) {
-            box.innerHTML = shell(done(10, c.country.en + " " + c.emoji + " · " + c.fact.es));
+            box.innerHTML = shell(done(10, c.country.en + " (" + c.country.es + ") " + c.emoji + " · " + c.fact.es));
             $("gmBack").onclick = renderGames;
             return;
           }
         } else { bad.push(ch); lives--; try { LingoMagic.Sounds.bad(); } catch (e) {} }
         if (lives <= 0) {
-          box.innerHTML = shell('<div class="card" style="text-align:center;padding:30px"><div style="font-size:48px">💀</div><p>Era <b>' + escH(c.country.en) + "</b> " + c.emoji + "</p><p class='mut'>" + escH(c.fact.es) + "</p></div>");
+          box.innerHTML = shell('<div class="card" style="text-align:center;padding:30px"><div style="font-size:48px">💀</div><p>Era <b>' + escH(c.country.en) + "</b> (" + escH(c.country.es) + ") " + c.emoji + "</p><p class='mut'>" + escH(c.fact.es) + "</p></div>");
           $("gmBack").onclick = renderGames;
           return;
         }
