@@ -35,7 +35,7 @@
     <div><h1>LINGO<em>LAB</em></h1><small>laboratorio de inglés</small></div>
   </div>
   <div class="hud">
-    <div class="pill" id="appVer" title="Versión de la app que tienes abierta">v10</div>
+    <div class="pill" id="appVer" title="Versión de la app que tienes abierta">v11</div>
     <button class="pill" id="themeBtn" title="Cambiar tema">🌙</button>
     <div class="pill streak" title="Racha de días">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2s1 3.5-1.5 6C8 10.5 7 12 7 14.5A5 5 0 0 0 17 15c0-2-1-3.5-2-4.5 0 1.5-.7 2.3-1.5 2.5.5-2-.5-5.5-1.5-7z" fill="#ffc24b"/></svg>
@@ -569,10 +569,14 @@
       <div>
         <label class="stat-l" style="display:block;margin-bottom:6px">Filtro antiruido</label>
         <select class="sel" id="noiseSel">
-          <option value="off">Desactivado</option>
-          <option value="normal">Normal · recomendado</option>
+          <option value="off">Desactivado · recomendado</option>
+          <option value="normal">Normal</option>
           <option value="strict">Estricto · sala ruidosa</option>
         </select>
+        <p class="stat-l" style="margin:8px 0 0">El filtro de texto (descarta transcripciones
+          inventadas) está siempre activo. Las dos opciones de arriba añaden además la
+          medida del sonido, todavía sin calibrar: si oyes que se pierde una frase buena,
+          vuelve a <b>Desactivado</b>.</p>
         <label class="stat-l" style="display:block;margin:14px 0 6px">Traducción en español</label>
         <select class="sel" id="esSel">
           <option value="always">Siempre visible (recomendado)</option>

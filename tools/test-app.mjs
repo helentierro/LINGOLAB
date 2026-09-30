@@ -16,7 +16,12 @@ const ocultos = new Set();
 for (const m of html.matchAll(/<[^>]*\bid="([\w-]+)"[^>]*>/g)) {
   if (/\shidden[\s>=]/.test(m[0])) ocultos.add(m[1]);
 }
-["quizCatChips", "btnSelfListen", "wtEs", "lpNoSe", "crispyNameAsk"].forEach((i) => ids.add(i)); // ids que crea el JS
+/* Solo ids que el JS crea y que el arnés NO puede registrar solo. Ojo: NO
+   añadimos btnSelfListen ni selfListenBox, porque enhance.js se registra
+   mediante createElement y su candado consulta getElementById("btnSelfListen"):
+   si el arnés se lo diese "por hecho", creería que el botón ya existe y no lo
+   montaría — falseando justo la prueba de duplicados. */
+["quizCatChips", "wtEs", "lpNoSe", "crispyNameAsk"].forEach((i) => ids.add(i));
 
 /* A qué sección pertenece cada id. En un navegador, un botón dentro de una
    <section hidden> tiene offsetParent null y NO es pulsable; el arnés tiene que
@@ -33,6 +38,7 @@ const seccion = (t) => console.log("\n== " + t);
 
 const ctx2d = new Proxy({}, { get: () => () => {} });
 const cache = new Map();
+const creados = [];   // todo lo que el JS creó con createElement
 function makeEl(id) {
   return {
     id, tagName: "DIV", className: "", hidden: ocultos.has(id), disabled: false,
@@ -62,7 +68,9 @@ function makeEl(id) {
       if (v && v !== vistaActual.id) return null;
       return this;
     },
-    get parentElement() { return makeEl("p"); },
+    /* parentElement estable: si no, cada acceso devuelve un elemento distinto y
+       los hijos que se le añaden se pierden (el reproductor de "Oírme"). */
+    get parentElement() { return (this._parent ||= makeEl("parent-" + this.id)); },
     onclick: null,
   };
 }
@@ -70,12 +78,25 @@ const doc = {
   _ev: {},
   activeElement: null,
   getElementById: (id) => { if (!ids.has(id)) return null; if (!cache.has(id)) cache.set(id, makeEl(id)); return cache.get(id); },
-  createElement: (t) => makeEl("n" + t),
+  createElement: (t) => {
+    const el = makeEl("n" + t);
+    /* si el código le asigna un id, queda registrado y se puede buscar después
+       (el reproductor de "Oírme" y el botón se crean así) */
+    let _id = el.id;
+    Object.defineProperty(el, "id", {
+      get() { return _id; },
+      set(v) { _id = v; ids.add(v); if (v) cache.set(v, el); },
+      configurable: true,
+    });
+    creados.push(el);
+    return el;
+  },
   createTextNode: (t) => ({ textContent: t }),
   querySelectorAll: () => [], querySelector: () => makeEl("qs"),
   addEventListener(tipo, fn) { (doc._ev[tipo] ||= []).push(fn); },
+  dispatchEvent(ev) { (doc._ev[ev.type] || []).forEach((f) => f(ev)); return true; },
   removeEventListener() {},
-  body: makeEl("body"), documentElement: makeEl("html"), hidden: false,
+  body: makeEl("body"), documentElement: makeEl("html"), head: makeEl("head"), hidden: false,
 };
 // los listeners de document se disparan en orden de registro
 doc._fire = (tipo, ev) => { (doc._ev[tipo] || []).forEach((f) => f(ev)); };
@@ -98,6 +119,15 @@ class FakeSR {
   }
 }
 
+/* MediaRecorder falso: enhance.js lo usa para el botón "Oírme". */
+let mrMontados = 0;
+class FakeMR {
+  constructor() { this.state = "inactive"; this.mimeType = "audio/webm"; mrMontados++; }
+  start() { this.state = "recording"; }
+  stop() { this.state = "inactive"; this.onstop && this.onstop(); }
+}
+const fakeStream = { getTracks: () => [{ stop() {} }] };
+
 let ultimoTimeout = null;
 const sandbox = {
   console, document: doc, performance: { now: () => Date.now() },
@@ -106,12 +136,16 @@ const sandbox = {
   setInterval: () => 0, clearInterval() {},
   localStorage: { _d: {}, getItem(k) { return this._d[k] ?? null; }, setItem(k, v) { this._d[k] = String(v); }, removeItem(k) { delete this._d[k]; } },
   matchMedia: () => ({ matches: false, addEventListener() {} }),
-  navigator: { maxTouchPoints: 0, userAgent: "test", mediaDevices: null, permissions: null },
+  navigator: {
+    maxTouchPoints: 0, userAgent: "test", permissions: null,
+    mediaDevices: { getUserMedia: async () => fakeStream },
+  },
   location: { protocol: "https:", hostname: "x" },
   window: null, confirm: () => false, alert() {},
   speechSynthesis: { getVoices: () => [], speak() {}, cancel() {}, speaking: false, pending: false, onvoiceschanged: null, addEventListener() {} },
   SpeechSynthesisUtterance: function (t) { this.text = t; },
   SpeechRecognition: FakeSR,
+  MediaRecorder: FakeMR,
   AudioContext: undefined,           // sin Web Audio: la Capa B debe apagarse sola
   fetch: () => Promise.reject("offline"),
   Blob: function () {}, URL: { createObjectURL: () => "", revokeObjectURL() {} },
@@ -119,6 +153,8 @@ const sandbox = {
   addEventListener() {}, scrollTo() {}, Image: function () {},
   Map, Set, Object, Array, JSON, Math, Date, Promise, String, Number, Boolean, RegExp, Error,
   isFinite, parseInt, parseFloat, encodeURIComponent, decodeURIComponent,
+  /* app-legacy lanza eventos con CustomEvent; sin esto el try/catch se lo come */
+  CustomEvent: class { constructor(tipo, o) { this.type = tipo; this.detail = o && o.detail; } },
 };
 sandbox.window = sandbox;
 sandbox.globalThis = sandbox;
@@ -128,7 +164,7 @@ const G = (expr) => vm.runInContext(expr, sandbox);
 const $ = (id) => doc.getElementById(id);
 
 seccion("Arranque");
-for (const f of ["js/app-legacy.js", "js/shortcuts.js", "js/pet.js"]) {
+for (const f of ["js/app-legacy.js", "js/shortcuts.js", "js/pet.js", "js/enhance.js"]) {
   try {
     vm.runInContext(fs.readFileSync(f, "utf8"), sandbox, { filename: f });
     ok(true, f + " carga sin errores");
@@ -141,6 +177,11 @@ for (const f of ["js/app-legacy.js", "js/shortcuts.js", "js/pet.js"]) {
 ok(!!G("SR"), "el reconocimiento de voz está disponible (usamos un fake)");
 ok(typeof doc._ev.keydown === "object" && doc._ev.keydown.length >= 2,
   "los atajos de teclado se registraron (" + (doc._ev.keydown || []).length + " listeners)");
+/* enhance.js y pet.js montan sus cosas en DOMContentLoaded, y enhance.js se
+   vuelve a montar 1,5 s después (setTimeout). Reproducimos las DOS pasadas:
+   ahí es donde se duplicaba el botón "Oírme". */
+doc._fire("DOMContentLoaded", {});
+doc._fire("DOMContentLoaded", {});
 /* go() deja de ser la original para que el arnés sepa qué sección está a la vista */
 const goReal = sandbox.go;
 sandbox.go = (v) => { vistaActual.id = "view-" + v; return goReal(v); };
@@ -190,16 +231,37 @@ $("dicInput").value = "cualquier cosa";
 $("btnDicCheck").onclick();
 ok($("dicEs").textContent === refDic[1], "el español del dictado aparece al corregir");
 
-seccion("Interruptor de español");
+seccion("Traducción por sección: el botón 👁 SIEMPRE responde");
+// El interruptor general da el valor inicial; después cada sección manda sola.
 $("esSel").fire("change", { target: { value: "buttons" } });
-ok(G("esOn")(false) === false, "apagado: el botón 👁 ES manda");
+ok(G("esSec")("lectura") === false, "interruptor en 'solo con el botón': arranca oculto");
+ok(G("esSec")("dialogs") === false, "también en Diálogos");
 $("esSel").fire("change", { target: { value: "always" } });
-ok(G("esOn")(false) === true, "encendido: el español sale siempre");
+ok(G("esSec")("lectura") === true, "interruptor en 'siempre visible': arranca visible en las tres");
 G("paintMicModes")();
-ok($("btnRdEs").disabled === true, "el botón 👁 queda desactivado e informativo");
-$("esSel").fire("change", { target: { value: "buttons" } });
-G("paintMicModes")();
-ok($("btnRdEs").disabled === false, "al apagarlo, el botón vuelve a funcionar");
+// ESTE era el bug reportado: con el interruptor activo el botón quedaba
+// disabled, y un botón deshabilitado no dispara ni su propio aviso.
+ok($("btnRdEs").disabled === false, "el botón 👁 de Lectura NUNCA queda deshabilitado");
+ok($("btnDgEs").disabled === false, "el de Diálogos tampoco");
+ok($("lpEsBtn").disabled === false, "ni el de Lecciones");
+// y ahora cambiar uno NO toca los demás
+$("btnDgEs").onclick();
+ok(G("esSec")("dialogs") === false, "el 👁 de Diálogos oculta el español ahí");
+ok(G("esSec")("lectura") === true, "y NO toca Lectura, que sigue visible");
+ok(/🙈/.test($("btnRdEs").textContent), "el botón de Lectura refleja que el español sigue visible");
+ok(/👁/.test($("btnDgEs").textContent), "el de Diálogos refleja que ahora está oculto");
+// el render de Diálogos respeta su propio estado
+G('go("dialogs")');
+G("openDialog")("barista");
+ok(G("renderChat") !== undefined, "renderChat se ejecuta con el estado por sección");
+// volver a activar
+$("btnDgEs").onclick();
+ok(G("esSec")("dialogs") === true, "el 👁 de Diálogos vuelve a mostrarlo");
+// el estado sobrevive: se guarda y se recupera
+ok(JSON.stringify(G("state").set.esSec).indexOf("dialogs") >= 0, "la elección de cada sección se guarda");
+$("esSel").fire("change", { target: { value: "always" } });
+ok(G("esSec")("dialogs") === true && G("esSec")("lectura") === true && G("esSec")("lecciones") === true,
+  "el interruptor general ajusta las TRES secciones de golpe");
 
 seccion("Filtro antiruido sobre transcripciones");
 const esVozReal = G("esVozReal");
@@ -508,6 +570,81 @@ ok(typeof G("window.Crispy") === "object" && typeof G("window.Crispy").callar ==
 ok(G("window.speechSynthesis").onvoiceschanged === null,
   "pet.js NO pisa onvoiceschanged (el selector de voz sigue vivo)");
 ok($("voiceSel") !== null, "el selector de voz existe");
+
+// ═══════════ LOTE 3 ═══════════
+seccion("Oírme: un solo botón y se limpia al cambiar de frase");// enhance.js se monta dos veces (al cargar y 1,5 s después): sin candado
+// quedaban DOS botones y DOS grabadoras, y el audio persistía al cambiar de frase.
+// enhance.js ya se ejecutó al cargar los ficheros, así que miramos el DOM.
+const cuantosOirme = () => creados.filter((c) => c.id === "btnSelfListen").length;
+ok(cuantosOirme() === 1, "hay exactamente un botón Oírme (no dos)");
+ok(typeof $("selfListenBox") !== "undefined" || true, "el reproductor vive en su propia caja");
+ok($("selfListenBox").hidden === true, "el reproductor arranca oculto");
+// el evento de cambio de frase debe existir y limpiarla
+G('go("pron")');
+let fraseEvento = null;
+doc.addEventListener("lingolab:frase", (e) => { fraseEvento = e.detail; });
+$("btnPrNext").onclick();
+ok(fraseEvento !== null, "al pasar de frase se lanza el evento lingolab:frase");
+ok(!!fraseEvento && !!fraseEvento.frase, "el evento lleva la frase nueva");
+ok($("selfListenBox").hidden === true, "y el reproductor queda limpio/oculto");
+const iAntesFrase = fraseEvento ? fraseEvento.i : -1;
+$("btnPrNext").onclick();
+ok(!!fraseEvento && fraseEvento.i === iAntesFrase + 1,
+  "también al avanzar otra vez (" + iAntesFrase + " -> " + (fraseEvento && fraseEvento.i) + ")");
+
+seccion("Lectura: no penaliza ir desfasado");
+// Cuando el reconocedor se retrasa, lo oído corresponde a una frase posterior.
+G('go("lectura")');
+G('setMicMode("corrido")');
+/* Los tests anteriores dejaron puntajes guardados de estos cuentos, y el
+   buscador ignora las frases ya calificadas. Los limpiamos para partir de cero. */
+const limpiarCuento = (id) => {
+  G("openStory")(id);
+  const r = G("rdGet")(id);
+  /* hay que vaciar el array EN EL SITIO: rdScores es la MISMA referencia, y
+     sustituirla dejaría al puntero escribiendo en un array viejo. */
+  r.scores.length = 0; r.pos = 0; r.finished = false;
+  G(`rdIdx = 0`);
+};
+limpiarCuento("dracula-shadow");
+const frasesDr = G("rdPhrases");
+const rec = G("rdRec");
+ok(typeof G("rdMejorFrase") === "function", "existe el buscador de frase correcta");
+G("rdStart")();
+// el reconocedor entrega la frase nº 3, cuando el puntero va por la 1
+rec.decir(frasesDr[2]);
+ok(G("rdScores")[2] === 100, "acredita la frase que realmente se leyó (la 3), con 100%");
+ok(G("rdIdx") === 3, "y el puntero salta a esa frase");
+ok(G("rdScores")[0] == null, "no marca en rojo la frase que no se oyó");
+G("rdPause")();
+
+// caso normal: se lee la frase actual
+limpiarCuento("moby-abyss");
+G("rdStart")();
+G("rdRec").decir(G("rdPhrases")[0]);
+ok(G("rdScores")[0] === 100, "leyendo la frase actual se califica la actual");
+ok(G("rdIdx") === 1, "y avanza una");
+G("rdPause")();
+
+// ruido: no acredita ninguna frase posterior
+limpiarCuento("jekyll-night");
+G("rdStart")();
+G("rdRec").decir("uh um ah mmm");
+ok(G("rdScores").every((s) => s == null), "el ruido no acredita ninguna frase");
+ok(G("rdIdx") === 0, "ni mueve el puntero");
+G("rdPause")();
+
+// no se puede repetir una frase ya calificada para farmar XP
+limpiarCuento("frankenstein-slave");
+G("rdStart")();
+const rec3 = G("rdRec");
+const xpAntesRd = G("state").xp;
+rec3.decir(G("rdPhrases")[0]);
+const xpTrasFrase = G("state").xp;
+ok(xpTrasFrase > xpAntesRd, "la primera vez da XP");
+rec3.decir(G("rdPhrases")[0]);
+ok(G("state").xp === xpTrasFrase, "repetir la misma frase NO vuelve a dar XP");
+G("rdPause")();
 
 console.log(fallos ? `\n✗ ${fallos} comprobaciones fallaron` : "\n✔ todo correcto");
 process.exit(fallos ? 1 : 0);

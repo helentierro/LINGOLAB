@@ -35,7 +35,7 @@ siempre esa pestaña, no el archivo con doble clic**: el micrófono no funciona 
 
 > **Si cambiaste el código y no se nota nada**, estás viendo la versión guardada.
 > Recarga con `Ctrl+Shift+R`. Arriba a la derecha de la app hay un distintivo con
-> la versión: si pone `v10 ⚠️`, hay una copia vieja en caché. El service worker
+> la versión: si pone `v11 ⚠️`, hay una copia vieja en caché. El service worker
 > sirve el código **red primero** (por eso ya no debería pasar), y `sw.js` borra
 > las cachés viejas al cambiar su `V`.
 

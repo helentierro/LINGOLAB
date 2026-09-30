@@ -40,47 +40,72 @@
     if (!mic) return;
     if (matchMedia("(pointer:coarse)").matches) {
       mic.title = "Toca y habla";
-      return; // en celular no offered: el botón iría a medias
+      return; // en celular no va: el botón iría a medias
     }
-    let mr = null, chunks = [], stream = null, audio = null;
-    const box = mic.closest(".card") || mic.parentElement;
+    /* Candado: hookSelfListen se llama dos veces (al cargar y 1,5 s después).
+       Sin esto se montaban DOS botones "Oírme" y, como cada montaje cierra su
+       propia grabadora y su propio reproductor, quedaban dos de cada y las
+       grabaciones persistían al cambiar de frase. */
+    if (document.getElementById("btnSelfListen")) return;
+
+    let mr = null, chunks = [], stream = null;
+    const caja = document.createElement("div");
+    caja.id = "selfListenBox";
+    caja.style.cssText = "width:100%;margin-top:8px";
+    caja.hidden = true;
     const btn = document.createElement("button");
     btn.className = "btn ghost sm";
     btn.id = "btnSelfListen";
     btn.textContent = "🎧 Oírme";
     btn.title = "Graba 6 segundos de tu voz y te la reproduce";
+    const parar = () => { try { if (mr && mr.state === "recording") mr.stop(); } catch (e) {} };
     btn.addEventListener("click", async () => {
-      if (mr && mr.state === "recording") { mr.stop(); return; }
+      if (mr && mr.state === "recording") { parar(); return; }
       try {
         stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         chunks = [];
         mr = new MediaRecorder(stream);
         btn.textContent = "⏹ Detener";
+        caja.hidden = false;
         mr.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
         mr.onstop = () => {
           try { stream.getTracks().forEach((t) => t.stop()); } catch (e) {}
           btn.textContent = "🎧 Oírme";
           if (!chunks.length) return;
           const blob = new Blob(chunks, { type: mr.mimeType || "audio/webm" });
-          const url = URL.createObjectURL(blob);
-          if (!audio) {
-            audio = document.createElement("audio");
-            audio.controls = true;
-            audio.style.cssText = "width:100%;margin-top:8px";
-            box.appendChild(audio);
+          /* un solo reproductor, reutilizado */
+          if (!caja.firstElementChild) {
+            const au = document.createElement("audio");
+            au.controls = true;
+            au.style.cssText = "width:100%;margin-top:6px";
+            caja.appendChild(au);
           }
-          audio.src = url;
-          audio.play().catch(() => {});
+          const au = caja.firstElementChild;
+          if (au.src) URL.revokeObjectURL(au.src);
+          au.src = URL.createObjectURL(blob);
+          au.play().catch(() => {});
         };
         mr.start();
-        setTimeout(() => { try { if (mr.state === "recording") mr.stop(); } catch (e) {} }, 6000);
+        setTimeout(parar, 6000);
       } catch (e) {
         btn.textContent = "🎧 Oírme";
         if (window.toast) toast("No se pudo grabar: revisa el permiso del micrófono", "⚠️");
       }
     });
     mic.parentElement.appendChild(btn);
+    mic.parentElement.appendChild(caja);
     mic.title = "Toca y habla";
+
+    /* Al cambiar de frase (app-legacy lanza este evento) se corta la grabación
+       y se limpia el reproductor. Sin esto, el audio de la frase anterior se
+       quedaba en pantalla y sonando al pasar a la siguiente. */
+    document.addEventListener("lingolab:frase", () => {
+      parar();
+      btn.textContent = "🎧 Oírme";
+      const au = caja.firstElementChild;
+      if (au) { try { au.pause(); au.removeAttribute("src"); au.load(); } catch (e) {} }
+      caja.hidden = true;
+    });
   }
   document.addEventListener("DOMContentLoaded", () => {
     hookSRS(); hookSelfListen();

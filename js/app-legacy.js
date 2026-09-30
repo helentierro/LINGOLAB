@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 /* ═══════════════════════════════ UTILIDADES ═══════════════════════════════ */
 const $=id=>document.getElementById(id);
 const escH=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
@@ -172,11 +172,11 @@ const TICKER=[["Break a leg!","¡Mucho éxito!"],["It's raining cats and dogs","
 const DB_KEY="lingolab_v1";
 /* Versión de la app. Si tocas el código, súbela: el marcador del panel y el
    aviso de caché usan este número para decirte si lo tienes fresco. */
-const V="v10";
+const V="v11";
 /* micMode: "auto" (celular=pulsar, PC=corrido) | "pulsar" (un toque=una frase) | "corrido" (libre)
    noise:    "off" | "normal" | "strict"  (filtro antiruido)
    alwaysES: mostrar el español sin depender del botón 👁 */
-const SET_DEF={rate:0.95,voice:null,micMode:"auto",noise:"normal",alwaysES:true};
+const SET_DEF={rate:0.95,voice:null,micMode:"auto",noise:"off",alwaysES:true};
 function defaultState(){return{xp:0,streak:0,lastEarn:null,todayXP:0,todayDate:todayStr(),goal:60,log:{},words:{},lessonsDone:{},reading:{},dialogs:{},hist:{pron:[],dic:[],wr:[],quiz:[]},ach:[],set:Object.assign({},SET_DEF),firstRun:true};}
 let state;
 try{state=Object.assign(defaultState(),JSON.parse(localStorage.getItem(DB_KEY)||"{}"));}catch(e){state=defaultState();}
@@ -200,9 +200,25 @@ function setMicMode(m){
 }
 /* Filtro antiruido: 0 = off, 1 = normal, 2 = estricto */
 const noiseLevel=()=>state.set.noise==="strict"?2:state.set.noise==="normal"?1:0;
-/* ¿El español se muestra siempre? Entonces los botones 👁 quedan informativos. */
+/* ─── Traducciones ───
+   alwaysES es el VALOR CON EL QUE ARRANCA cada sección (el interruptor general
+   de Ajustes). Después cada sección manda: su botón 👁 siempre funciona y solo
+   cambia esa sección, y recuerda su elección. Antes el interruptor general
+   dejaba los botones DESHABILITADOS, y un botón deshabilitado no dispara ni su
+   propio aviso: quedaba muerto sin explicación. */
 const esAlways=()=>state.set.alwaysES!==false;
-const esOn=flag=>esAlways()||!!flag;
+const SEC_ES=["lectura","dialogs","lecciones"];
+function esSec(sec){
+  const m=state.set.esSec;
+  if(m&&typeof m[sec]==="boolean")return m[sec];
+  return esAlways();
+}
+function setEsSec(sec,v){
+  if(!state.set.esSec)state.set.esSec={};
+  state.set.esSec[sec]=!!v;
+  save();
+}
+function esOn(sec){return esSec(sec);}
 /* Pinta el estado de los botones de modo (mic) y de traducción (👁) en las barras. */
 function paintMicModes(){
   const esPulsar=micMode()==="pulsar";
@@ -215,17 +231,21 @@ function paintMicModes(){
       ?"Un toque, hablas una frase y el micrófono se cierra (mejor en celular)"
       :"Micrófono abierto de corrido: lees el capítulo entero sin parar";
   });
-  const flags={btnRdEs:()=>rdShowEs,btnDgEs:()=>dgShowEs};
-  Object.keys(flags).forEach(id=>{
+  /* Botones de traducción: NUNCA deshabilitados. Muestran si el español de ESA
+     sección está visible, y el clic la cambia. El texto explica el alcance para
+     que nadie dude de si el ajuste general manda. */
+  const ES_BTN={btnRdEs:"lectura",btnDgEs:"dialogs",lpEsBtn:"lecciones"};
+  Object.keys(ES_BTN).forEach(id=>{
     const b=$(id);if(!b)return;
-    if(esAlways()){
-      b.textContent="👁 ES siempre";b.classList.add("always");b.disabled=true;
-      b.title="El español se muestra siempre (cámbialo en Tu progreso → Ajustes)";
-    }else{
-      b.disabled=false;b.classList.remove("always");
-      b.textContent=flags[id]()?"🙈 ES":"👁 ES";
-      b.title="Mostrar u ocultar la traducción";
-    }
+    const sec=ES_BTN[id],ver=esSec(sec);
+    b.disabled=false;
+    b.classList.toggle("always",ver);
+    b.setAttribute("aria-pressed",ver?"true":"false");
+    b.textContent=id==="lpEsBtn"?(ver?"🙈 Ocultar":"👁 Traducción"):(ver?"🙈 ES":"👁 ES");
+    b.title=(id==="lpEsBtn"?"Traducción":"Español")
+      +" — "+(ver?"ahora se ve":"ahora está oculto")
+      +" en "+(sec==="lectura"?"Lectura":sec==="dialogs"?"Diálogos":"Lecciones")
+      +". Este botón solo cambia esta sección; el valor inicial está en Tu progreso → Ajustes.";
   });
   pintarRuido();
 }
@@ -455,12 +475,22 @@ function scoreColor(s){return s>=80?"#4fe3a5":s>=50?"#ffcf5c":"#ff7d7d";}
    Falla segura: si el navegador no da muestras (en algunos Android el reconocedor
    toma el micro en exclusivo) la Capa B se desactiva sola y solo queda la A.
    Nunca se puede quedar la app sin calificar. */
-const Antirruido=(function(){
-  const MURO={off:0,normal:0.34,strict:0.52};
-  let ctx=null,analyser=null,stream=null,timeBuf=null,freqBuf=null,raf=0;
-  let listo=false,probado=false,avisoMudo=false;
-  let picos=[],descartados=0,vacio=0;
-  const LIMIT=1.6; /* seg de historial suficiente para cubrir el retardo del SR */
+  /* Capa B · Web Audio. Analiza el señal del micrófono en paralelo al
+   * reconocedor para distinguir una persona de un ruido.
+   *
+   * MEDIDO con micrófono real (Chrome + audio de voz inglesa y audio de
+   * ventilador), el discriminante que SÍ separa las dos cosas es la energía en
+   * la banda de la voz (300-3400 Hz) frente a la energía por encima de 5 kHz,
+   * calculada sobre POTENCIA real (los bytes de getByteFrequencyData vienen
+   * comprimidos en dB y no discriminan). Una persona concentra casi toda la
+   * energía por debajo de 3,4 kHz; un ventilador la reparte y sube los agudos. */
+  const Antirruido=(function(){
+  const MURO={off:0,normal:0.55,strict:0.8};  /* fraccion de energía en banda de voz */
+  let ctx=null,analyser=null,stream=null,timeBuf=null,freqBuf=null;
+  let listo=false,probado=false,avisoMudo=false,fallo=null,esperando=false;
+  let prevEsp=null;   /* espectro de banda de voz del frame anterior, para medir cuánto se mueve */
+  let picos=[],descartados=0,vacio=0,ultimo={};
+  const LIMIT=1.6;
 
   function nivelUmbral(){return MURO[state.set.noise]||0;}
 
@@ -469,20 +499,67 @@ const Antirruido=(function(){
     analyser.getFloatTimeDomainData(timeBuf);
     let energia=0;for(let i=0;i<timeBuf.length;i++)energia+=timeBuf[i]*timeBuf[i];
     const rms=Math.sqrt(energia/timeBuf.length);
-    analyser.getByteFrequencyData(freqBuf);
-    /* bins: 0-3500 Hz = banda de voz, 3500-8000 = agudos. Con fftSize 2048 en
-       48 kHz cada bin ≈ 23 Hz; usamos proporciones para no depender del sampleRate. */
-    const n=freqBuf.length;
-    const iVoz=Math.floor(n*0.073), iAgudo=Math.floor(n*0.34);
-    let voz=0,agudo=0;
-    for(let i=0;i<iVoz;i++)voz+=freqBuf[i];
-    for(let i=iAgudo;i<n;i++)agudo+=freqBuf[i];
-    const total=voz+agudo+1;
-    const rmsN=Math.min(1,rms/0.09);
-    const ratio=voz/total;
-    /* 0 = siseo plano, 1 = voz concentrada en graves medios */
-    const concentracion=Math.max(0,Math.min(1,(ratio-0.35)/0.45));
-    const score=rmsN*concentracion;
+    /* cruces de cero: el siseo tiene muchos, la voz pocos */
+    let zc=0;for(let i=1;i<timeBuf.length;i++)if((timeBuf[i-1]<0)!==(timeBuf[i]<0))zc++;
+    const zcr=zc/timeBuf.length;
+
+    /* Espectro en POTENCIA real: getFloatFrequencyData da dB y 10^(dB/10) es
+       energía lineal, para que la comparación entre bandas sea honesta.
+       Dos trampas medidas en la práctica, ambas corregidas aquí:
+
+       1) Los bins mudos llegan a -Infinity. Si se suman tal cual, la banda de
+          agudos (que tiene MUCHOS más bins: 5000-11025 Hz son 811 frente a los
+          142 de 80-3400 Hz) aporta un montón de "energía" falsa y la fracción
+          colapsa siempre al mismo valor, sea voz o ventilador. Medido: ambos
+          daban exactamente 0,149 = 142/(142+811), o sea el número no medía nada.
+          Por eso el silencio se excluye con un umbral RELATIVO al pico, y las
+          bandas se promedian (potencia media) en vez de sumarse: así da igual que
+          tengan distinto número de bins.
+
+       2) Un umbral fijo en dB absolutos depende de lo fuerte que hable cada
+          persona. El relativo (pico - 45 dB) se ajusta solo al micrófono. */
+    analyser.getFloatFrequencyData(freqBuf);
+    const nyq=ctx.sampleRate/2, porHz=freqBuf.length/nyq;
+    const hz=(f)=>Math.max(0,Math.min(freqBuf.length-1,Math.round(f*porHz)));
+    const iBajo=hz(80), iVoz=hz(3400), iAgudo=hz(5000);
+    let picoDb=-200;
+    for(let i=0;i<freqBuf.length;i++){const d=freqBuf[i];if(isFinite(d)&&d>picoDb)picoDb=d;}
+    /* Por debajo de 45 dB del pico es ruido de fondo de la sala o silencio:
+       no lo contamos como banda ni alta ni baja. */
+    const corte=picoDb-45;
+    let pVoz=0,nVoz=0,pAlta=0,nAlta=0;
+    for(let i=iBajo;i<iVoz;i++){const d=freqBuf[i];if(isFinite(d)&&d>corte){pVoz+=Math.pow(10,d/10);nVoz++;}}
+    for(let i=iAgudo;i<freqBuf.length;i++){const d=freqBuf[i];if(isFinite(d)&&d>corte){pAlta+=Math.pow(10,d/10);nAlta++;}}
+    const vB=nVoz?pVoz/nVoz:0, aB=nAlta?pAlta/nAlta:0;
+    const frac=aB>0?vB/(vB+aB):(vB>0?1:0.5);
+    /* ── Modulación del espectro (ESTA es la que separa de verdad) ──
+       La idea de "la voz LOW-banda vs el ruido agudos" no funciona: medido, un
+       ventilador da frac 0,996 y una voz 0,997, porque el ruido de un ventilador
+       también es casi todo graves. Descartada.
+       Lo que sí distingue a una persona es que el espectro de la banda de la
+       voz se MUEVE: las vocales y los formantes cambian cada sílaba. El
+       ventilador tiene un timbre fijo y su espectro se queda quieto.
+       Así que comparamos este frame con el anterior, bin a bin, en dB: si
+       cambia mucho es alguien hablando; si apenas cambia es un ruido continuo. */
+    let mod=0;
+    if(nVoz>4){
+      const esp=new Float32Array(nVoz);let suma=0;
+      for(let k=0;k<nVoz;k++){esp[k]=10*Math.log10(pVoz>0?Math.max(1e-12,Math.pow(10,freqBuf[iBajo+k]/10)/ (pVoz/nVoz)):1e-12);suma+=esp[k];}
+      const media=suma/nVoz;
+      for(let k=0;k<nVoz;k++)esp[k]-=media;   /* quitar el tono general del micro */
+      if(prevEsp&&prevEsp.length===nVoz){
+        let dif=0;
+        for(let k=0;k<nVoz;k++)dif+=Math.abs(esp[k]-prevEsp[k]);
+        mod=dif/nVoz;                          /* dB de cambio medio por bin */
+      }
+      prevEsp=esp;
+    }
+    /* Modulación: la voz tiene picos y valles; un ruido constante es plano. */
+    let pico=0;for(let i=0;i<timeBuf.length;i++){const a=Math.abs(timeBuf[i]);if(a>pico)pico=a;}
+    const crests=rms>1e-6?pico/rms:0;
+    /* La puntuación es la modulación: la voz la mueve, un ruido fijo no. */
+    const score=mod;
+    ultimo={rms,frac,mod,zcr,crests,pico};
     const t=performance.now();
     picos.push({t,score});
     while(picos.length&&t-picos[0].t>LIMIT*1000)picos.shift();
@@ -490,25 +567,56 @@ const Antirruido=(function(){
   }
   /* Falla segura: si el analizador nunca recibe señal (en algunos Android el
      reconocedor toma el micro en exclusivo) la Capa B no sirve aquí y se apaga
-     sola, para no quedarse descartando la voz de la niña. */
-  function chequeoMudo(score){
+     sola, para no quedarse descartando la voz de la niña.
+     OJO: hay que mirar el RMS, no la puntuación. La puntuación es una razón
+     entre 0 y 1 y en una señal bajita sigue valiendo ~1, así que compararla
+     con un umbral de nivel no detectaba nada.
+     Y el umbral tiene que ser de SILENCIO, no de voz baja: medido, una voz
+     clara da rms 0,0002, y con el umbral viejo (0,0008) el detector se apagaba
+     solo a los 0,7 s de empezar, perdiendo la medición y dejando el filtro
+     cojo. El silencio digital da 0, así que 0,00002 solo salta cuando no hay
+     nada que medir, que es justo lo que este guard vigila. */
+  const SILENCIO=0.00002;
+  function chequeoMudo(rms){
     if(avisoMudo)return;
-    if(score>0.0008){vacio=0;return;}
-    if(++vacio<14)return;
+    if(rms>SILENCIO){vacio=0;return;}
+    if(++vacio<40)return;   /* ~2 s seguidos de nada */
     avisoMudo=true;apagar();
-    toast("El detector de ruido no funciona aquí: queda solo el filtro básico","ℹ️");
+    toast("El detector de ruido no oía nada y se ha apagado: queda solo el filtro de texto","ℹ️");
+  }
+  /* Muestreo con setInterval y no con requestAnimationFrame: rAF se detiene
+     cuando la pestaña no está a la vista (y entonces el detector se quedaba
+     mudo justo cuando hacía falta medir). Un temporizador de 50 ms basta: el
+     analizador solo necesita leer muestras. */
+  let timer=0;
+  /* Chrome arranca un AudioContext "suspendido" si no hubo un gesto real de la
+     persona (su política de reproducción automática). Un contexto suspendido no
+     entrega samples: el analizador devuelve silencio (rms 0) y parece que el
+     micrófono está muteado cuando lo que pasa es que nadie ha pulsado nada.
+     Alguien que usa la app sí ha hecho clic, pero un contexto que se quedó
+     suspendido (móvil en segundo plano, pestaña recién abierta) se quedaría
+     midiendo cero en silencio. Se intenta despertar siempre. */
+  function despertar(){
+    if(!ctx||ctx.state==="running")return;
+    try{const p=ctx.resume();if(p&&p.catch)p.catch(()=>{});}catch(e){}
   }
   function bucle(){
-    chequeoMudo(medir());
-    if(listo)raf=requestAnimationFrame(bucle);
+    if(!listo)return;
+    despertar();
+    /* nunca dejamos de medir por un error, pero lo guardamos para poder
+       diagnosticarlo en vez de quedarnos con un null sin explicación */
+    try{medir();chequeoMudo(ultimo.rms||0);}
+    catch(e){ultimo={error:String(e&&e.message||e)};}
   }
+  function arrancarLoop(){ if(!timer)timer=setInterval(bucle,50); }
+  function pararLoop(){ if(timer){clearInterval(timer);timer=0;} }
   /* Cierra el stream y permite volver a abrirlo en el próximo uso.
      No liberamos `probado` al fallar getUserMedia, para no pedir el permiso
      una y otra vez si el navegador lo está rechazando. */
   function apagar(){
-    if(raf)cancelAnimationFrame(raf);raf=0;
+    pararLoop();
     if(stream){try{stream.getTracks().forEach(t=>t.stop());}catch(e){}stream=null;}
-    ctx=null;analyser=null;listo=false;picos=[];probado=false;
+    ctx=null;analyser=null;listo=false;picos=[];probado=false;prevEsp=null;
   }
   /* Devuelve true si lo último que se oyó parece voz. level>0 siempre es true. */
   function esVoz(){
@@ -521,30 +629,77 @@ const Antirruido=(function(){
   /* Se llama DENTRO del clic del usuario: pide el micro una sola vez y lo
      recuerda igual que el reconocedor. Si falla, no insisto. */
   function iniciar(){
-    if(probado)return;probado=true;
+    if(probado)return;
+    /* OJO: `probado` se marca SOLO cuando de verdad vamos a abrir el micro. Antes
+       se marcaba antes de mirar el ajuste, y como startListening() llama a
+       iniciar() siempre, una sola llamada con el filtro apagado dejaba el
+       detector inutilizado el resto de la sesión (medido: ni siquiera
+       activándose el filtro después abría el stream). */
     if(nivelUmbral()<=0)return;
-    if(!navigator.mediaDevices||!window.AudioContext)return;
+    if(!navigator.mediaDevices||!window.AudioContext){fallo="este navegador no deja medir la señal";return;}
+    probado=true;esperando=true;
     navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{
       stream=s;
       ctx=new AudioContext();
       const src=ctx.createMediaStreamSource(s);
       analyser=ctx.createAnalyser();
       analyser.fftSize=2048;analyser.smoothingTimeConstant=0.6;
+      analyser.minDecibels=-90;analyser.maxDecibels=-10;
       src.connect(analyser);
       timeBuf=new Float32Array(analyser.fftSize);
-      freqBuf=new Uint8Array(analyser.frequencyBinCount);
-      listo=true;raf=requestAnimationFrame(bucle);
-    }).catch(()=>{apagar();});
+      freqBuf=new Float32Array(analyser.frequencyBinCount);
+      listo=true;fallo=null;esperando=false;arrancarLoop();despertar();
+    }).catch(e=>{fallo="micro: "+(e&&e.name||e);esperando=false;apagar();});
   }
-  function reiniciar(){vacio=0;}
-  return{iniciar,apagar,esVoz,reiniciar,get descartados(){return descartados;},set descartados(v){descartados=v;},get activo(){return listo;}};
+  /* Cada intento de escucha es una oportunidad nueva. Antes, en cuanto el
+     guard se disparaba una vez (un momento de silencio, la niña pensando la
+     frase) el detector se quedaba apagado para toda la sesión: el avisoMudo no
+     se limpiaba nunca. Ahora, al empezar a escuchar otra vez se rearma. */
+  function reiniciar(){vacio=0;avisoMudo=false;esperando=false;if(!listo&&nivelUmbral()>0)iniciar();}
+  /* Lectura de la puntuación para diagnóstico y pruebas: devuelve la mejor
+     puntuación de voz de los últimos ~1,6 s, o null si el detector no está
+     activo. Sirve para comprobar que el filtro distingue voz de ruido. */
+  function muestra(){
+    if(!listo||!picos.length)return null;
+    const t=performance.now();let max=0;
+    for(let i=picos.length-1;i>=0;i--){if(t-picos[i].t>LIMIT*1000)break;if(picos[i].score>max)max=picos[i].score;}
+    return Math.round(max*1000)/1000;
+  }
+  /* Volcado de las medidas crudas: sirve para calibrar los umbrales con datos
+     reales en vez de a ojo (ver tools/test-mic.mjs). */
+  function detalle(){
+    if(!listo)return{fallo:fallo||(esperando?"el navegador todavía no ha abierto el micro":"el detector está apagado")};
+    if(ultimo.error)return{error:ultimo.error};
+    return{rms:Math.round(ultimo.rms*10000)/10000,frac:Math.round(ultimo.frac*1000)/1000,
+           mod:Math.round((ultimo.mod||0)*1000)/1000,
+           zcr:Math.round(ultimo.zcr*1000)/1000,crests:Math.round(ultimo.crests*100)/100,
+           /* El estado del contexto explica muchos "rms 0" que no son del micro. */
+           ctx:ctx?ctx.state:"sin contexto",
+           max:muestra()};
+  }
+  function estado(){return{listo,probado,esperando,fallo};}
+  return{iniciar,apagar,esVoz,reiniciar,muestra,detalle,estado,get descartados(){return descartados;},set descartados(v){descartados=v;},get activo(){return listo;}};
 })();
 /* ¿Lo que se ha oído es una persona hablando inglés, o ruido?
    ref = frase objetivo (opcional). Si el filtro está apagado, siempre true. */
+/* ¿Lo que se ha oído es una persona hablando inglés, o ruido?
+   ref = frase objetivo (opcional), nota = puntuación obtenida (opcional).
+   MEDIDO sobre frases reales del contenido:
+     · el ruido de fondo puntúa entre 0% y 17%;
+     · una lectura con fallos de verdad puntúa 90%+ (si repite bien, 94%).
+   Por eso el corte de 20% separa las dos cosas sin lugar a dudas. */
 const MULETILLA=/^(u|um|uh|ah|ahum|eh|er|hm|hmm|mhm|huh|sh|shh|mm|yo|yeah|hey|oh|hmph)+$/;
-function esVozReal(texto,ref){
-  const nivel=noiseLevel();
-  if(nivel<=0)return true;
+/* Una palabra inglesa siempre tiene vocal. "mmm", "tsk", "clck" no: son ruido. */
+const sinVocal=w=>w.length>=3&&!/[aeiouy]/.test(w);
+const RUIDO_MAX=20;
+function esVozReal(texto,ref,nota){
+  /* El filtro de TEXTO va siempre, no depende del ajuste: está medido (el ruido
+     puntúa 0-17% y una lectura real con fallos 90%+) y no tiene por qué
+     estorbar. Lo único que el ajuste de Ajustes controla es la medida del
+     SONIDO, que va al final, dentro de Antirruido.esVoz().
+     Antes estaba todo atado al interruptor, y con "Desactivado" se perdían
+     también las 25 comprobaciones de texto: el filtro bueno se apagaba con el
+     experimental. */
   const t=String(texto||"")
     .replace(/\[[^\]]*\]/g," ")
     .replace(/[.,!?;:"“”¡¿()]/g," ")
@@ -554,17 +709,21 @@ function esVozReal(texto,ref){
   if(t.replace(/\s/g,"").length<3)return false;                   // "uh", "a", "..."
   const w=t.split(" ").filter(Boolean);
   if(w.every(x=>MULETILLA.test(x)))return false;                  // solo muletillas
+  if(w.every(x=>sinVocal(x)))return false;                        // solo consonantes: no es inglés
   if(new Set(w).size===1&&w.length>=3)return false;              // "the the the"
-  /* Una o dos palabras sueltas solo pasan si coinciden con el objetivo:
-     si no, lo que entró fue un sonido, no una frase. */
-  if(w.length<=2&&ref){
+  if(ref){
     const r=expandWords(normalizeText(ref).split(" ").filter(Boolean));
-    if(r.length&&!w.some(x=>r.includes(x)))return false;
+    /* Una o dos palabras sueltas solo pasan si coinciden con el objetivo. */
+    if(r.length&&w.length<=2&&!w.some(x=>r.includes(x)))return false;
+    /* Ni una palabra en común y por debajo del corte: no hubo lectura, hubo
+       algo que el reconocedor se inventó. Esto es lo que frenaba al ruido que
+       se colaba como un 0% y te hacía avanzar de frase. */
+    if(r.length&&nota!=null&&nota<RUIDO_MAX&&!w.some(x=>r.includes(x)))return false;
   }
   return Antirruido.esVoz();
 }
 function marcarRuido(){Antirruido.descartados++;const e=$("noiseCount");if(e)e.textContent="🔇 "+Antirruido.descartados+" ruidos descartados";}
-function pintarRuido(){const e=$("noiseCount");if(e&&!Antirruido.descartados)e.textContent=noiseLevel()?"🛡 filtro antiruido activo":"filtro desactivado";}
+function pintarRuido(){const e=$("noiseCount");if(e&&!Antirruido.descartados)e.textContent=noiseLevel()?"filtro de texto y sonido":"filtro de texto";}
 
 /* ═══════════════════════════════ RECONOCIMIENTO DE VOZ (sin doble prompt) ═══════════════════════════════
    FIX: antes se pedía getUserMedia + SpeechRecognition (doble prompt) y se hacía
@@ -620,7 +779,7 @@ function getRec(){
       break; /* solo el primer final del lote */
     }
     if(!mejor||!mejor.grade)return;
-    if(!esVozReal(mejor.text,refFrase())){marcarRuido();recResuelto=true;stopListening();return;}
+    if(!esVozReal(mejor.text,refFrase(),mejor.score)){marcarRuido();recResuelto=true;stopListening();return;}
     recResuelto=true;
     showPrResult(mejor.grade,mejor.text);
   };
@@ -801,7 +960,7 @@ $("flashModal").addEventListener("click",e=>{if(e.target===$("flashModal"))close
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("flashModal").hidden)closeFlash();});
 
 /* ═══════════════════════════════ LECCIONES ═══════════════════════════════ */
-let lpLvl=null,lpI=0,lpShowEs=false;
+let lpLvl=null,lpI=0;
 function renderLessons(){
   $("levelsGrid").innerHTML=LEVELS.map(l=>{
     const info=LEVEL_INFO[l],done=state.lessonsDone[l];
@@ -926,7 +1085,7 @@ function lpResponder(acierto,elegido){
   $("lpQuizBox").querySelectorAll("button").forEach(b=>b.disabled=true);
   $("lp2Next").hidden=false;
   try{acierto?LingoMagic.Sounds.great():LingoMagic.Sounds.click();}catch(e){}
-  if(esAlways()||lpShowEs)$("lpEs").hidden=false;
+  if(esOn("lecciones"))$("lpEs").hidden=false;
 }
 /* Paso 3: repetir con el micro, usando el corrector que ya existe. */
 function lpPrepararMicro(s){
@@ -955,7 +1114,7 @@ function lpMic(){
       break;
     }
     if(!best.g)return;
-    if(!esVozReal(best.text,s[0])){toast("Eso no sonó a voz. Inténtalo otra vez","🔇");pintaLpMic(false);return;}
+    if(!esVozReal(best.text,s[0],best.score)){toast("Eso no sonó a voz. Inténtalo otra vez","🔇");pintaLpMic(false);return;}
     lpNota=best.g.score;
     const box=$("lp3Box");box.hidden=false;
     $("lp3Score").textContent=best.g.score+"%";
@@ -1023,9 +1182,9 @@ $("lpPlay").onclick=()=>speak(SENTENCES[lpLvl][lpI][0]);
 $("lpSlow").onclick=()=>speak(SENTENCES[lpLvl][lpI][0],0.6);
 $("lpAgain").onclick=()=>{lpPaso(1);};
 $("lpEsBtn").onclick=()=>{
-  if(esAlways()){toast("El español está siempre visible. Cámbialo en Tu progreso → Ajustes","👁");return;}
-  lpShowEs=!lpShowEs;$("lpEs").hidden=!lpShowEs;
-  $("lpEsBtn").textContent=lpShowEs?"🙈 Ocultar":"👁 Traducción";
+  setEsSec("lecciones",!esSec("lecciones"));
+  $("lpEs").hidden=!esSec("lecciones");
+  paintMicModes();
 };
 $("lp2Next").onclick=()=>lpPaso(3);
 $("lp3MicBtn").onclick=()=>lpMic();
@@ -1044,7 +1203,7 @@ $("lpAgain2").onclick=()=>{lpI=0;lpMarcas={};$("lpDone").hidden=true;lpPaso(1);}
 /* ═══════════════════════════════ LECTURA NOVELA FLUIDA (1 mic, scroll continuo) ═══════════════════════════════
    Un cuento = un capítulo largo. Se segmenta por [, . ; : ! ?]. Cada frase se califica
    con grade() pero NUNCA bloquea: pinta nota y avanza. Clic en frase = saltar/repetir. */
-let rdId=null,rdPhrases=[],rdEs=[],rdScores=[],rdReps={},rdIdx=0,rdShowEs=false,rdActive=false,rdRec=null,rdRestartT=null,rdLastPaint=0;
+let rdId=null,rdPhrases=[],rdEs=[],rdScores=[],rdReps={},rdIdx=0,rdActive=false,rdRec=null,rdRestartT=null,rdLastPaint=0;
 function rdGet(id){
   if(!state.reading)state.reading={};
   let r=state.reading[id];
@@ -1119,10 +1278,10 @@ function rdStory(){return STORIES.find(s=>s.id===rdId);}
 /* Render novela: párrafos de libro, frases clicables, palabras para mini-tip */
 function renderNovel(){
   const s=rdStory();if(!s)return;
-  const verEs=esOn(rdShowEs);
+  const verEs=esOn("lectura");
   $("rdTitle").textContent=s.icon+" "+s.title;
   $("rdOrig").textContent=s.orig+" · NIVEL "+s.level+" · 1 CAPÍTULO · "+rdPhrases.length+" FRASES";
-  if(!esAlways())$("btnRdEs").textContent=rdShowEs?"🙈 ES":"👁 ES";
+  
   const box=$("rdSents");box.innerHTML="";
   let p=document.createElement("p");p.className="bk drop";let inP=0;
   rdPhrases.forEach((sen,i)=>{
@@ -1178,8 +1337,8 @@ $("btnRdStop").onclick=()=>{callarTTS();pintarParada(false);toast("Lectura deten
 $("btnRdPlay").onclick=()=>rdSpeakChapter(false);
 $("btnRdSlow").onclick=()=>rdSpeakChapter(true);
 $("btnRdEs").onclick=()=>{
-  if(esAlways()){toast("El español está siempre visible. Cámbialo en Tu progreso → Ajustes","👁");return;}
-  rdShowEs=!rdShowEs;renderNovel();
+  setEsSec("lectura",!esSec("lectura"));
+  renderNovel();paintMicModes();
 };
 $("btnRdMode").onclick=()=>{
   const wasOn=rdActive;if(wasOn)rdPause();
@@ -1279,6 +1438,32 @@ function dgSaltar(d){
   if(destino>=dgTurns.length){dgFinish();return;}
   dgSeek(Math.max(0,destino),false);
 }
+/* ── A qué frase corresponde lo que oímos ──────────────────────────────────
+   Probamos la frase actual y las VENTANA siguientes, y devolvemos la mejor.
+   Reglas para que esto NO regale puntos:
+     · solo se mira hacia adelante, nunca hacia atrás (no se reencadena);
+     · una frase ya calificada no se vuelve a calificar (no se puede repetir
+       para farmar XP);
+     · hace falta un mínimo de 45% para aceptar que era esa frase: por debajo
+       de eso se considera que no se entendió nada y se descarta como ruido. */
+const RD_VENTANA=2,RD_MIN_MOV=45;
+function rdMejorFrase(res){
+  let best=null;
+  const tope=Math.min(rdPhrases.length-1,rdIdx+RD_VENTANA);
+  for(let i=rdIdx;i<=tope;i++){
+    if(rdScores[i]!=null)continue;
+    for(let j=0;j<res.length;j++){
+      const t=res[j].transcript;
+      const g=grade(rdPhrases[i],t);
+      if(!best||g.score>best.g.score)best={i,g,text:t};
+    }
+  }
+  if(!best)return null;
+  /* Si gana la actual, nos quedamos con la nota de siempre. Si gana una de las
+     siguientes, esa es la que leíste: la acreditamos y movemos el puntero. */
+  if(best.i!==rdIdx&&best.g.score<RD_MIN_MOV)return null;
+  return best;
+}
 $("rdAccSay").onclick=e=>{noSubir(e);const i=rdAccionI;ocultarAcciones();if(i>=0)rdSeek(i,true);};
 $("rdAccRead").onclick=e=>{
   noSubir(e);
@@ -1315,9 +1500,14 @@ function rdGetRec(){
     for(let k=e.resultIndex;k<e.results.length;k++){
       const res=e.results[k];
       if(!res.isFinal)continue;
-      let best={score:-1,text:"",g:null};
-      for(let j=0;j<res.length;j++){const t=res[j].transcript;const g=grade(rdPhrases[rdIdx],t);if(g.score>best.score)best={score:g.score,text:t,g:g};}
-      if(best.g)rdOnFluidFinal(best.g,best.text);
+      /* ¿A qué frase corresponde lo que oímos?
+         Leyendo de corrido, el reconocedor entrega el resultado TARDE: llega
+         cuando ya vas dos frases por delante, y antes se comparaba siempre
+         contra la frase actual. Medido, eso costaba entre 30 y 45 puntos por
+         un retraso normal, no por pronunciación. Ahora probamos la actual y las
+         dos siguientes y acreditamos la que mejor encaje. */
+      const cand=rdMejorFrase(res);
+      if(cand)rdOnFluidFinal(cand.g,cand.text,cand.i);
       break;
     }
   };
@@ -1371,15 +1561,19 @@ function rdPause(){
   if(rdId&&rdPhrases.length)paintFluid(false);
 }
 $("btnRdRec").onclick=()=>{rdActive?rdPause():rdStart();};
-/* Cada frase se califica sola (30% = rojo) pero SIEMPRE se avanza */
-function rdOnFluidFinal(g,heard){
+/* Cada intento se califica una vez y la obra continúa. `idx` es a qué frase
+   corresponde lo oído: normalmente la actual, pero si el reconocedor iba
+   retrasado puede ser una de las siguientes (ver rdMejorFrase). */
+function rdOnFluidFinal(g,heard,idx){
   if(rdIdx>=rdPhrases.length)return;
+  const i=(idx==null?rdIdx:idx);
+  if(i<0||i>=rdPhrases.length||rdScores[i]!=null)return;
   /* Filtro antiruido: si lo que se oyó no parece una persona, se descarta sin
      calificar y SIN avanzar. Antes el ruido marcaba rojo y saltaba de frase. */
-  if(!esVozReal(heard,rdPhrases[rdIdx])){marcarRuido();paintFluid(false);return;}
+  if(!esVozReal(heard,rdPhrases[i],g.score)){marcarRuido();paintFluid(false);return;}
   rdErrs=0;
   const modoPulsar=rdPulsarFalso;
-  const i=rdIdx;rdScores[i]=g.score;
+  rdScores[i]=g.score;
   const r=rdGet(rdId);r.scores=rdScores;save();
   const col=scoreColor(g.score);
   const el=document.querySelector('#rdSents .ph[data-i="'+i+'"]');
@@ -1392,7 +1586,15 @@ function rdOnFluidFinal(g,heard){
   $("rdHeard").textContent="“"+(heard||"(nada)")+"”";
   const xp=g.score>=70?2:0;
   if(xp)addXP(xp,"lectura novela");
-  $("rdXp").textContent=xp?("+"+xp+" XP · frase "+(i+1)+" marcada, sigo…"):("frase "+(i+1)+" · "+g.score+"% en rojo, sigo sin parar");
+  /* Si lo oído correspondía a una frase más adelante, lo decimos en vez de
+     fingir que todo iba bien: el retraso del reconocedor es normal al leer
+     de corrido y no es un error de pronunciación. */
+  const desfasado=i!==rdIdx;
+  $("rdXp").textContent=desfasado
+    ?(xp?("+"+xp+" XP · leíste la frase "+(i+1)+", veníamos con retraso")
+        :("leíste la frase "+(i+1)+" · "+g.score+"%, veníamos con retraso"))
+    :(xp?("+"+xp+" XP · frase "+(i+1)+" marcada, sigo…")
+        :("frase "+(i+1)+" · "+g.score+"% en rojo, sigo sin parar"));
   if(g.score>=95)confetti();
   checkAch();
   /* En modo pulsar el micrófono se cierra solo tras calificar una frase. */
@@ -1404,7 +1606,7 @@ function rdOnFluidFinal(g,heard){
 /* ═══════════════════════════════ DIÁLOGOS (teatro por turnos, 1 mic) ═══════════════════════════════
    A = personaje (la app lo actúa con su voz), B = YOU (lo lees tú).
    ▶ una vez: la app habla los A, el mic te escucha los B, todo avanza sin parar. */
-let dgId=null,dgTurns=[],dgScores=[],dgIdx=0,dgShowEs=false,dgActive=false,dgRec=null,dgRestartT=null,dgLastPaint=0,dgActToken=0;
+let dgId=null,dgTurns=[],dgScores=[],dgIdx=0,dgActive=false,dgRec=null,dgRestartT=null,dgLastPaint=0,dgActToken=0;
 function dgGet(id){
   if(!state.dialogs)state.dialogs={};
   let r=state.dialogs[id];
@@ -1444,11 +1646,11 @@ function openDialog(id){
 }
 function renderChat(){
   const d=dgDef();if(!d)return;
-  const verEs=esOn(dgShowEs);
+  const verEs=esOn("dialogs");
   $("dgTitle").textContent=d.icon+" "+d.name+" · y TÚ";
   $("dgPlace").textContent=d.place+" · NIVEL "+d.level+" · "+d.turns.length+" TURNOS";
   $("dgStory").innerHTML="<b>La historia:</b> "+escH(d.story.en)+(verEs?'<br><span style="color:var(--amber)">'+escH(d.story.es)+"</span>":"");
-  if(!esAlways())$("btnDgEs").textContent=dgShowEs?"🙈 ES":"👁 ES";
+  
   const box=$("dgChat");box.innerHTML="";
   dgTurns.forEach((t,i)=>{
     const who=t[0],isA=who==="A",sc=dgScores[i];
@@ -1602,8 +1804,8 @@ $("btnDgLib").onclick=()=>renderDgLib();
 $("dgExit").onclick=()=>renderDgLib();
 $("dgDoneBtn").onclick=()=>renderDgLib();
 $("btnDgEs").onclick=()=>{
-  if(esAlways()){toast("El español está siempre visible. Cámbialo en Tu progreso → Ajustes","👁");return;}
-  dgShowEs=!dgShowEs;renderChat();
+  setEsSec("dialogs",!esSec("dialogs"));
+  renderChat();paintMicModes();
 };
 $("btnDgMode").onclick=()=>{
   const wasOn=dgActive;if(wasOn)dgPause();
@@ -1621,7 +1823,7 @@ function dgOnFinal(g,heard){
   if(dgIdx>=dgTurns.length||dgTurns[dgIdx][0]!=="B")return;
   /* Antirruido: un ruido de fondo no es un turno tuyo, así que no se califica
      ni avanza la escena. */
-  if(!esVozReal(heard,dgTurns[dgIdx][1])){marcarRuido();dgPinta();paintDg(false);return;}
+  if(!esVozReal(heard,dgTurns[dgIdx][1],g.score)){marcarRuido();dgPinta();paintDg(false);return;}
   dgErrs=0;
   const modoPulsar=dgPulsarFalso;
   const i=dgIdx;dgScores[i]=g.score;
@@ -1719,6 +1921,10 @@ function showPrCard(){
   $("prMeta").textContent="FRASE "+(prI+1)+"/"+prQ.length+" · NIVEL "+prLvl.toUpperCase();
   $("prEn").textContent="“"+s[0]+"”";$("prEs").textContent=s[1];
   $("prResult").hidden=true;
+  /* Aviso de "cambió la frase". enhance.js lo escucha para parar la grabación
+     de "Oírme" y limpiar su reproductor; si no, el audio de la frase anterior
+     se quedaba en pantalla. */
+  try{document.dispatchEvent(new CustomEvent("lingolab:frase",{detail:{i:prI,frase:s[0]}}));}catch(e){}
 }
 $("btnPrPlay").onclick=()=>speak(prQ[prI][0]);
 $("btnPrPlaySlow").onclick=()=>speak(prQ[prI][0],0.6);
@@ -2023,15 +2229,25 @@ $("voiceSel").addEventListener("change",e=>{state.set.voice=e.target.value;save(
 $("micSel").addEventListener("change",e=>setMicMode(e.target.value));
 $("noiseSel").addEventListener("change",e=>{
   state.set.noise=e.target.value;save();pintarRuido();
-  toast(e.target.value==="off"?"Filtro antiruido desactivado":e.target.value==="strict"?"Filtro estricto: descarta más ruido":"Filtro antiruido normal","🛡");
+  /* Al cambiar el ajuste hay que soltar el micro del detector: si estaba
+     apagado, iniciar() ni siquiera lo había abierto, y si estaba encendido hay
+     que dejarlo pasar para que el ajuste nuevo surta efecto. */
+  Antirruido.apagar();
+  toast(e.target.value==="off"?"Solo el filtro de texto (recomendado)":e.target.value==="strict"?"Filtro estricto: puede descartar frases buenas":"Filtro de texto y sonido (sin calibrar)","🛡");
 });
 $("esSel").addEventListener("change",e=>{
-  state.set.alwaysES=e.target.value==="always";save();
+  const v=e.target.value==="always";
+  state.set.alwaysES=v;
+  /* El ajuste general manda sobre las TRES secciones a la vez, y a partir de
+     ahí cada una vuelve a llevar su propio botón 👁. */
+  const nuevo={};SEC_ES.forEach(s=>nuevo[s]=v);
+  state.set.esSec=nuevo;
+  save();
   if(curView==="lectura")renderNovel();
   if(curView==="dialogs")renderChat();
-  if(curView==="lecciones")showLp();
+  if(curView==="lecciones"&&lpN===2)$("lpEs").hidden=!esOn("lecciones");
   paintMicModes();
-  toast(state.set.alwaysES?"El español se verá siempre":"Ahora el español se muestra con el botón 👁 ES","👁");
+  toast(v?"El español se verá en todas las secciones":"Oculto el español en todas las secciones","👁");
 });
 $("btnExport").onclick=()=>{
   const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
@@ -2073,8 +2289,8 @@ $("btnReset").onclick=()=>{
   $("flashModal").hidden=true;
   /* Marcador de versión: la app te dice qué versión tienes abierta, para saber
      de un vistazo si los cambios nuevos ya llegaron o estás viendo la caché. */
-  $("appVer").textContent="v10";
-  $("appVer").title="Versión v10 · si acabas de cambiar el código y no cambia nada, recarga con Ctrl+Shift+R";
+  $("appVer").textContent="v11";
+  $("appVer").title="Versión v11 · si acabas de cambiar el código y no cambia nada, recarga con Ctrl+Shift+R";
   /* Avisa si el service worker está sirviendo una versión cacheada antigua. */
   if(navigator.serviceWorker&&navigator.serviceWorker.controller){
     navigator.serviceWorker.addEventListener("message",e=>{
