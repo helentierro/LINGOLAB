@@ -215,6 +215,46 @@ const ESPERAR_ESTABLE = `(async function(){
   return document.documentElement.scrollHeight;
 })()`;
 
+/* ── Áreas de toque ──────────────────────────────────────────────────────
+   El mínimo son 44 px en alto y ancho (Apple HIG y Material). Se mide de verdad
+   sobre el navegador, no a ojo: por aquí pasaron los chips a 36 px, y los chips
+   son como se elige el nivel y las categorías. Quien los pulsa tiene seis años,
+   así que 36 px no es un detalle de diseño.
+   Se revisan solo controles de verdad, no los enlaces dentro de un texto: un
+   <a> en medio de una frase no es un área de toque. */
+const MIN_TOCAR = 44;
+/* Los que se permiten Staying pequeños, con el motivo. Si algo nuevo sale en
+   esta lista, tiene que decir por qué. */
+const EXCEPCIONES = {
+  themeBtn: "botón de tema: por CSS ya tiene 44px de alto en móvil",
+  wordTip: "la ✕ y los botones de la tarjeta de palabra: se cierran al tocarlos, no a ciegas",
+};
+
+const MEDIR_TOQUE = `(function(min){
+  var malos = [];
+  var sel = "button,.btn,.chip,.nav-btn,.q-opt,input:not([type=hidden]),select,.mic-btn,#themeBtn,#wordTip .btn";
+  var v = document.querySelectorAll(sel);
+  for (var i = 0; i < v.length; i++) {
+    var el = v[i], r = el.getBoundingClientRect();
+    if (r.width === 0 || r.height === 0) continue;                 /* oculto */
+    if (el.disabled) continue;
+    /* Si está dentro de algo oculto (una vista que no está activa), no cuenta */
+    if (el.closest("[hidden]")) continue;
+    var cs = getComputedStyle(el);
+    if (cs.visibility === "hidden" || cs.display === "none" || parseFloat(cs.opacity) < 0.15) continue;
+    var alto = Math.round(r.height), ancho = Math.round(r.width);
+    if (alto >= min && ancho >= min) continue;
+    var id = el.id || (typeof el.className === "string" && el.className.trim() ? "." + el.className.trim().split(/\\s+/).join(".") : el.tagName.toLowerCase());
+    malos.push({ q: id.slice(0, 46), h: alto, w: ancho,
+                 dentro: (el.closest("div[id]") || {}).id || "",
+                 t: (el.textContent || "").trim().slice(0, 16) });
+  }
+  return malos;
+})(${MIN_TOCAR})`;
+
+function esExcepcion(t) {
+  return Object.keys(EXCEPCIONES).some((k) => t.dentro === k || t.q === "#" + k || t.q === k);
+}
 async function medir(ancho, alto) {
   fs.mkdirSync(TMP, { recursive: true });
   /* Perfil NUEVO en cada pasada y se borra al terminar. Reutilizarlo hacía que
@@ -270,7 +310,11 @@ async function medir(ancho, alto) {
       let m;
       try { m = await cdp.evaluar(MEDIR); }
       catch (e) { filas.push({ v, nombre, error: String(e.message).slice(0, 60) }); continue; }
-      filas.push(Object.assign({ v, nombre }, m));
+      /* Las áreas de toque se miden con la vista visible, que es cuando el
+         usuario las puede pulsar. */
+      let toque = [];
+      try { toque = await cdp.evaluar(MEDIR_TOQUE); } catch (e) { /* sin dato */ }
+      filas.push(Object.assign({ v, nombre, toque: toque || [] }, m));
     }
     return filas;
   } finally {
@@ -346,6 +390,35 @@ async function main() {
          (lateralConScroll.length ? lateralConScroll.map((f) => f.nombre + " (" + f.sideScroll + "px)").join(", ") : "ninguna"));
       console.log("  info  con contenido real más abajo de la pantalla: " +
          (noCabe.length ? noCabe.map((f) => f.nombre + " (" + f.recorrido + "px)").join(", ") : "ninguna"));
+
+      /* Áreas de toque: se juntan todas las secciones y se quitan las repetidas
+         (el mismo chip aparece en varias vistas) y las que están en la lista de
+         excepciones, con su motivo. */
+      const vistos = new Map();
+      for (const f of filas) {
+        for (const t of (f.toque || [])) {
+          const clave = t.q + "|" + t.h + "|" + t.w;
+          if (vistos.has(clave)) continue;
+          vistos.set(clave, Object.assign({ seccion: f.nombre }, t));
+        }
+      }
+      const malos = [...vistos.values()].filter((t) => !esExcepcion(t));
+      const permitidos = [...vistos.values()].filter((t) => esExcepcion(t));
+      /* Los 44 px son un requisito de táctil, no de escritorio: con ratón, un
+         botón de 36px va perfectamente. Por eso esto solo es fallo cuando el
+         diseño es el de móvil/táctil; en escritorio se informa y ya. */
+      const tactil = ancho <= 980;
+      const line = tactil ? ok : (c, m) => console.log("  info  " + m);
+      line(malos.length === 0,
+         "todo lo pulsable mide al menos " + MIN_TOCAR + "x" + MIN_TOCAR + " px" +
+         (malos.length
+           ? " -> " + malos.slice(0, 6).map((t) => t.q + " " + t.h + "x" + t.w + (t.t ? " (“" + t.t + "”)" : "") + " en " + t.seccion).join(", ")
+           : ""));
+      if (permitidos.length) {
+        console.log("  info  permitidos por decisión: " +
+          permitidos.slice(0, 5).map((t) => (t.dentro ? "#" + t.dentro + " " : "") + t.q + " " + t.h + "x" + t.w).join(", ") +
+          "  (" + Object.values(EXCEPCIONES).join(" | ") + ")");
+      }
       const ejemplo = filas.find((f) => !f.error);
       if (ejemplo) {
         console.log("  medidas de referencia: shell " + ejemplo.shell + "px, min-height " + ejemplo.shellMin +

@@ -51,7 +51,10 @@ input,textarea,select{font:inherit;color:var(--ink)}
 @keyframes tick{to{transform:translateX(-50%)}}
 
 /* ══════════ HEADER ══════════ */
-header.top{position:sticky;top:0;z-index:40;background:rgba(10,20,29,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:12px 26px;gap:16px}
+/* La cabecera pegajosa respeta el notch. Suma al alto total, y por eso el
+   min-height del shell resta el mismo inset (más arriba está explicado: si no,
+   aparecen 36 px de scroll fantasma en los iPhone con muesca). */
+header.top{position:sticky;top:0;z-index:40;background:rgba(10,20,29,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:12px 26px;gap:16px;padding-top:calc(12px + env(safe-area-inset-top,0px))}
 .brand{display:flex;align-items:center;gap:12px}
 .brand .mark{width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,var(--amber),var(--amber2));display:grid;place-items:center;box-shadow:0 6px 18px rgba(255,194,75,.25);transition:transform .25s}
 .brand:hover .mark{transform:rotate(-6deg) scale(1.06)}
@@ -87,7 +90,16 @@ header.top{position:sticky;top:0;z-index:40;background:rgba(10,20,29,.96);border
    empuja el documento: medido, main con 70px de padding dejaba 5px de scroll
    inútil en Lecciones y 41px en Pronunciación. En las largas, como el contenido
    pasa del mínimo, el aire se suma al final igual que antes. */
-.shell{display:block;min-height:calc(100dvh - 105px);padding-left:236px;padding-bottom:70px}
+/* TRAMPA DEL NOTCH: con viewport-fit=cover, env(safe-area-inset-top) vale algo
+   de verdad en un iPhone con muesca, y la cabecera pegajosa lo necesita. Pero si
+   la cabecera crece con ese inset, este cálculo se queda corto por la misma
+   cantidad y volvemos a abrir los 36 px fantasma... justo en los móviles con
+   muesca. Por eso el inset se resta AQUÍ también, y no solo se aplica arriba.
+   Y el respaldo: primero la línea con 100vh y encima la de 100dvh, para que un
+   navegador que no entienda dvh (iOS anterior a 15.4) se quede con la primera
+   en vez de perder la regla entera. */
+.shell{display:block;min-height:calc(100vh - 105px - env(safe-area-inset-top,0px));padding-left:236px;padding-bottom:70px}
+.shell{min-height:calc(100dvh - 105px - env(safe-area-inset-top,0px))}
 /* Lateral fija. Fuera del flujo a propósito: mientras estuvo "sticky" dentro de
    la rejilla, medía 31 px más que la fila y se salía por abajo del documento, y
    como el shell começaba 105 px más abajo, eso añadía 36 px de scroll que no
@@ -95,7 +107,12 @@ header.top{position:sticky;top:0;z-index:40;background:rgba(10,20,29,.96);border
    top+bottom, sin height: así llega siempre al final de la pantalla y no hay
    hueco. En móvil la reescribe la regla de max-width:980px de abajo. */
 nav.side{
-  position:fixed;top:69px;left:0;bottom:0;width:236px;
+  position:fixed;
+  /* 69px es el alto real de la cabecera. Con muesca, la cabecera crece con el
+     safe-area-inset-top, así que la lateral arranca a esa misma altura; si no,
+     la barra de arriba le taparía el primer botón. */
+  top:calc(69px + env(safe-area-inset-top,0px));
+  left:0;bottom:0;width:236px;
   padding:26px 14px;border-right:1px solid var(--line);
   display:flex;flex-direction:column;gap:4px;overflow-y:auto
 }
@@ -160,7 +177,16 @@ main{padding:30px 34px 0;max-width:1120px;width:100%;margin:0 auto}
 
 input.txt,textarea.txt,select.sel{width:100%;background:#0c1824;border:1px solid var(--line);border-radius:var(--r-md);padding:13px 16px;color:var(--ink);transition:border-color .2s}
 input.txt:focus,textarea.txt:focus,select.sel:focus{border-color:var(--sky);outline:none}
-input.range{-webkit-appearance:none;appearance:none;width:100%;height:6px;background:#0c1824;border-radius:99px;outline:none}
+input.range{-webkit-appearance:none;appearance:none;width:100%;height:6px;background:#0c1824;border-radius:99px;outline:none;box-sizing:border-box}
+/* En táctil, la pista sigue siendo finita pero el área de toque se agranda: con
+   height:6px hay que acertar una franja de 6 píxeles con el dedo. Se sube la
+   altura del input y se centra la pista dentro con un fondo transparente, así
+   se ve igual de fina pero se pulsa sin preciso. */
+@media (pointer:coarse),(max-width:980px){
+  input.range{height:44px;background:transparent;background-image:none}
+  input.range::-webkit-slider-runnable-track{height:6px;background:#0c1824;border-radius:99px}
+  input.range::-webkit-slider-thumb{margin-top:-6px}
+}
 input.range::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--amber);cursor:pointer;box-shadow:0 0 0 4px rgba(255,194,75,.18)}
 
 .tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:4px 9px;border-radius:6px;font-weight:600}
@@ -345,7 +371,8 @@ input.range::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px
      la de escritorio lleva width:236px fijo, hay que quitarlo (si no, se queda
      en 236 px en vez de ocupar el ancho) y el shell deja de reservar el hueco
      izquierdo. */
-  .shell{padding-left:0;padding-bottom:0;min-height:calc(100dvh - 105px)}
+  .shell{padding-left:0;padding-bottom:0;min-height:calc(100vh - 105px - env(safe-area-inset-top,0px))}
+  .shell{min-height:calc(100dvh - 105px - env(safe-area-inset-top,0px))}
   nav.side{position:fixed;bottom:0;left:0;right:0;top:auto;width:auto;height:auto;flex-direction:row;overflow-x:auto;overflow-y:hidden;padding:8px 10px;background:rgba(10,20,29,.98);border-right:none;border-top:1px solid var(--line);z-index:60;gap:2px}
   nav.side .nav-label,.side-foot{display:none}
   .nav-btn{flex-direction:column;gap:4px;font-size:10.5px;padding:8px 11px;min-width:70px;justify-content:center}

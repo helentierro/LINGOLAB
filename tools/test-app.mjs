@@ -151,6 +151,20 @@ const sandbox = {
   Blob: function () {}, URL: { createObjectURL: () => "", revokeObjectURL() {} },
   getComputedStyle: () => ({}), innerWidth: 1200, innerHeight: 800,
   addEventListener() {}, scrollTo() {}, Image: function () {},
+  /* history de verdad, porque la app lo usa para el botón atrás del móvil y hay
+     que poder contar cuántas entradas apila. Antes no existía aquí y la prueba
+     reventaba con "history is not defined". */
+  history: (() => {
+    const pila = [{ ll: null, v: null }];   /* la entrada inicial, ajena a la app */
+    return {
+      pila,
+      get length() { return pila.length; },
+      get state() { return pila[pila.length - 1]; },
+      scrollRestoration: "auto",
+      pushState(s) { pila.push(s || {}); },
+      replaceState(s) { pila[pila.length - 1] = s || {}; },
+    };
+  })(),
   Map, Set, Object, Array, JSON, Math, Date, Promise, String, Number, Boolean, RegExp, Error,
   isFinite, parseInt, parseFloat, encodeURIComponent, decodeURIComponent,
   /* app-legacy lanza eventos con CustomEvent; sin esto el try/catch se lo come */
@@ -184,7 +198,12 @@ doc._fire("DOMContentLoaded", {});
 doc._fire("DOMContentLoaded", {});
 /* go() deja de ser la original para que el arnés sepa qué sección está a la vista */
 const goReal = sandbox.go;
-sandbox.go = (v) => { vistaActual.id = "view-" + v; return goReal(v); };
+/* OJO: este envoltorio tiene que pasar las opciones. Antes era (v) => goReal(v)
+   y se comía el segundo argumento, así que go("panel",{raiz:true}) y el
+   {push:false} del popstate llegaban al código sin nada, el historial se apilaba
+   siempre, y la prueba de "el botón atrás no encierra" daba FALLA sin que
+   hubiera ningún fallo en la app. */
+sandbox.go = (v, opciones) => { vistaActual.id = "view-" + v; return goReal(v, opciones); };
 
 seccion("Vistas");
 const vistas = ["panel", "vocab", "lecciones", "lectura", "dialogs", "pron", "dictado", "escritura", "quiz", "progreso"];
@@ -705,6 +724,68 @@ ok(xpTrasFrase > xpAntesRd, "la primera vez da XP");
 rec3.decir(G("rdPhrases")[0]);
 ok(G("state").xp === xpTrasFrase, "repetir la misma frase NO vuelve a dar XP");
 G("rdPause")();
+
+/* ── Botón atrás del móvil ────────────────────────────────────────────────
+   En Android el gesto atrás se dispara con el pulgar. Antes salía de la app
+   porque go() no tocaba el historial. Ahora cada sección apila su entrada y el
+   popstate vuelve a la anterior. Lo que NO debe pasar es que al atender el
+   popstate se vuelva a apilar, porque eso encerraría a la niña en la app sin
+   forma de salir. */
+seccion("Botón atrás: navega dentro y deja salir");
+{
+  const H = sandbox.history;      /* el shim vive en el sandbox, no en este ámbito */
+  const pop = (state) => doc._fire("popstate", { state: state });
+
+  const antes = H.length;
+  G('go("panel",{raiz:true})');
+  ok(H.length === antes, "la sección inicial NO apila entrada (marca la raíz)");
+  ok(H.state.ll === "lingolab", "y la raíz queda marcada como nuestra");
+
+  G('go("lectura")');
+  const trasLectura = H.length;
+  ok(trasLectura > antes, "ir a Lectura apila una entrada");
+  ok(H.state.v === "lectura", "y guarda qué sección es");
+
+  G('go("quiz")');
+  ok(H.length > trasLectura, "ir a Quiz apila otra");
+
+  const largoAntes = H.length;
+  pop({ ll: "lingolab", v: "lectura" });
+  ok(G("curView") === "lectura", "el botón atrás vuelve a Lectura");
+  ok($("view-lectura").hidden === false, "y se muestra esa vista");
+  ok(H.length === largoAntes, "atender el atrás NO apila otra entrada (si lo hiciera, la app quedaría encerrada)");
+
+  /* Un estado ajeno (de otra página) no debe navegar */
+  const antesAjeno = G("curView");
+  pop({ otra: "pagina" });
+  ok(G("curView") === antesAjeno, "un popstate de otra página no navega: el navegador sale");
+
+  /* Un estado sin marca tampoco */
+  pop(null);
+  ok(G("curView") === antesAjeno, "un popstate sin estado tampoco navega");
+
+  /* Y una sección que ya no exista no debe romper nada */
+  pop({ ll: "lingolab", v: "no-existe" });
+  ok(G("curView") === antesAjeno, "una sección inexistente en el historial no navega");
+
+  G('go("panel",{raiz:true})');
+}
+
+/* ── Mensajes de permiso ──────────────────────────────────────────────────
+   Estaban copiados en cuatro sitios y los cuatro decían "el candado de la
+   barra", que en Android no existe: es el icono de la barra de direcciones, y la
+   ruta de verdad está en Ajustes. Y es el texto que hay que leer justo cuando
+   se ha denegado el permiso. */
+seccion("Mensajes del permiso: sin palabras de escritorio");
+{
+  const permisoDenegado = G("PERMISO_DENEGADO");
+  const permisoBloqueado = G("PERMISO_BLOQUEADO");
+  ok(typeof permisoDenegado === "string" && permisoDenegado.length > 40, "hay un único texto para permiso denegado");
+  ok(/Android|Ajustes/i.test(permisoDenegado), "dice cómo se arregla en Android");
+  ok(permisoBloqueado.indexOf("candado") >= 0 && /cámara/.test(permisoBloqueado),
+     "el de bloqueado menciona los dos iconos (candado y cámara)");
+  ok(typeof G("avisoPermiso") === "function", "los sitios usan el helper, no una copia del texto");
+}
 
 console.log(fallos ? `\n✗ ${fallos} comprobaciones fallaron` : "\n✔ todo correcto");
 process.exit(fallos ? 1 : 0);

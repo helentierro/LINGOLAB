@@ -44,6 +44,25 @@ nav.side::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
 .btn,.chip,.q-opt,.nav-btn{transition:transform .16s,box-shadow .2s,background .2s,border-color .2s}
 .btn:active,.chip:active,.q-opt:active{transform:scale(.97)}
 .chip{min-height:36px}
+.chiprow{display:flex;gap:8px;flex-wrap:wrap}
+/* Táctil: los chips suben a 44 px, el mínimo que recomiendan Apple y Material.
+   No es un capricho de estilo: los chips son COMO se elige el nivel, las
+   categorías de vocabulario y las del quiz, y quien los pulsa tiene seis años.
+   A 36 px el dedo falla de verdad. La regla usa (pointer:coarse) para que
+   cuente cualquier pantalla táctil, y no solo las estrechas, y en escritorio no
+   se toca nada porque ahí hay ratón. */
+@media (max-width:980px), (pointer:coarse){
+  .chip{min-height:44px;padding:0 18px;font-size:15.5px}
+  .chiprow{gap:8px}
+  /* .btn.sm mide 36px de alto (7+7 de padding, fuente 13, borde), y ese estilo
+     lo usan casi todos los botones pequeños: "Escuchar", "Acariciar", "Habla",
+     "Mi nombre", "Escuchar frase", "Saltar". Medido, no estimado. Con un dedo
+     de seis años, 36px se falla. En escritorio no se toca nada. */
+  .btn.sm{min-height:44px;padding:11px 16px}
+  /* El botón de escuchar de cada palabra (📊) medía 36x40. Con un dedo hay que
+     acertarlo, y es como se escucha la palabra en Vocabulario. */
+  .btn.say{min-height:44px;min-width:44px;padding:10px 12px}
+}
 .q-opt{padding:16px 18px}
 #qScore{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 14px}
 .combo-pop{animation:cpop .45s cubic-bezier(.2,.9,.3,1.5)}

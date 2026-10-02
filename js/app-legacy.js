@@ -172,7 +172,7 @@ const TICKER=[["Break a leg!","¡Mucho éxito!"],["It's raining cats and dogs","
 const DB_KEY="lingolab_v1";
 /* Versión de la app. Si tocas el código, súbela: el marcador del panel y el
    aviso de caché usan este número para decirte si lo tienes fresco. */
-const V="v13";
+const V="v14";
 /* micMode: "auto" (celular=pulsar, PC=corrido) | "pulsar" (un toque=una frase) | "corrido" (libre)
    noise:    "off" | "normal" | "strict"  (filtro antiruido)
    alwaysES: mostrar el español sin depender del botón 👁 */
@@ -845,6 +845,18 @@ function isUntrustedOrigin(){
   const p=location.protocol,h=location.hostname;
   return !(p==="https:"||h==="localhost"||h==="127.0.0.1"||p==="chrome-extension:");
 }
+/* ── Cómo se vuelve a dejar el micrófono ──────────────────────────────────
+   Este texto estaba COPIADO en cuatro sitios y los cuatro decían "el candado
+   🔒 de la barra". Ese es un concepto de escritorio: en Android no hay candado,
+   es el icono de micrófono (o de cámara) en la barra de direcciones, y la ruta
+   de verdad está en Ajustes. Y es justo el texto que hay que leer cuando el
+   permiso se ha denegado, que es cuando menos se entiende.
+   Un solo sitio, para que no vuelvan a separarse. */
+const PERMISO_BLOQUEADO="🚫 Micrófono bloqueado. Vuelve a activarlo en el icono de la barra de direcciones (candado 🔒 o cámara 📷).";
+const PERMISO_DENEGADO="Permiso denegado. Actívalo en el icono de la barra de direcciones; en Android: Ajustes → Configuración del sitio → Micrófono.";
+function avisoPermiso(texto){
+  try{toast(texto,"🚫");}catch(e){}
+}
 function paintMicState(){
   const el=$("prMicState");if(!el)return;
   if(!SR){el.textContent="⚠️ este navegador no soporta reconocimiento (usa Chrome o Edge)";el.style.color="var(--coral)";return;}
@@ -855,7 +867,7 @@ function paintMicState(){
   if(navigator.permissions&&navigator.permissions.query){
     navigator.permissions.query({name:"microphone"}).then(r=>{
       if(r.state==="granted"){el.textContent="🎤 micrófono permitido — Chrome ya no debe preguntar";el.style.color="var(--mint)";}
-      else if(r.state==="denied"){el.textContent="🚫 micrófono bloqueado — permite en el candado 🔒 de la barra";el.style.color="var(--coral)";}
+      else if(r.state==="denied"){el.textContent=PERMISO_BLOQUEADO;el.style.color="var(--coral)";}
       else{el.textContent="🔒 la primera vez Chrome pedirá permiso (normal), luego lo recuerda";el.style.color="var(--dim)";}
       r.onchange=paintMicState;
     }).catch(()=>{el.textContent="🔒 la primera vez se pedirá permiso, luego se recuerda (en localhost/HTTPS)";el.style.color="var(--dim)";});
@@ -895,7 +907,7 @@ function getRec(){
   rec.onerror=e=>{
     if(e.error==="not-allowed"||e.error==="service-not-allowed"){
       paintMicState();
-      toast("Permiso denegado. Revisa el candado 🔒 del navegador y usa localhost/HTTPS","⚠️");
+      avisoPermiso(PERMISO_DENEGADO);
     }else if(e.error==="audio-capture"){
       toast("No se encontró micrófono. Conecta uno y reintenta","⚠️");
     }else if(e.error!=="aborted"&&e.error!=="no-speech"){
@@ -932,7 +944,42 @@ function stopListening(){
 /* ═══════════════════════════════ NAVEGACIÓN ═══════════════════════════════ */
 const RENDER={panel:renderPanel,vocab:renderVocab,lecciones:renderLessons,lectura:renderLib,dialogs:renderDgLib,pron:renderPron,dictado:renderDic,escritura:renderWr,quiz:renderQuizHome,progreso:renderProg};
 let curView="panel";
-function go(v){
+/* ── Botón atrás del móvil ────────────────────────────────────────────────
+   En Android (y en el gesto de deslizar de iOS) el botón atrás se dispara con
+   el pulgar sin querer. Antes go() cambiaba de sección sin tocar el historial y
+   no había ningún popstate, así que ese gesto sacaba de la app o cerraba la PWA
+   instalada: en mitad de un dictado, perdía el sitio.
+
+   Ahora cada cambio de sección apila una entrada, y popstate vuelve a la
+   anterior. Detalle IMPORTANTE: al atender el popstate NO se vuelve a apilar.
+   Si se hiciera, la app quedaría atrapada en un bucle sin forma de salir; así,
+   desde la sección inicial un "atrás" más sí sale, que es lo normal.
+
+     Panel → Lectura → Quiz
+     atrás        atrás
+     Panel → Lectura
+     atrás
+     Panel
+     atrás   →  sale de la app
+
+   La marca "ll" distingue nuestras entradas de las de otras páginas: si el
+   popstate llega con un estado ajeno, no hacemos nada y el navegador sale. */
+const HIST_LL="lingolab";
+function marcarRaiz(){
+  try{history.replaceState({ll:HIST_LL,v:curView},"");}catch(e){}
+}
+function apilar(v){
+  try{history.pushState({ll:HIST_LL,v:v},"");}catch(e){}
+}
+document.addEventListener("popstate",e=>{
+  const s=e.state;
+  if(!s||s.ll!==HIST_LL)return;      /* entrada de otra página: que salga */
+  if(typeof s.v!=="string"||s.v===curView)return;
+  if(!RENDER[s.v])return;             /* vista que ya no existe: no navegar */
+  go(s.v,{push:false});
+});
+function go(v,opciones){
+  const op=opciones||{};
   curView=v;
   /* Al salir de la sección el micrófono se cierra. Antes seguía abierto:
      cambiabas a Vocabulario y la escena seguía calificando sola de fondo. */
@@ -948,6 +995,11 @@ function go(v){
   $("view-"+v).hidden=false;
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.view===v));
   RENDER[v]();
+  /* Historial: la navegación normal apila; al venir de popstate NO, porque
+     volver a apilar ahí deja la app atrapada sin salida. La raíz se marca con
+     replaceState para que el primer "atrás" no gaste una entrada de más. */
+  if(op.raiz)marcarRaiz();
+  else if(op.push!==false)apilar(v);
   /* Ir arriba sin animar. Antes era scrollTo({behavior:"smooth"}), y eso era un
      problema por partida doble en escritorio:
      1) Anulaba la regla de accesibilidad. css/themes.css pone scroll-behavior:auto
@@ -1636,7 +1688,7 @@ function rdGetRec(){
     }
   };
   rdRec.onerror=e=>{
-    if(e.error==="not-allowed"||e.error==="service-not-allowed"){rdPause();paintMicState();toast("Permiso denegado. Revisa el candado 🔒 del navegador","⚠️");}
+    if(e.error==="not-allowed"||e.error==="service-not-allowed"){rdPause();paintMicState();avisoPermiso(PERMISO_DENEGADO);}
     else if(e.error==="audio-capture"){rdPause();toast("No se encontró micrófono. Conecta uno y reintenta","⚠️");}
     else if(e.error==="network"){rdErrs++;if(rdErrs>=3){rdPause();toast("El servicio de voz de Chrome falló. Revisa la conexión o usa otro navegador","⚠️");}}
   };
@@ -1863,7 +1915,7 @@ function dgGetRec(){
     }
   };
   dgRec.onerror=e=>{
-    if(e.error==="not-allowed"||e.error==="service-not-allowed"){dgPause();toast("Permiso denegado. Revisa el candado 🔒 del navegador","⚠️");}
+    if(e.error==="not-allowed"||e.error==="service-not-allowed"){dgPause();avisoPermiso(PERMISO_DENEGADO);}
     else if(e.error==="audio-capture"){dgPause();toast("No se encontró micrófono. Conecta uno y reintenta","⚠️");}
     else if(e.error==="network"){dgErrs++;if(dgErrs>=3){dgPause();toast("El servicio de voz de Chrome falló. Revisa la conexión","⚠️");}}
   };
@@ -2442,8 +2494,8 @@ $("btnReset").onclick=()=>{
   $("flashModal").hidden=true;
   /* Marcador de versión: la app te dice qué versión tienes abierta, para saber
      de un vistazo si los cambios nuevos ya llegaron o estás viendo la caché. */
-  $("appVer").textContent="v13";
-  $("appVer").title="Versión v13 · si acabas de cambiar el código y no cambia nada, recarga con Ctrl+Shift+R";
+  $("appVer").textContent="v14";
+  $("appVer").title="Versión v14 · si acabas de cambiar el código y no cambia nada, recarga con Ctrl+Shift+R";
   /* Avisa si el service worker está sirviendo una versión cacheada antigua. */
   if(navigator.serviceWorker&&navigator.serviceWorker.controller){
     navigator.serviceWorker.addEventListener("message",e=>{
@@ -2459,7 +2511,7 @@ $("btnReset").onclick=()=>{
   }
   refreshHeader();save();
   paintMicModes();
-  go("panel");
+  go("panel",{raiz:true});
   if(state.firstRun){state.firstRun=false;save();setTimeout(()=>toast("¡Bienvenido a LINGOLAB! Tu progreso se guarda solo en este dispositivo.","👋"),900);}
   /* Aviso solo la primera vez en celular: el modo por defecto ya es "un toque". */
   if(isTouch()&&micMode()==="pulsar"&&state.set.micMode==="auto")

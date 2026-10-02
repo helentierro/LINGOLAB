@@ -35,7 +35,7 @@ siempre esa pestaña, no el archivo con doble clic**: el micrófono no funciona 
 
 > **Si cambiaste el código y no se nota nada**, estás viendo la versión guardada.
 > Recarga con `Ctrl+Shift+R`. Arriba a la derecha de la app hay un distintivo con
-> la versión: si pone `v13 ⚠️`, hay una copia vieja en caché. El service worker
+> la versión: si pone `v14 ⚠️`, hay una copia vieja en caché. El service worker
 > sirve el código **red primero** (por eso ya no debería pasar), y `sw.js` borra
 > las cachés viejas al cambiar su `V`.
 
@@ -97,8 +97,19 @@ y regresiones de los flujos (ruido, modo un toque, enter, lección guiada).
 GitHub Pages sirve la rama `main` desde la raíz. La rama `backup-github`
 conserva la primera versión single-file publicada.
 
-> **Ojo al publicar:** `sw.js` sirve la caché primero. Si tocas `index.html` o
-> `js/`, sube la constante `V` de `sw.js` o quien tenga la app instalada seguirá
-> viendo la versión anterior.
+> **Ojo al publicar:** la versión está repetida en **5 lugares**. Si subes solo
+> uno, el distintivo se desincroniza y aparece un ⚠️ falso:
+>
+> | Archivo:línea | Qué es |
+> |---|---|
+> | `sw.js:12` | `const V = "lingolab-v14"` — nombre de caché; borrarla libera a quien la tiene instalada |
+> | `sw.js:13` | `const APP_V = "v14"` — lo que el SW anuncia a la página |
+> | `js/app-legacy.js:175` | `const V="v14"` — el que compara la lógica del ⚠️ |
+> | `js/app-legacy.js:2497-2498` | el distintivo visible arriba a la derecha |
+> | `dist-hermana/lingolab.html` | copia embebida de los dos anteriores |
+>
+> El último se resuelve solo con `node tools/build-mobile.mjs`. El orden que
+> funciona: bump en `sw.js` y `app-legacy.js` → `build-mobile` → los cuatro
+> scripts de verificación → commit → push.
 
 
